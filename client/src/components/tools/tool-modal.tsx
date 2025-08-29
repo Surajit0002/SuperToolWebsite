@@ -112,8 +112,7 @@ export default function ToolModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center min-h-screen p-4">
-        <div className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[80vh] max-h-[90vh] flex flex-col animate-fade-in">
+      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[80vh] max-h-[90vh] flex flex-col animate-fade-in p-0">
           {/* Modal Header */}
           <div className="flex items-center justify-between p-6 border-b border-border">
             <div className="flex items-center space-x-4">
@@ -199,7 +198,6 @@ export default function ToolModal() {
               </div>
             </div>
           </div>
-        </div>
       </DialogContent>
     </Dialog>
   );
