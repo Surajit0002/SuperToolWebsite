@@ -29,19 +29,19 @@
   --calculator: hsl(239, 84%, 67%);
   --calculator-background: hsl(239, 84%, 95%);
   --calculator-foreground: hsl(239, 84%, 15%);
-  
+
   --converter: hsl(160, 84%, 39%);
   --converter-background: hsl(160, 84%, 95%);
   --converter-foreground: hsl(160, 84%, 15%);
-  
+
   --image: hsl(262, 83%, 58%);
   --image-background: hsl(262, 83%, 95%);
   --image-foreground: hsl(262, 83%, 15%);
-  
+
   --document: hsl(25, 95%, 53%);
   --document-background: hsl(25, 95%, 95%);
   --document-foreground: hsl(25, 95%, 15%);
-  
+
   --audio: hsl(330, 81%, 60%);
   --audio-background: hsl(330, 81%, 95%);
   --audio-foreground: hsl(330, 81%, 15%);
@@ -74,19 +74,19 @@
   --calculator: hsl(239, 84%, 67%);
   --calculator-background: hsl(239, 84%, 10%);
   --calculator-foreground: hsl(239, 84%, 85%);
-  
+
   --converter: hsl(160, 84%, 39%);
   --converter-background: hsl(160, 84%, 10%);
   --converter-foreground: hsl(160, 84%, 85%);
-  
+
   --image: hsl(262, 83%, 58%);
   --image-background: hsl(262, 83%, 10%);
   --image-foreground: hsl(262, 83%, 85%);
-  
+
   --document: hsl(25, 95%, 53%);
   --document-background: hsl(25, 95%, 10%);
   --document-foreground: hsl(25, 95%, 85%);
-  
+
   --audio: hsl(330, 81%, 60%);
   --audio-background: hsl(330, 81%, 10%);
   --audio-foreground: hsl(330, 81%, 85%);
@@ -98,7 +98,23 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }
 

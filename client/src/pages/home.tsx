@@ -47,36 +47,63 @@ export default function Home() {
     return <IconComponent className={`w-6 h-6 ${getIconClasses(category)} transition-colors`} />;
   };
 
-  // Function to get solid colors for tool cards based on tool ID
+  // Function to get solid colors and icons for tool cards based on tool ID
   const getToolSolidColors = (toolId: string) => {
     switch (toolId) {
       case 'unit-converter':
-        return { bg: 'bg-blue-600', text: 'text-white', badge: 'bg-blue-700 border-blue-700', arrow: 'text-white' };
+        return { bg: 'bg-blue-600', text: 'text-white', badge: 'bg-blue-700 border-blue-700', arrow: 'text-white', icon: 'Ruler' };
       case 'currency-converter':
-        return { bg: 'bg-green-600', text: 'text-white', badge: 'bg-green-700 border-green-700', arrow: 'text-white' };
+        return { bg: 'bg-green-600', text: 'text-white', badge: 'bg-green-700 border-green-700', arrow: 'text-white', icon: 'DollarSign' };
       case 'image-resizer':
-        return { bg: 'bg-purple-600', text: 'text-white', badge: 'bg-purple-700 border-purple-700', arrow: 'text-white' };
+        return { bg: 'bg-purple-600', text: 'text-white', badge: 'bg-purple-700 border-purple-700', arrow: 'text-white', icon: 'ImageIcon' };
       case 'pdf-to-text':
-        return { bg: 'bg-orange-600', text: 'text-white', badge: 'bg-orange-700 border-orange-700', arrow: 'text-white' };
+        return { bg: 'bg-orange-600', text: 'text-white', badge: 'bg-orange-700 border-orange-700', arrow: 'text-white', icon: 'FileText' };
       case 'video-to-gif':
-        return { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-700 border-red-700', arrow: 'text-white' };
+        return { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-700 border-red-700', arrow: 'text-white', icon: 'Video' };
       case 'basic-calculator':
-        return { bg: 'bg-indigo-600', text: 'text-white', badge: 'bg-indigo-700 border-indigo-700', arrow: 'text-white' };
+        return { bg: 'bg-indigo-600', text: 'text-white', badge: 'bg-indigo-700 border-indigo-700', arrow: 'text-white', icon: 'Calculator' };
       case 'scientific-calculator':
-        return { bg: 'bg-teal-600', text: 'text-white', badge: 'bg-teal-700 border-teal-700', arrow: 'text-white' };
+        return { bg: 'bg-teal-600', text: 'text-white', badge: 'bg-teal-700 border-teal-700', arrow: 'text-white', icon: 'Pi' };
       case 'bmi-calculator':
-        return { bg: 'bg-pink-600', text: 'text-white', badge: 'bg-pink-700 border-pink-700', arrow: 'text-white' };
+        return { bg: 'bg-pink-600', text: 'text-white', badge: 'bg-pink-700 border-pink-700', arrow: 'text-white', icon: 'Activity' };
+      case 'percentage-calculator':
+        return { bg: 'bg-amber-600', text: 'text-white', badge: 'bg-amber-700 border-amber-700', arrow: 'text-white', icon: 'Percent' };
+      case 'age-calculator':
+        return { bg: 'bg-violet-600', text: 'text-white', badge: 'bg-violet-700 border-violet-700', arrow: 'text-white', icon: 'Calendar' };
+      case 'date-calculator':
+        return { bg: 'bg-emerald-600', text: 'text-white', badge: 'bg-emerald-700 border-emerald-700', arrow: 'text-white', icon: 'CalendarDays' };
+      case 'loan-calculator':
+        return { bg: 'bg-slate-600', text: 'text-white', badge: 'bg-slate-700 border-slate-700', arrow: 'text-white', icon: 'TrendingUp' };
       case 'text-to-speech':
-        return { bg: 'bg-yellow-600', text: 'text-black', badge: 'bg-yellow-700 border-yellow-700', arrow: 'text-black' };
+        return { bg: 'bg-yellow-600', text: 'text-black', badge: 'bg-yellow-700 border-yellow-700', arrow: 'text-black', icon: 'Volume2' };
       case 'speech-to-text':
-        return { bg: 'bg-cyan-600', text: 'text-white', badge: 'bg-cyan-700 border-cyan-700', arrow: 'text-white' };
+        return { bg: 'bg-cyan-600', text: 'text-white', badge: 'bg-cyan-700 border-cyan-700', arrow: 'text-white', icon: 'Mic' };
       case 'mp3-cutter':
-        return { bg: 'bg-fuchsia-600', text: 'text-white', badge: 'bg-fuchsia-700 border-fuchsia-700', arrow: 'text-white' };
+        return { bg: 'bg-fuchsia-600', text: 'text-white', badge: 'bg-fuchsia-700 border-fuchsia-700', arrow: 'text-white', icon: 'Scissors' };
       case 'wav-to-mp3':
-        return { bg: 'bg-lime-600', text: 'text-black', badge: 'bg-lime-700 border-lime-700', arrow: 'text-black' };
+        return { bg: 'bg-lime-600', text: 'text-black', badge: 'bg-lime-700 border-lime-700', arrow: 'text-black', icon: 'Music' };
+      case 'text-case-converter':
+        return { bg: 'bg-rose-600', text: 'text-white', badge: 'bg-rose-700 border-rose-700', arrow: 'text-white', icon: 'Type' };
+      case 'timezone-converter':
+        return { bg: 'bg-sky-600', text: 'text-white', badge: 'bg-sky-700 border-sky-700', arrow: 'text-white', icon: 'Globe' };
+      case 'number-system-converter':
+        return { bg: 'bg-stone-600', text: 'text-white', badge: 'bg-stone-700 border-stone-700', arrow: 'text-white', icon: 'Hash' };
+      case 'image-compressor':
+        return { bg: 'bg-purple-500', text: 'text-white', badge: 'bg-purple-600 border-purple-600', arrow: 'text-white', icon: 'Minimize' };
+      case 'image-cropper':
+        return { bg: 'bg-indigo-500', text: 'text-white', badge: 'bg-indigo-600 border-indigo-600', arrow: 'text-white', icon: 'Crop' };
+      case 'pdf-merger':
+        return { bg: 'bg-orange-500', text: 'text-white', badge: 'bg-orange-600 border-orange-600', arrow: 'text-white', icon: 'FileStack' };
+      case 'pdf-splitter':
+        return { bg: 'bg-red-500', text: 'text-white', badge: 'bg-red-600 border-red-600', arrow: 'text-white', icon: 'FileMinus' };
       default:
-        return { bg: 'bg-gray-600', text: 'text-white', badge: 'bg-gray-700 border-gray-700', arrow: 'text-white' };
+        return { bg: 'bg-gray-600', text: 'text-white', badge: 'bg-gray-700 border-gray-700', arrow: 'text-white', icon: 'Tool' };
     }
+  };
+
+  const renderToolCardIcon = (iconName: string) => {
+    const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
+    return <IconComponent className="w-6 h-6 text-white" />;
   };
 
 
@@ -246,22 +273,22 @@ export default function Home() {
               return (
                 <Card
                   key={tool.id}
-                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0"
+                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[200px]"
                   onClick={() => openTool(tool.id, tool.category)}
                   data-testid={`tool-card-${tool.id}`}
                 >
-                  <CardContent className={`p-6 ${solidColors.bg} rounded-lg`}>
-                    <div className={`w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center`}>
-                      {renderToolIcon(tool.icon, tool.category)}
+                  <CardContent className={`p-6 ${solidColors.bg} rounded-lg h-full flex flex-col`}>
+                    <div className={`w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center flex-shrink-0`}>
+                      {renderToolCardIcon(solidColors.icon)}
                     </div>
-                    <h3 className={`font-semibold text-lg mb-2 ${solidColors.text}`}>{tool.name}</h3>
-                    <p className={`text-sm mb-4 ${solidColors.text} opacity-90`}>{tool.description}</p>
-                    <div className="flex items-center justify-between">
+                    <h3 className={`font-semibold text-lg mb-2 ${solidColors.text} line-clamp-1`}>{tool.name}</h3>
+                    <p className={`text-sm mb-4 ${solidColors.text} opacity-90 flex-1 line-clamp-2`}>{tool.description}</p>
+                    <div className="flex items-center justify-between mt-auto">
                       <Badge
                         variant="outline"
-                        className={`${solidColors.badge} ${solidColors.text} border-white/30`}
+                        className={`${solidColors.badge} ${solidColors.text} border-white/30 text-xs`}
                       >
-                        {toolCategories[tool.category].name}
+                        {toolCategories[tool.category]?.name || 'Tool'}
                       </Badge>
                       <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-colors`} />
                     </div>
@@ -272,8 +299,8 @@ export default function Home() {
 
             {/* More Tools Button */}
             <Link href="/tools">
-              <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-dashed">
-                <CardContent className="p-6 flex items-center justify-center">
+              <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-dashed h-[200px]">
+                <CardContent className="p-6 flex items-center justify-center h-full">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-muted/50 rounded-xl mx-auto mb-4 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary transition-colors">
                       <Plus className="w-6 h-6 text-muted-foreground group-hover:text-primary" />
