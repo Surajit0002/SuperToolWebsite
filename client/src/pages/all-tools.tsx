@@ -130,7 +130,7 @@ export default function AllTools() {
                       variant="outline"
                       className={`bg-${color}/10 text-${color} border-${color}/20`}
                     >
-                      {toolCategories[tool.category]}
+                      {toolCategories[tool.category].name}
                     </Badge>
                     {tool.popular && (
                       <Badge variant="outline" className="bg-yellow-100 text-yellow-800 border-yellow-300">

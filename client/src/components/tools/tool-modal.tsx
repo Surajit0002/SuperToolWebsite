@@ -130,7 +130,7 @@ export default function ToolModal() {
                     className={`bg-${color}/10 text-${color} border-${color}/20 mt-1`}
                     data-testid="modal-category"
                   >
-                    {toolCategories[currentTool.category]}
+                    {toolCategories[currentTool.category].name}
                   </Badge>
                 </div>
               </div>
