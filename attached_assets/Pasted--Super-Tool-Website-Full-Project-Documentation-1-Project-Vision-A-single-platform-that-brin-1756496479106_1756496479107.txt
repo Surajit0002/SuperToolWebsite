@@ -1,0 +1,300 @@
+🌐 Super-Tool Website — Full Project Documentation
+1. 🎯 Project Vision
+
+A single platform that brings together all everyday tools in one place: calculators, converters, image utilities, document utilities, audio/video tools.
+
+Replace multiple single-tool websites (e.g., “PDF merger”, “image compressor”) with one super hub.
+
+Designed for speed, simplicity, and accessibility.
+
+Works seamlessly on desktop and mobile (PWA-ready).
+
+Privacy-first (process locally where possible, auto-delete files).
+
+2. 🛠 Core Features
+🔢 Calculators
+
+General / Scientific / Percentage
+
+Loan, EMI, Mortgage
+
+BMI, Age, Date calculator
+
+Discount, Tax, Tip, Inflation
+
+GPA/CGPA
+
+🔄 Converters
+
+Unit converters (length, weight, etc.)
+
+Currency converter (live rates)
+
+Time zone converter
+
+Number systems (binary, hex, etc.)
+
+Text case converter
+
+File format converters (PDF, Word, images, video, audio)
+
+Roman numeral converter
+
+Color code converter (HEX/RGB/HSL)
+
+Metric ↔ Imperial
+
+🖼 Image Tools
+
+Resize, Compress, Crop
+
+Background remover
+
+OCR (image → text)
+
+Image → PDF
+
+Meme generator
+
+Watermark add/remove
+
+AI image generation
+
+📄 Document & Text Tools
+
+PDF ↔ Word/Excel/PowerPoint
+
+Merge/Split/Compress PDFs
+
+Summarizer
+
+Text to Speech
+
+Speech to Text
+
+🎵 Audio & Video Tools
+
+MP3 cutter/merger
+
+Audio → text (transcription)
+
+Video → GIF
+
+Video/audio format converters
+
+Volume booster
+
+Noise remover
+
+3. 🖥 Pages & Navigation
+
+Home Page
+
+Hero section (tagline + search bar)
+
+Popular tools grid
+
+Browse by categories grid
+
+Categories Page
+
+Grid of colorful category cards
+
+Clicking shows tools under that category
+
+All Tools Page
+
+Grid view of all tools (filters, search, sorting)
+
+Tool Modal (80% screen popup)
+
+Opens when a tool is clicked
+
+Left: Inputs (forms, file upload, settings)
+
+Right: Output/results (download/copy/share)
+
+Dropdown: switch between similar tools in the same category
+
+Profile Page
+
+Recent tools used
+
+Saved results (optional)
+
+Settings (currency, language, theme)
+
+About Page
+
+Info, privacy policy, contact
+
+4. 🎨 UI/UX Design
+
+Grid-based layout everywhere (categories, tools).
+
+Solid colors for each category (blue, green, purple, orange, red).
+
+Unique accent colors for tools.
+
+Responsive (mobile-first) design.
+
+Smooth animations (tool modal slide-up, hover effects).
+
+Dark/Light mode toggle.
+
+Universal search bar (Ctrl+K / Cmd+K).
+
+Dropdowns for Currency + Language in navbar.
+
+Cards design:
+
+Rounded corners (2xl)
+
+Soft shadows
+
+Big icon + bold text
+
+5. ⚙️ Technical Architecture
+Frontend
+
+Framework: Next.js (React, TypeScript)
+
+Styling: TailwindCSS + shadcn/ui
+
+Icons: Lucide-react
+
+Animations: Framer Motion
+
+Forms: React Hook Form + Zod
+
+Backend
+
+Next.js API routes (or Express/NestJS if scaling separately)
+
+File handling: Sharp (images), FFmpeg (audio/video), PDF-lib (documents)
+
+OCR: Tesseract.js (client) + Tesseract server fallback
+
+Speech: Cloud APIs (Google/Azure) or local fallback
+
+Database
+
+PostgreSQL (for users, history, billing)
+
+Prisma ORM
+
+Redis (caching, rate limits, job queue)
+
+Storage
+
+Cloud (Amazon S3 / Cloudflare R2 / MinIO) for temporary files
+
+Auto-deletion policy
+
+Deployment
+
+Vercel (frontend & APIs)
+
+Render/Fly.io/DigitalOcean (workers for heavy tasks)
+
+CDN for static assets
+
+6. 🔐 Security & Privacy
+
+File validation (type, size limits)
+
+Auto-delete processed files
+
+HTTPS everywhere
+
+Rate limiting per user/IP
+
+Virus scan (optional for PDF/Docs)
+
+CSP & XSS protections
+
+7. ⚡ Performance
+
+Client-side processing whenever possible (calculators, text converters, color codes).
+
+Lazy load heavy libraries (ffmpeg, tesseract).
+
+Batch processing for multiple files.
+
+CDN caching for live data (e.g., currency rates).
+
+8. 🌍 Globalization
+
+Language change option → full UI translation (i18n)
+
+Currency change option → affects finance-related tools
+
+RTL support (for Arabic/Hebrew)
+
+9. 📊 Analytics & Admin
+
+Track: tool usage, conversions, errors
+
+Popular tools dashboard
+
+A/B test layouts and new tools
+
+Error logging (Sentry or similar)
+
+10. 💰 Monetization
+
+Free tier: Unlimited light tools, small file size cap
+
+Pro subscription: Larger file sizes, faster workers, batch jobs
+
+Pay-per-use credits: For big conversions (large PDFs, videos)
+
+Ads (optional)
+
+11. 🚀 Development Roadmap
+
+Phase 1 (MVP)
+
+Core pages: Home, Categories, Tools Modal
+
+10 basic tools (calculators, text converters, color code, PDF merge, image resize)
+
+Search bar, grid UI
+
+Phase 2
+
+File-based tools (image compress, PDF split/compress, MP3 cutter)
+
+Currency API, language switching
+
+Dark/Light mode
+
+Phase 3
+
+Heavy tools (OCR, video converter, transcription)
+
+User accounts + history
+
+Pro subscription system
+
+Phase 4
+
+AI tools (summarizer, AI image generator, speech-to-text advanced)
+
+Mobile app version (PWA/native wrapper)
+
+Team/enterprise features
+
+12. 📱 User Flow Example
+
+User opens Home Page → sees categories grid.
+
+Clicks Converters → sees all converters in grid.
+
+Clicks Currency Converter tool card → tool opens in 80% popup modal.
+
+User selects input/output currencies, enters amount → sees result instantly.
+
+Dropdown in modal → user switches to Unit Converter (same category) without leaving modal.
+
+User saves result in profile (if logged in).

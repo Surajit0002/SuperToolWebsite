@@ -1,0 +1,711 @@
+🧭 global product design
+
+navigation
+
+top nav: Home, Categories, All Tools, About, Profile • right side: Language, Currency, Theme (dark/light).
+
+global search (Ctrl/Cmd + K) filters by name, tags, category; results open tool modal.
+
+Categories: big solid-color cards → click shows tool grid.
+
+Tool card click → opens 80% viewport modal. mobile = 100% sheet.
+
+modal layout (80% viewport)
+
+header: Tool name • category pill • “Switch tool” dropdown (same category) • close (×).
+
+body: Left pane Inputs (forms, upload, parameters) • Right pane Output (result, preview, actions).
+
+footer: usage notes, limits, privacy message (“We auto-delete temporary files”).
+
+visual language
+
+category color map (solid backgrounds, accessible contrast):
+
+Calculators: Indigo
+
+Converters: Emerald
+
+Image Tools: Purple
+
+Document/Text: Orange
+
+Audio/Video: Rose
+
+tool cards: same family color with distinct tint + icon.
+
+cards: rounded-2xl, soft shadow, bold icon, short description.
+
+state & feedback
+
+loading skeletons, inline validation, disabled actions until valid.
+
+progress bars for long jobs; cancel button.
+
+toasts for success/failure; copy/download buttons confirm with “Copied/Downloaded”.
+
+i18n & currency
+
+language changes all labels/validation and pluralization.
+
+currency setting affects finance tools (Loan/EMI, Mortgage, Tax, Inflation, Currency Converter) and display formats.
+
+privacy & limits
+
+client-side where possible; otherwise upload → process in isolated worker → auto-delete within N minutes.
+
+per-file and per-batch size limits; clear messaging before upload.
+
+telemetry (privacy-friendly)
+
+events: tool_opened, validate_error, job_started, job_progress, job_success, job_failed.
+
+🔢 calculators (features • logic • edge cases • UI)
+
+For all calculators:
+
+common UI: inputs with units/placeholders • “Reset” • “Copy result” • “Share calc” (query params).
+
+validation: numeric, ranges, required fields; show inline messages.
+
+accessibility: keyboard stepper, ARIA for result region.
+
+General Calculator
+
+Inputs: expression string (supports + − × ÷ ^ ( ) %, constants π e).
+
+Output: numeric result + previous 10 calculations.
+
+Logic: parse safely; percent resolves as x% of prior term; operator precedence.
+
+Edge: division by zero → informative message; malformed expression → highlight index.
+
+Scientific Calculator
+
+Inputs: expression; mode (deg/rad); functions (sin, cos, tan, log, ln, sqrt, nCr, nPr).
+
+Output: result; history; angle mode indicator.
+
+Logic: math library with radian conversion; factorial domain checks.
+
+Edge: tan(90°) undefined; large factorial overflow → show “value too large”.
+
+Percentage Calculator
+
+Modes (dropdown): “x% of y”, “% change”, “what % is x of y”.
+
+Inputs vary per mode; Output: result + formula preview.
+
+Logic:
+
+of: (x*y)/100
+
+change: ((new−old)/old)*100
+
+what %: (x/y)*100
+
+Edge: y=0 guard; negative values allowed with explicit sign.
+
+Loan/EMI Calculator
+
+Inputs: Principal, Annual Rate, Tenure (months/years), Compounding (monthly), Start date (optional), Currency.
+
+Outputs: EMI, total interest, total payment; amortization schedule preview; downloadable CSV.
+
+Logic: EMI = Pr(1+r)^n / ((1+r)^n − 1), r=monthly rate.
+
+Edge: zero/near-zero rate → simple division; rounding to currency minor units.
+
+Mortgage Calculator
+
+Inputs: Home price, Down payment, Loan term, Rate, Taxes/Insurance/HOA (optional), Currency.
+
+Outputs: Monthly payment breakdown (principal, interest, taxes, insurance, HOA), amortization chart summary.
+
+Logic: EMI core + add fixed monthly extras.
+
+Edge: zero DP; balloon payments (optional toggle).
+
+BMI Calculator
+
+Inputs: Height (cm/ft+in), Weight (kg/lb), Age, Sex (for ranges display only).
+
+Output: BMI, category (Under/Normal/Over/Obese), healthy range.
+
+Logic: BMI=kg/(m²); unit conversion.
+
+Edge: height < 50cm or > 250cm → prompt verify; not medical advice notice.
+
+Age Calculator
+
+Inputs: Birth date; compare to date (default today).
+
+Output: Years, months, days; next birthday days left; weekday born.
+
+Logic: date diff with leap years.
+
+Edge: invalid future date.
+
+Date Calculator
+
+Modes: “Days between dates” • “Add/Subtract days”.
+
+Inputs: date(s), ±days.
+
+Output: count/exact new date; business-day toggle (optional).
+
+Logic: UTC math to avoid TZ drift; business days skip weekends (and holidays if locale).
+
+Edge: DST transitions; invalid ranges.
+
+Discount Calculator
+
+Inputs: Original price, discount (% or fixed), additional coupon (%), tax (%), Currency.
+
+Output: Final price; you saved X; effective discount.
+
+Logic: sequential application with toggle for tax before/after discount.
+
+Edge: negative final → clamp 0.
+
+Tax/VAT/GST Calculator
+
+Inputs: Amount, Tax %, Mode (add/remove), Currency.
+
+Output: Net, Tax, Gross.
+
+Logic:
+
+add: gross = net*(1+rate)
+
+remove: net = gross/(1+rate)
+
+Edge: very high tax guard; rounding strategy selectable.
+
+Tip Calculator
+
+Inputs: Bill, Tip %, Split (people), Round (none/up/down), Currency.
+
+Output: Tip amount, total, per-person.
+
+Logic: rounding applies to per-person or total (toggle).
+
+Edge: split=0 guard.
+
+Currency Inflation Calculator
+
+Inputs: Amount, From year, To year, Country/index source.
+
+Output: Adjusted amount; average annual inflation.
+
+Logic: CPI table lookup; chain index.
+
+Edge: year out of data → message; different base years normalization.
+
+GPA/CGPA Calculator
+
+Inputs: courses list (grade, credits) • scale (4.0/10.0 custom).
+
+Output: GPA; weighted table; “what-if” slider (optional).
+
+Logic: sum(grade_points*credits)/sum(credits).
+
+Edge: pass/fail exclusions; repeated course handling toggle.
+
+🔄 converters
+
+common UX: unit pickers with sensible defaults; swap button (↔); copy result; recent conversions.
+
+Unit Converters (length, weight, area, volume, speed, temp, energy, pressure)
+
+Inputs: category, from unit, to unit, value.
+
+Output: converted value + small precision control.
+
+Logic: convert via canonical SI base, then to target; temperature has affine transform.
+
+Edge: precision rounding; scientific notation threshold.
+
+Currency Converter (live)
+
+Inputs: from, to, amount, Currency setting default.
+
+Output: converted amount; rate timestamp; inverse rate.
+
+Logic: fetch rates (hourly cache), compute; fallback to last cached.
+
+Edge: unavailable currency → disable; weekend/holiday stale indicator.
+
+Time Zone Converter
+
+Inputs: datetime, from TZ, to TZ; multi-target list (optional).
+
+Output: converted time(s), DST note.
+
+Logic: IANA TZ; DST rules; friendly date formatting.
+
+Edge: nonexistent/ambiguous times on DST shift → prompt pick earlier/later.
+
+Number System Converter (bin/dec/oct/hex)
+
+Inputs: source base, value; targets checkboxes.
+
+Output: values across bases; bit-width (8/16/32/64) optional.
+
+Logic: parse→normalize; two’s complement option for negatives.
+
+Edge: invalid chars; overflow for fixed width.
+
+Text Case Converter
+
+Inputs: text; mode (lower/UPPER/Title/Sentence/camel/snake/kebab).
+
+Output: converted text; copy; download txt.
+
+Logic: Unicode-aware; smart title case rules (minor words); sentence boundary detection.
+
+Edge: mixed scripts; preserve acronyms toggle.
+
+File Format Converters
+
+Inputs: upload; from→to format; quality/resolution sliders when relevant.
+
+Output: converted file; size preview.
+
+Logic: route by MIME; images via encoder; docs via headless engine; audio/video via transcoder presets.
+
+Edge: encrypted PDFs; corrupted files; huge files prompt server job.
+
+Roman Numeral Converter
+
+Inputs: integer (1–3999) or roman string.
+
+Output: converted counterpart; minimal/canonical form.
+
+Logic: greedy map; validation of subtractive rules.
+
+Edge: out-of-range; invalid sequences.
+
+Color Code Converter (HEX/RGB/HSL)
+
+Inputs: color in any model; alpha slider; picker.
+
+Output: all models + preview swatch + accessible text color suggestion.
+
+Logic: accurate conversion; WCAG contrast check.
+
+Edge: short hex (#abc) support; alpha to hex (RGBA) option.
+
+Metric ↔ Imperial
+
+Inputs: measure type; value; from/to units.
+
+Output: converted value + exact/approx toggle (e.g., 1 in = 2.54 cm exact).
+
+Logic: use exact constants where defined.
+
+Edge: fractional inch formatting (1 3/8″) option.
+
+🖼 image tools
+
+common UX: drag-and-drop; batch list; per-file controls; preview grid; combined “Download all (ZIP)”.
+
+Image Resizer
+
+Inputs: width/height; maintain aspect; fit (cover/contain/inside); format; quality.
+
+Output: resized image(s); new dimensions; size estimate.
+
+Logic: compute target dims; resample with high-quality filter.
+
+Edge: tiny upscales warn; EXIF orientation; color profile preserve toggle.
+
+Image Compressor
+
+Inputs: target quality / target size (KB/MB); format (JPEG/WEBP/AVIF/PNG).
+
+Output: compressed file; original vs compressed size.
+
+Logic: iterate quality to hit target size; choose codec by content (photo vs flat).
+
+Edge: PNG + transparency → try PNGQuant/WEBP-lossless.
+
+Background Remover
+
+Inputs: strength; edge smooth; output bg (transparent/solid color/custom image).
+
+Output: PNG with transparent BG (or composited).
+
+Logic: segmentation model; matting refinement; feather radius.
+
+Edge: hair/edges artifacts; provide manual refine brush (optional future).
+
+Image Cropper
+
+Inputs: freeform or aspect ratios (1:1, 4:5, 16:9); exact pixel entry.
+
+Output: cropped image.
+
+Logic: client preview; server for big images.
+
+Edge: small source warning; retina/EXIF handling.
+
+Image to Text (OCR)
+
+Inputs: language(s); “handwriting mode” toggle; deskew; denoise.
+
+Output: extracted text; confidence; blocks with bounding boxes (download JSON).
+
+Logic: preprocess → OCR engine → post-correct (AI optional).
+
+Edge: low contrast → suggest contrast boost; multi-column detection.
+
+Image to PDF
+
+Inputs: page size; margin; orientation; one image per page or fit.
+
+Output: PDF; page count.
+
+Logic: embed images; compress for size target.
+
+Edge: huge pages memory guard.
+
+Meme Generator
+
+Inputs: template (gallery or upload); top/bottom text; font; stroke; position.
+
+Output: meme image; share link.
+
+Logic: draw text with outline; auto wrap; safe margins.
+
+Edge: long text autoshrink; emoji support.
+
+Watermark Adder/Remover
+
+Inputs: add: text/image watermark; opacity; position/tiling. remove: inpaint strength.
+
+Output: watermarked image OR cleaned image.
+
+Logic: add: overlay; remove: inpainting model with mask.
+
+Edge: complex patterns may fail; warn about rights & ethics.
+
+AI Image Generator
+
+Inputs: prompt; style; size; steps; seed; safety filter.
+
+Output: generated images (1–4).
+
+Logic: text-to-image pipeline; safety checks; upscaling option.
+
+Edge: reject disallowed content; show guidance if blocked.
+
+📄 document & text tools
+
+common UX: upload zone; file list; orderable (for merge); output options; result preview; batch.
+
+PDF → Word/Excel/PowerPoint
+
+Inputs: file(s); OCR if scanned; layout fidelity vs editability toggle.
+
+Output: .docx/.xlsx/.pptx.
+
+Logic: parse + OCR; structure recovery; table detection; images extracted.
+
+Edge: password-protected; mixed languages.
+
+Office → PDF
+
+Inputs: docx/xlsx/pptx; PDF version (A-1b optional).
+
+Output: PDF.
+
+Logic: render via headless engine; fonts embedding.
+
+Edge: missing fonts substitution notice.
+
+Merge PDFs
+
+Inputs: ordered list; “keep bookmarks” toggle.
+
+Output: single PDF.
+
+Logic: concatenate; rebuild XRef; optional TOC.
+
+Edge: page size mismatch; mixed orientations.
+
+Split PDFs
+
+Inputs: by ranges (e.g., 1-3,5,7-end) or by every N pages.
+
+Output: ZIP of parts or multiple files.
+
+Logic: page extraction; preserve metadata toggle.
+
+Edge: invalid ranges; large count notice.
+
+Compress PDFs
+
+Inputs: target size or quality; image downsampling DPI; remove metadata; flatten forms.
+
+Output: smaller PDF + percent saved.
+
+Logic: recompress images; subset fonts; remove unused objects.
+
+Edge: quality floor safeguards; show expected visual impact.
+
+Text Summarizer
+
+Inputs: paste text/file; summary length (short/medium/long); focus (bullets, key facts).
+
+Output: concise summary + key quotes.
+
+Logic: chunk → LLM summarize → merge; citations with line refs (if possible).
+
+Edge: very long → multi-pass; sensitive content warning.
+
+Text to Speech (TTS)
+
+Inputs: text; voice; speed; format (mp3/wav).
+
+Output: audio file; duration estimate.
+
+Logic: TTS engine; SSML support for pauses.
+
+Edge: profanity filter (toggle); very long → split.
+
+Speech to Text (STT)
+
+Inputs: audio; language; diarization toggle; timestamps.
+
+Output: transcript (txt/vtt/srt).
+
+Logic: VAD → ASR model → punctuation/truecasing.
+
+Edge: noisy audio → suggest denoise; long audio → chunking.
+
+Paraphraser / Rewriter (if you include)
+
+Inputs: text; tone (formal, simple, SEO, academic); constraints (keep keywords).
+
+Output: rewritten variants; change highlights.
+
+Logic: LLM with guardrails; plagiarism check optional.
+
+Edge: meaning drift detection (back-translate check).
+
+🎵 audio & video tools
+
+common UX: timeline preview (for media tools), simple presets, progress, batch where reasonable.
+
+MP3 Cutter/Merger
+
+Inputs: clip start/end; fade in/out; crossfade (merge).
+
+Output: clipped/merged mp3; waveform preview.
+
+Logic: decode → cut on frame boundaries → encode; cue points snap to frames.
+
+Edge: VBR alignment; loudness normalization optional.
+
+Audio → Text (Transcription)
+
+Inputs: audio; language; diarization; profanity mask.
+
+Output: transcript; confidence; timestamps; SRT.
+
+Logic: ASR model; post-punctuation; speaker segments.
+
+Edge: accents/background noise; suggest denoise first.
+
+Text → Speech (Voice Generation)
+
+Inputs: text; voice; speed/pitch; emotion (if supported).
+
+Output: audio; SSML support.
+
+Logic: neural TTS; prosody control; lexicon for names.
+
+Edge: long texts chunked with seamless joins.
+
+Video → GIF
+
+Inputs: file or URL; start/end; fps; size; quality; loop count.
+
+Output: GIF; size estimate.
+
+Logic: trim → scale → palette optimize.
+
+Edge: huge size → suggest MP4/WEBP alt.
+
+YouTube Downloader (legal constraints)
+
+Inputs: URL; format; quality.
+
+Output: link to provider where legal OR allow user-provided content only; show compliance notice.
+
+Logic: respect platform terms; avoid hosting restricted downloads.
+
+Edge: geo-blocked/DRM → explain cannot fetch.
+
+Video Converter (MP4/MOV/AVI…)
+
+Inputs: target format; resolution; bitrate; codec presets.
+
+Output: transcoded video; size.
+
+Logic: ffmpeg preset matrix; pass-through when possible.
+
+Edge: variable frame rate → normalize; audio codec compatibility.
+
+Audio Format Converter (MP3/WAV/OGG/FLAC)
+
+Inputs: format; bitrate; sample rate; channels.
+
+Output: converted file.
+
+Logic: transcode with dithering for downsample.
+
+Edge: clipping guard; metadata carryover.
+
+Volume Booster
+
+Inputs: gain dB; limit ceiling; loudness target (LUFS).
+
+Output: boosted audio without clipping.
+
+Logic: analyze → apply gain → limiter → optional loudness normalization.
+
+Edge: noise floor lift; suggest denoise.
+
+Noise Remover (Audio)
+
+Inputs: noise profile (auto/manual); reduction strength; artifact smoothing.
+
+Output: cleaner audio.
+
+Logic: spectral gating or ML denoise; preserve speech band.
+
+Edge: over-suppress → “musical noise”; preview compare A/B.
+
+🧪 validation, edge cases, and safety (shared)
+
+file type sniffing (do not trust extension), magic bytes validation.
+
+size/time limits visible before start; show remaining quota (if freemium).
+
+error taxonomy: validation_error, unsupported_format, size_exceeded, processing_failed, network_error — each with remedy hints.
+
+offline support: calculators, text case, color converter, number systems → work offline (PWA).
+
+🧩 “switch tool” dropdown (modal header)
+
+shows other tools within the same category; keyboard searchable.
+
+preserves shared context where safe (e.g., currency setting moves from Discount → Tax).
+
+animation: cross-fade content; keep modal shell mounted to feel instant.
+
+🎛 presets & performance
+
+presets: one-click defaults (e.g., “Compress PDF to <1 MB”, “Instagram 1080×1350”).
+
+performance: lazy-load heavy engines only on open; chunk large media; stream results when possible.
+
+🧠 AI prompt library (ready-to-use instructions)
+
+Use these as system or user prompts when calling an LLM/AI service. (Adjust for provider tokens/format.) Keep PII minimized.
+
+1) Text Summarizer
+
+System:
+“You are a precise summarizer. Keep factual accuracy, avoid speculation, include key numbers, dates, names. Remove filler. Use the requested format and length.”
+User template:
+“Summarize the following text into {length} with {style}. Highlight {N} key points. If there are dates, keep them exact.
+TEXT: {content}”
+
+2) Paraphraser / Rewriter
+
+System:
+“You rewrite text preserving meaning and crucial facts. Avoid plagiarism. Follow tone/style precisely. Keep domain terms intact.”
+User:
+“Rewrite the text in a {tone} tone, {constraints} (e.g., keep keywords: {keywords}). Provide 2 variants and a one-line rationale for each.
+TEXT: {content}”
+
+3) OCR Post-Correction
+
+System:
+“You correct OCR output. Fix broken words, spacing, and common OCR errors. Preserve line breaks for paragraphs and tables if present. Don’t invent content.”
+User:
+“Clean up this OCR text. Keep original language. If uncertain, mark with [?].
+OCR: {ocr_text}”
+
+4) Transcription Cleanup (STT)
+
+System:
+“You convert raw ASR transcripts into readable text. Add punctuation, casing, and paragraph breaks. Keep speaker labels if provided.”
+User:
+“Format this transcript, keeping speaker labels and timestamps. Correct obvious mishears but don’t add new info.
+TRANSCRIPT: {asr}”
+
+5) Summarize Media (after STT)
+
+System:
+“You summarize spoken content concisely with timestamps for major sections.”
+User:
+“Create a summary with timestamps (mm:ss), 5 key takeaways, and action items.
+TRANSCRIPT: {asr}”
+
+6) Image Prompt Helper (for AI image gen)
+
+System:
+“You draft clear, specific image prompts. Include subject, style, lighting, composition, and aspect ratio.”
+User:
+“Generate 3 prompt options to create {style} images of {subject}, aspect {ratio}, mood {mood}. Avoid copyrighted characters.”
+
+7) Sensitive/Blocked Content Guard
+
+System:
+“You must refuse disallowed content and suggest a safe alternative. Explain briefly and kindly.”
+
+🗺 data model (conceptual, no code)
+
+Tool: slug, name, category, description, tags, color, clientOnly (bool), inputs schema, outputs schema, limits, popularity.
+
+Job: id, toolSlug, status (queued/running/success/failed), progress %, inputMeta, outputRefs, startedAt, finishedAt.
+
+User (optional): id, email, settings {language, currency, theme}, history[] (recent tools), quotas.
+
+✅ quality checklist (per tool)
+
+ inputs labeled w/ units & placeholders
+
+ inline validation & helpful messages
+
+ keyboard accessible & screen-reader friendly
+
+ sensible defaults & presets
+
+ export/copy buttons w/ success feedback
+
+ performance: instant for light tools, progress for heavy
+
+ i18n strings ready; number/date formatting locale-aware
+
+ telemetry events instrumented
+
+ errors mapped to clear remedies
+
+🚀 suggested MVP bundle (fastest impact)
+
+Calculators: Percentage, Discount, BMI, Age, Loan/EMI
+
+Converters: Currency, Unit, Text Case, Color Code
+
+Images: Resize, Compress
+
+Docs: Merge PDF, Compress PDF, Summarizer
+
+Audio/Video: MP3 Cutter, Video→GIF
+
+(then expand to the full list using the same specifications above.)
