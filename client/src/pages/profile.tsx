@@ -615,8 +615,4 @@ export default function Profile() {
       </div>
     </div>
   );
-
-  function openTool(toolId: string) {
-    document.dispatchEvent(new CustomEvent("open-tool", { detail: { toolId, category: "calculators" } }));
-  }
 }
