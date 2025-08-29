@@ -107,7 +107,7 @@ export default function GlobalSearch() {
                       {searchResults.slice(0, 5).map((tool, index) => {
                         const color = getCategoryColor(tool.category);
                         const isSelected = index === selectedIndex;
-                        
+
                         return (
                           <div
                             key={tool.id}
@@ -144,7 +144,7 @@ export default function GlobalSearch() {
                   {popularTools.map((tool, index) => {
                     const color = getCategoryColor(tool.category);
                     const isSelected = index === selectedIndex;
-                    
+
                     return (
                       <div
                         key={tool.id}
@@ -175,11 +175,11 @@ export default function GlobalSearch() {
                   {categories.slice(0, 2).map(([categoryId, categoryData]) => {
                     const category = categoryId as ToolCategory;
                     const color = getCategoryColor(category);
-                    const iconName = categoryId === 'calculators' ? 'calculator' : 
+                    const iconName = categoryId === 'calculators' ? 'calculator' :
                                      categoryId === 'converters' ? 'repeat' :
                                      categoryId === 'image-tools' ? 'image' :
                                      categoryId === 'document-tools' ? 'file-text' : 'play';
-                    
+
                     return (
                       <div
                         key={categoryId}

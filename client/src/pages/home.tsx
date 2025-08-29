@@ -40,7 +40,7 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             From calculators to converters, image editing to document processing - everything you need, beautifully organized and lightning fast.
           </p>
-          
+
           {/* Global Search Bar */}
           <div className="relative max-w-xl mx-auto mb-8">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -130,7 +130,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {popularTools.map((tool) => {
               const color = getCategoryColor(tool.category);
-              
+
               return (
                 <Card
                   key={tool.id}
