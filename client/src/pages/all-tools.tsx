@@ -24,14 +24,14 @@ export default function AllTools() {
     document.dispatchEvent(new CustomEvent("open-tool", { detail: { toolId, category } }));
   };
 
-  const renderToolIcon = (iconName: string, color: string) => {
+  const renderToolIcon = (iconName: string) => {
     const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
-    return <IconComponent className={`w-6 h-6 text-${color} group-hover:text-white`} />;
+    return <IconComponent className={`w-6 h-6 text-white`} />;
   };
 
   // Filter and sort tools
   let filteredTools = searchQuery ? searchTools(searchQuery) : tools;
-  
+
   if (selectedCategory !== "all") {
     filteredTools = filteredTools.filter(tool => tool.category === selectedCategory);
   }
@@ -73,7 +73,7 @@ export default function AllTools() {
               data-testid="search-tools"
             />
           </div>
-          
+
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
             <SelectTrigger className="w-full sm:w-48" data-testid="filter-category">
               <SelectValue placeholder="Category" />
@@ -110,30 +110,55 @@ export default function AllTools() {
         {/* Tools Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredTools.map((tool) => {
-            const color = getCategoryColor(tool.category);
-            
+            // Get unique solid colors for each tool
+            const getToolSolidColors = (toolId: string) => {
+              const colors = [
+                { bg: 'bg-blue-500', text: 'text-white', badge: 'bg-blue-600', arrow: 'text-blue-200' },
+                { bg: 'bg-green-500', text: 'text-white', badge: 'bg-green-600', arrow: 'text-green-200' },
+                { bg: 'bg-purple-500', text: 'text-white', badge: 'bg-purple-600', arrow: 'text-purple-200' },
+                { bg: 'bg-orange-500', text: 'text-white', badge: 'bg-orange-600', arrow: 'text-orange-200' },
+                { bg: 'bg-red-500', text: 'text-white', badge: 'bg-red-600', arrow: 'text-red-200' },
+                { bg: 'bg-pink-500', text: 'text-white', badge: 'bg-pink-600', arrow: 'text-pink-200' },
+                { bg: 'bg-indigo-500', text: 'text-white', badge: 'bg-indigo-600', arrow: 'text-indigo-200' },
+                { bg: 'bg-cyan-500', text: 'text-white', badge: 'bg-cyan-600', arrow: 'text-cyan-200' },
+                { bg: 'bg-teal-500', text: 'text-white', badge: 'bg-teal-600', arrow: 'text-teal-200' },
+                { bg: 'bg-emerald-500', text: 'text-white', badge: 'bg-emerald-600', arrow: 'text-emerald-200' },
+                { bg: 'bg-violet-500', text: 'text-white', badge: 'bg-violet-600', arrow: 'text-violet-200' },
+                { bg: 'bg-rose-500', text: 'text-white', badge: 'bg-rose-600', arrow: 'text-rose-200' }
+              ];
+
+              let hash = 0;
+              for (let i = 0; i < toolId.length; i++) {
+                hash = toolId.charCodeAt(i) + ((hash << 5) - hash);
+              }
+              const colorIndex = Math.abs(hash) % colors.length;
+              return colors[colorIndex];
+            };
+
+            const solidColors = getToolSolidColors(tool.id);
+
             return (
               <Card
                 key={tool.id}
-                className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105"
+                className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0"
                 onClick={() => openTool(tool.id, tool.category)}
                 data-testid={`tool-card-${tool.id}`}
               >
-                <CardContent className="p-6">
-                  <div className={`w-12 h-12 bg-${color}/10 border border-${color}/20 rounded-xl mb-4 flex items-center justify-center group-hover:bg-${color} group-hover:border-${color} transition-colors`}>
-                    {renderToolIcon(tool.icon, color)}
+                <CardContent className={`p-6 ${solidColors.bg} rounded-lg`}>
+                  <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center">
+                    {renderToolIcon(tool.icon)}
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">{tool.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{tool.description}</p>
-                  <div className="flex items-center justify-between mb-2">
+                  <h3 className={`font-semibold text-lg mb-2 ${solidColors.text}`}>{tool.name}</h3>
+                  <p className={`text-sm mb-4 ${solidColors.text} opacity-90`}>{tool.description}</p>
+                  <div className="flex items-center justify-between mb-3">
                     <Badge
                       variant="outline"
-                      className={`bg-${color}/10 text-${color} border-${color}/20`}
+                      className={`${solidColors.badge} ${solidColors.text} border-white/30`}
                     >
                       {toolCategories[tool.category].name}
                     </Badge>
                     {tool.popular && (
-                      <Badge variant="outline" className="bg-yellow-100 text-yellow-800 border-yellow-300">
+                      <Badge variant="outline" className="bg-yellow-400 text-yellow-900 border-yellow-500">
                         Popular
                       </Badge>
                     )}
@@ -141,12 +166,12 @@ export default function AllTools() {
                   <div className="flex items-center justify-between">
                     <div className="flex flex-wrap gap-1">
                       {tool.tags.slice(0, 2).map(tag => (
-                        <span key={tag} className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                        <span key={tag} className="text-xs text-white/80 bg-white/20 px-2 py-1 rounded">
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <ArrowRight className={`w-4 h-4 text-muted-foreground group-hover:text-${color} transition-colors`} />
+                    <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-colors`} />
                   </div>
                 </CardContent>
               </Card>

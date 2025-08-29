@@ -26,7 +26,7 @@ export default function Home() {
 
   const renderToolIcon = (iconName: string, category: ToolCategory) => {
     const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
-    
+
     const getIconClasses = (cat: ToolCategory) => {
       switch (cat) {
         case 'calculators':
@@ -43,9 +43,42 @@ export default function Home() {
           return 'text-gray-500 group-hover:text-white';
       }
     };
-    
+
     return <IconComponent className={`w-6 h-6 ${getIconClasses(category)} transition-colors`} />;
   };
+
+  // Function to get solid colors for tool cards based on tool ID
+  const getToolSolidColors = (toolId: string) => {
+    switch (toolId) {
+      case 'unit-converter':
+        return { bg: 'bg-blue-600', text: 'text-white', badge: 'bg-blue-700 border-blue-700', arrow: 'text-white' };
+      case 'currency-converter':
+        return { bg: 'bg-green-600', text: 'text-white', badge: 'bg-green-700 border-green-700', arrow: 'text-white' };
+      case 'image-resizer':
+        return { bg: 'bg-purple-600', text: 'text-white', badge: 'bg-purple-700 border-purple-700', arrow: 'text-white' };
+      case 'pdf-to-text':
+        return { bg: 'bg-orange-600', text: 'text-white', badge: 'bg-orange-700 border-orange-700', arrow: 'text-white' };
+      case 'video-to-gif':
+        return { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-700 border-red-700', arrow: 'text-white' };
+      case 'basic-calculator':
+        return { bg: 'bg-indigo-600', text: 'text-white', badge: 'bg-indigo-700 border-indigo-700', arrow: 'text-white' };
+      case 'scientific-calculator':
+        return { bg: 'bg-teal-600', text: 'text-white', badge: 'bg-teal-700 border-teal-700', arrow: 'text-white' };
+      case 'bmi-calculator':
+        return { bg: 'bg-pink-600', text: 'text-white', badge: 'bg-pink-700 border-pink-700', arrow: 'text-white' };
+      case 'text-to-speech':
+        return { bg: 'bg-yellow-600', text: 'text-black', badge: 'bg-yellow-700 border-yellow-700', arrow: 'text-black' };
+      case 'speech-to-text':
+        return { bg: 'bg-cyan-600', text: 'text-white', badge: 'bg-cyan-700 border-cyan-700', arrow: 'text-white' };
+      case 'mp3-cutter':
+        return { bg: 'bg-fuchsia-600', text: 'text-white', badge: 'bg-fuchsia-700 border-fuchsia-700', arrow: 'text-white' };
+      case 'wav-to-mp3':
+        return { bg: 'bg-lime-600', text: 'text-black', badge: 'bg-lime-700 border-lime-700', arrow: 'text-black' };
+      default:
+        return { bg: 'bg-gray-600', text: 'text-white', badge: 'bg-gray-700 border-gray-700', arrow: 'text-white' };
+    }
+  };
+
 
   return (
     <div className="flex-1">
@@ -208,107 +241,29 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {popularTools.map((tool) => {
-              // Define color classes for each category
-              const getToolColorClasses = (category: ToolCategory) => {
-                switch (category) {
-                  case 'calculators':
-                    return {
-                      iconBg: 'bg-blue-50 dark:bg-blue-950/50',
-                      iconBorder: 'border-blue-200 dark:border-blue-800/50',
-                      iconHover: 'group-hover:bg-blue-500',
-                      iconColor: 'text-blue-500',
-                      iconColorHover: 'group-hover:text-white',
-                      badgeBg: 'bg-blue-50 dark:bg-blue-950/50',
-                      badgeText: 'text-blue-700 dark:text-blue-300',
-                      badgeBorder: 'border-blue-200 dark:border-blue-800/50',
-                      arrowHover: 'group-hover:text-blue-500'
-                    };
-                  case 'converters':
-                    return {
-                      iconBg: 'bg-green-50 dark:bg-green-950/50',
-                      iconBorder: 'border-green-200 dark:border-green-800/50',
-                      iconHover: 'group-hover:bg-green-500',
-                      iconColor: 'text-green-500',
-                      iconColorHover: 'group-hover:text-white',
-                      badgeBg: 'bg-green-50 dark:bg-green-950/50',
-                      badgeText: 'text-green-700 dark:text-green-300',
-                      badgeBorder: 'border-green-200 dark:border-green-800/50',
-                      arrowHover: 'group-hover:text-green-500'
-                    };
-                  case 'image-tools':
-                    return {
-                      iconBg: 'bg-purple-50 dark:bg-purple-950/50',
-                      iconBorder: 'border-purple-200 dark:border-purple-800/50',
-                      iconHover: 'group-hover:bg-purple-500',
-                      iconColor: 'text-purple-500',
-                      iconColorHover: 'group-hover:text-white',
-                      badgeBg: 'bg-purple-50 dark:bg-purple-950/50',
-                      badgeText: 'text-purple-700 dark:text-purple-300',
-                      badgeBorder: 'border-purple-200 dark:border-purple-800/50',
-                      arrowHover: 'group-hover:text-purple-500'
-                    };
-                  case 'document-tools':
-                    return {
-                      iconBg: 'bg-orange-50 dark:bg-orange-950/50',
-                      iconBorder: 'border-orange-200 dark:border-orange-800/50',
-                      iconHover: 'group-hover:bg-orange-500',
-                      iconColor: 'text-orange-500',
-                      iconColorHover: 'group-hover:text-white',
-                      badgeBg: 'bg-orange-50 dark:bg-orange-950/50',
-                      badgeText: 'text-orange-700 dark:text-orange-300',
-                      badgeBorder: 'border-orange-200 dark:border-orange-800/50',
-                      arrowHover: 'group-hover:text-orange-500'
-                    };
-                  case 'audio-video-tools':
-                    return {
-                      iconBg: 'bg-red-50 dark:bg-red-950/50',
-                      iconBorder: 'border-red-200 dark:border-red-800/50',
-                      iconHover: 'group-hover:bg-red-500',
-                      iconColor: 'text-red-500',
-                      iconColorHover: 'group-hover:text-white',
-                      badgeBg: 'bg-red-50 dark:bg-red-950/50',
-                      badgeText: 'text-red-700 dark:text-red-300',
-                      badgeBorder: 'border-red-200 dark:border-red-800/50',
-                      arrowHover: 'group-hover:text-red-500'
-                    };
-                  default:
-                    return {
-                      iconBg: 'bg-gray-50 dark:bg-gray-950/50',
-                      iconBorder: 'border-gray-200 dark:border-gray-800/50',
-                      iconHover: 'group-hover:bg-gray-500',
-                      iconColor: 'text-gray-500',
-                      iconColorHover: 'group-hover:text-white',
-                      badgeBg: 'bg-gray-50 dark:bg-gray-950/50',
-                      badgeText: 'text-gray-700 dark:text-gray-300',
-                      badgeBorder: 'border-gray-200 dark:border-gray-800/50',
-                      arrowHover: 'group-hover:text-gray-500'
-                    };
-                }
-              };
-
-              const colorClasses = getToolColorClasses(tool.category);
+              const solidColors = getToolSolidColors(tool.id);
 
               return (
                 <Card
                   key={tool.id}
-                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0"
                   onClick={() => openTool(tool.id, tool.category)}
                   data-testid={`tool-card-${tool.id}`}
                 >
-                  <CardContent className="p-6">
-                    <div className={`w-12 h-12 ${colorClasses.iconBg} border ${colorClasses.iconBorder} rounded-xl mb-4 flex items-center justify-center ${colorClasses.iconHover} transition-colors`}>
+                  <CardContent className={`p-6 ${solidColors.bg} rounded-lg`}>
+                    <div className={`w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center`}>
                       {renderToolIcon(tool.icon, tool.category)}
                     </div>
-                    <h3 className="font-semibold text-lg mb-2">{tool.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{tool.description}</p>
+                    <h3 className={`font-semibold text-lg mb-2 ${solidColors.text}`}>{tool.name}</h3>
+                    <p className={`text-sm mb-4 ${solidColors.text} opacity-90`}>{tool.description}</p>
                     <div className="flex items-center justify-between">
                       <Badge
                         variant="outline"
-                        className={`${colorClasses.badgeBg} ${colorClasses.badgeText} ${colorClasses.badgeBorder}`}
+                        className={`${solidColors.badge} ${solidColors.text} border-white/30`}
                       >
                         {toolCategories[tool.category].name}
                       </Badge>
-                      <ArrowRight className={`w-4 h-4 text-muted-foreground ${colorClasses.arrowHover} transition-colors`} />
+                      <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-colors`} />
                     </div>
                   </CardContent>
                 </Card>
