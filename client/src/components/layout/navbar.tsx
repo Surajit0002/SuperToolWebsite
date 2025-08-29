@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -5,12 +6,25 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useTheme } from "@/lib/theme";
 import { useSettings } from "@/hooks/use-settings";
-import { Zap, Search, Globe, DollarSign, Sun, Moon, Menu } from "lucide-react";
+import { 
+  Zap, 
+  Search, 
+  Sun, 
+  Moon, 
+  Menu, 
+  User, 
+  Settings, 
+  LogOut, 
+  History,
+  Bookmark
+} from "lucide-react";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -23,26 +37,42 @@ export default function Navbar() {
     { href: "/categories", label: "Categories" },
     { href: "/tools", label: "All Tools" },
     { href: "/about", label: "About" },
-    { href: "/profile", label: "Profile" },
   ];
 
   const languages = [
-    { code: "en", name: "English" },
-    { code: "es", name: "Español" },
-    { code: "fr", name: "Français" },
-    { code: "de", name: "Deutsch" },
+    { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "es", name: "Español", flag: "🇪🇸" },
+    { code: "fr", name: "Français", flag: "🇫🇷" },
+    { code: "de", name: "Deutsch", flag: "🇩🇪" },
+    { code: "zh", name: "中文", flag: "🇨🇳" },
+    { code: "ja", name: "日本語", flag: "🇯🇵" },
+    { code: "ko", name: "한국어", flag: "🇰🇷" },
+    { code: "pt", name: "Português", flag: "🇧🇷" },
   ];
 
   const currencies = [
-    { code: "USD", symbol: "$" },
-    { code: "EUR", symbol: "€" },
-    { code: "GBP", symbol: "£" },
-    { code: "JPY", symbol: "¥" },
+    { code: "USD", symbol: "$", name: "US Dollar", flag: "🇺🇸" },
+    { code: "EUR", symbol: "€", name: "Euro", flag: "🇪🇺" },
+    { code: "GBP", symbol: "£", name: "British Pound", flag: "🇬🇧" },
+    { code: "JPY", symbol: "¥", name: "Japanese Yen", flag: "🇯🇵" },
+    { code: "CAD", symbol: "C$", name: "Canadian Dollar", flag: "🇨🇦" },
+    { code: "AUD", symbol: "A$", name: "Australian Dollar", flag: "🇦🇺" },
+    { code: "CHF", symbol: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
+    { code: "CNY", symbol: "¥", name: "Chinese Yuan", flag: "🇨🇳" },
+    { code: "INR", symbol: "₹", name: "Indian Rupee", flag: "🇮🇳" },
   ];
 
   const openSearch = () => {
     setIsSearchOpen(true);
     document.dispatchEvent(new CustomEvent("open-global-search"));
+  };
+
+  const getCurrentLanguage = () => {
+    return languages.find(lang => lang.code === settings.language) || languages[0];
+  };
+
+  const getCurrentCurrency = () => {
+    return currencies.find(curr => curr.code === settings.currency) || currencies[0];
   };
 
   return (
@@ -93,21 +123,26 @@ export default function Navbar() {
             {/* Language Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" data-testid="language-dropdown">
-                  <Globe className="w-4 h-4" />
-                  <span className="hidden sm:inline ml-1">
-                    {settings.language.toUpperCase()}
+                <Button variant="ghost" size="sm" data-testid="language-dropdown" className="flex items-center space-x-2">
+                  <span className="text-lg">{getCurrentLanguage().flag}</span>
+                  <span className="hidden sm:inline text-xs font-medium">
+                    {getCurrentLanguage().code.toUpperCase()}
                   </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent className="w-64">
                 {languages.map((lang) => (
                   <DropdownMenuItem
                     key={lang.code}
                     onClick={() => updateSettings({ language: lang.code })}
                     data-testid={`language-option-${lang.code}`}
+                    className="flex items-center space-x-3 p-3"
                   >
-                    {lang.name}
+                    <span className="text-lg">{lang.flag}</span>
+                    <div>
+                      <div className="font-medium">{lang.name}</div>
+                      <div className="text-xs text-muted-foreground">{lang.code.toUpperCase()}</div>
+                    </div>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -116,19 +151,24 @@ export default function Navbar() {
             {/* Currency Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" data-testid="currency-dropdown">
-                  <DollarSign className="w-4 h-4" />
-                  <span className="hidden sm:inline ml-1">{settings.currency}</span>
+                <Button variant="ghost" size="sm" data-testid="currency-dropdown" className="flex items-center space-x-2">
+                  <span className="text-lg">{getCurrentCurrency().flag}</span>
+                  <span className="hidden sm:inline text-xs font-medium">{getCurrentCurrency().code}</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent className="w-64">
                 {currencies.map((currency) => (
                   <DropdownMenuItem
                     key={currency.code}
                     onClick={() => updateSettings({ currency: currency.code })}
                     data-testid={`currency-option-${currency.code}`}
+                    className="flex items-center space-x-3 p-3"
                   >
-                    {currency.code} ({currency.symbol})
+                    <span className="text-lg">{currency.flag}</span>
+                    <div>
+                      <div className="font-medium">{currency.name}</div>
+                      <div className="text-xs text-muted-foreground">{currency.code} ({currency.symbol})</div>
+                    </div>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -147,6 +187,60 @@ export default function Navbar() {
                 <Sun className="w-4 h-4" />
               )}
             </Button>
+
+            {/* Profile Avatar Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full" data-testid="profile-dropdown">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src="/api/placeholder/40/40" alt="Profile" />
+                    <AvatarFallback className="bg-primary text-primary-foreground">
+                      <User className="h-5 w-5" />
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <div className="flex items-center space-x-2 p-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src="/api/placeholder/40/40" alt="Profile" />
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                      <User className="h-4 w-4" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">John Doe</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      john.doe@example.com
+                    </p>
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/profile" className="flex items-center space-x-2 w-full cursor-pointer">
+                    <User className="h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer">
+                  <Settings className="h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer">
+                  <History className="h-4 w-4" />
+                  <span>History</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer">
+                  <Bookmark className="h-4 w-4" />
+                  <span>Favorites</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer text-red-600">
+                  <LogOut className="h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Mobile Menu */}
             <Sheet>
@@ -171,6 +265,14 @@ export default function Navbar() {
                       {item.label}
                     </Link>
                   ))}
+                  <DropdownMenuSeparator />
+                  <Link
+                    href="/profile"
+                    className="flex items-center space-x-2 font-medium text-lg text-muted-foreground hover:text-foreground"
+                  >
+                    <User className="h-5 w-5" />
+                    <span>Profile</span>
+                  </Link>
                 </div>
               </SheetContent>
             </Sheet>
