@@ -67,6 +67,12 @@ export default function Categories() {
                   <h3 className="font-semibold text-lg mb-2">{tool.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{tool.description}</p>
                   <div className="flex items-center justify-between">
+                    <Badge
+                      variant="outline"
+                      className={`bg-${color}/10 text-${color} border-${color}/20`}
+                    >
+                      {toolCategories[tool.category].name}
+                    </Badge>
                     {tool.popular && (
                       <Badge variant="outline" className="bg-yellow-100 text-yellow-800 border-yellow-300">
                         Popular
@@ -105,7 +111,7 @@ export default function Categories() {
             const category = categoryId as ToolCategory;
             const color = getCategoryColor(category);
             const categoryTools = getToolsByCategory(category);
-            
+
             return (
               <Link key={categoryId} href={`/categories/${categoryId}`}>
                 <Card className="group cursor-pointer hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl h-full">
