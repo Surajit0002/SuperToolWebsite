@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -39,6 +38,7 @@ import {
   Globe,
   DollarSign
 } from "lucide-react";
+import Flag from "react-world-flags";
 
 export default function Profile() {
   const { settings, updateSettings } = useSettings();
@@ -70,26 +70,26 @@ export default function Profile() {
   ]);
 
   const languages = [
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "es", name: "Español", flag: "🇪🇸" },
-    { code: "fr", name: "Français", flag: "🇫🇷" },
-    { code: "de", name: "Deutsch", flag: "🇩🇪" },
-    { code: "zh", name: "中文", flag: "🇨🇳" },
-    { code: "ja", name: "日本語", flag: "🇯🇵" },
-    { code: "ko", name: "한국어", flag: "🇰🇷" },
-    { code: "pt", name: "Português", flag: "🇧🇷" },
+    { code: "en", name: "English", flag: "us" },
+    { code: "es", name: "Español", flag: "es" },
+    { code: "fr", name: "Français", flag: "fr" },
+    { code: "de", name: "Deutsch", flag: "de" },
+    { code: "zh", name: "中文", flag: "cn" },
+    { code: "ja", name: "日本語", flag: "jp" },
+    { code: "ko", name: "한국어", flag: "kr" },
+    { code: "pt", name: "Português", flag: "br" },
   ];
 
   const currencies = [
-    { code: "USD", name: "US Dollar", flag: "🇺🇸" },
-    { code: "EUR", name: "Euro", flag: "🇪🇺" },
-    { code: "GBP", name: "British Pound", flag: "🇬🇧" },
-    { code: "JPY", name: "Japanese Yen", flag: "🇯🇵" },
-    { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦" },
-    { code: "AUD", name: "Australian Dollar", flag: "🇦🇺" },
-    { code: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
-    { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
-    { code: "INR", name: "Indian Rupee", flag: "🇮🇳" },
+    { code: "USD", name: "US Dollar", flag: "us" },
+    { code: "EUR", name: "Euro", flag: "eu" },
+    { code: "GBP", name: "British Pound", flag: "gb" },
+    { code: "JPY", name: "Japanese Yen", flag: "jp" },
+    { code: "CAD", name: "Canadian Dollar", flag: "ca" },
+    { code: "AUD", name: "Australian Dollar", flag: "au" },
+    { code: "CHF", name: "Swiss Franc", flag: "ch" },
+    { code: "CNY", name: "Chinese Yuan", flag: "cn" },
+    { code: "INR", name: "Indian Rupee", flag: "in" },
   ];
 
   const timezones = [
@@ -441,13 +441,13 @@ export default function Profile() {
                       onValueChange={(value) => updateSettings({ language: value })}
                     >
                       <SelectTrigger className="mt-2" data-testid="language-select">
-                        <SelectValue />
+                        <SelectValue placeholder="Select language" />
                       </SelectTrigger>
                       <SelectContent>
                         {languages.map((lang) => (
                           <SelectItem key={lang.code} value={lang.code}>
                             <div className="flex items-center space-x-3">
-                              <span>{lang.flag}</span>
+                              <Flag code={lang.flag} className="w-5 h-5 rounded-sm" />
                               <span>{lang.name}</span>
                             </div>
                           </SelectItem>
@@ -464,13 +464,13 @@ export default function Profile() {
                       onValueChange={(value) => updateSettings({ currency: value })}
                     >
                       <SelectTrigger className="mt-2" data-testid="currency-select">
-                        <SelectValue />
+                        <SelectValue placeholder="Select currency" />
                       </SelectTrigger>
                       <SelectContent>
                         {currencies.map((currency) => (
                           <SelectItem key={currency.code} value={currency.code}>
                             <div className="flex items-center space-x-3">
-                              <span>{currency.flag}</span>
+                              <Flag code={currency.flag} className="w-5 h-5 rounded-sm" />
                               <span>{currency.name} ({currency.code})</span>
                             </div>
                           </SelectItem>
@@ -487,7 +487,7 @@ export default function Profile() {
                       onValueChange={(value) => updateSettings({ timezone: value })}
                     >
                       <SelectTrigger className="mt-2" data-testid="timezone-select">
-                        <SelectValue />
+                        <SelectValue placeholder="Select timezone" />
                       </SelectTrigger>
                       <SelectContent>
                         {timezones.map((timezone) => (

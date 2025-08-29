@@ -25,6 +25,7 @@ import {
   History,
   Bookmark
 } from "lucide-react";
+import Flag from "react-world-flags";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -40,26 +41,26 @@ export default function Navbar() {
   ];
 
   const languages = [
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "es", name: "Español", flag: "🇪🇸" },
-    { code: "fr", name: "Français", flag: "🇫🇷" },
-    { code: "de", name: "Deutsch", flag: "🇩🇪" },
-    { code: "zh", name: "中文", flag: "🇨🇳" },
-    { code: "ja", name: "日本語", flag: "🇯🇵" },
-    { code: "ko", name: "한국어", flag: "🇰🇷" },
-    { code: "pt", name: "Português", flag: "🇧🇷" },
+    { code: "en", name: "English", countryCode: "US" },
+    { code: "es", name: "Español", countryCode: "ES" },
+    { code: "fr", name: "Français", countryCode: "FR" },
+    { code: "de", name: "Deutsch", countryCode: "DE" },
+    { code: "zh", name: "中文", countryCode: "CN" },
+    { code: "ja", name: "日本語", countryCode: "JP" },
+    { code: "ko", name: "한국어", countryCode: "KR" },
+    { code: "pt", name: "Português", countryCode: "BR" },
   ];
 
   const currencies = [
-    { code: "USD", symbol: "$", name: "US Dollar", flag: "🇺🇸" },
-    { code: "EUR", symbol: "€", name: "Euro", flag: "🇪🇺" },
-    { code: "GBP", symbol: "£", name: "British Pound", flag: "🇬🇧" },
-    { code: "JPY", symbol: "¥", name: "Japanese Yen", flag: "🇯🇵" },
-    { code: "CAD", symbol: "C$", name: "Canadian Dollar", flag: "🇨🇦" },
-    { code: "AUD", symbol: "A$", name: "Australian Dollar", flag: "🇦🇺" },
-    { code: "CHF", symbol: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
-    { code: "CNY", symbol: "¥", name: "Chinese Yuan", flag: "🇨🇳" },
-    { code: "INR", symbol: "₹", name: "Indian Rupee", flag: "🇮🇳" },
+    { code: "USD", symbol: "$", name: "US Dollar", countryCode: "US" },
+    { code: "EUR", symbol: "€", name: "Euro", countryCode: "EU" },
+    { code: "GBP", symbol: "£", name: "British Pound", countryCode: "GB" },
+    { code: "JPY", symbol: "¥", name: "Japanese Yen", countryCode: "JP" },
+    { code: "CAD", symbol: "C$", name: "Canadian Dollar", countryCode: "CA" },
+    { code: "AUD", symbol: "A$", name: "Australian Dollar", countryCode: "AU" },
+    { code: "CHF", symbol: "CHF", name: "Swiss Franc", countryCode: "CH" },
+    { code: "CNY", symbol: "¥", name: "Chinese Yuan", countryCode: "CN" },
+    { code: "INR", symbol: "₹", name: "Indian Rupee", countryCode: "IN" },
   ];
 
   const openSearch = () => {
@@ -124,7 +125,7 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" data-testid="language-dropdown" className="flex items-center space-x-2">
-                  <span className="text-lg">{getCurrentLanguage().flag}</span>
+                  <Flag code={getCurrentLanguage().countryCode} className="w-5 h-4" />
                   <span className="hidden sm:inline text-xs font-medium">
                     {getCurrentLanguage().code.toUpperCase()}
                   </span>
@@ -138,7 +139,7 @@ export default function Navbar() {
                     data-testid={`language-option-${lang.code}`}
                     className="flex items-center space-x-3 p-3"
                   >
-                    <span className="text-lg">{lang.flag}</span>
+                    <Flag code={lang.countryCode} className="w-6 h-4" />
                     <div>
                       <div className="font-medium">{lang.name}</div>
                       <div className="text-xs text-muted-foreground">{lang.code.toUpperCase()}</div>
@@ -152,7 +153,7 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" data-testid="currency-dropdown" className="flex items-center space-x-2">
-                  <span className="text-lg">{getCurrentCurrency().flag}</span>
+                  <Flag code={getCurrentCurrency().countryCode} className="w-5 h-4" />
                   <span className="hidden sm:inline text-xs font-medium">{getCurrentCurrency().code}</span>
                 </Button>
               </DropdownMenuTrigger>
@@ -164,7 +165,7 @@ export default function Navbar() {
                     data-testid={`currency-option-${currency.code}`}
                     className="flex items-center space-x-3 p-3"
                   >
-                    <span className="text-lg">{currency.flag}</span>
+                    <Flag code={currency.countryCode} className="w-6 h-4" />
                     <div>
                       <div className="font-medium">{currency.name}</div>
                       <div className="text-xs text-muted-foreground">{currency.code} ({currency.symbol})</div>
