@@ -1,0 +1,148 @@
+🎮 Game Screen UI Flow (Wireframe + Features)
+🔝 Top Row (Always Visible)
+
+Position: Fixed at the very top (like a status bar).
+
+Contents (Right-Aligned, with icons + bold numbers):
+
+💰 Total Coins: 1250 (Yellow coin icon + number).
+
+💵 Total Cash: ₹12.50 (Small ₹ icon + bold number).
+
+👉 Functionality:
+
+Tap on Coins → Opens “Earn/Buy Coins” screen.
+
+Tap on Cash → Opens “Wallet & Withdraw” screen.
+
+📊 Game Stats Row (Below Top Row)
+
+Grid layout (4 equal sections):
+
+🧠 IQ Points (XP Score) → 120 XP
+
+Increases per correct answer.
+
+🎯 Accuracy % → 75%
+
+Formula: Correct ÷ Attempted × 100.
+
+📊 Total Questions Attempted → 12/20.
+
+❤️ Lives (Hearts) → ❤️❤️❤️ (3/5 remaining).
+
+👉 Functionality:
+
+Lives auto-reduce on wrong answers.
+
+Accuracy updates live after each attempt.
+
+🎮 Main Gameplay Area (Center Screen)
+
+Big Question Box (Card UI):
+
+Example: “What is 15 × 12?”
+
+Answer Options (Multiple Choice Buttons, 4 choices):
+
+A. 160
+
+B. 170
+
+C. 180 ✅
+
+D. 200
+
+Timer Bar (Top of question box):
+
+⏳ Countdown progress bar (e.g., 30s).
+
+Animations:
+
+Correct → Green glow ✅
+
+Wrong → Red shake ❌
+
+XP Gain → Floating +XP text.
+
+⏳ Side Power Boosts (Floating Buttons)
+
+Left Side:
+
+🕑 Add Time (+10 sec, cost: 20 coins).
+
+Right Side:
+
+⚡ Extra Life (+1 heart, cost: 50 coins).
+
+👉 Functionality:
+
+When clicked, coins are deducted instantly.
+
+Boost applies live (extra seconds / extra life).
+
+⬇️ Bottom Action Bar (Quick Actions)
+
+(Sticky bar at the bottom with 4 buttons)
+
+🔄 Skip Question
+
+Skip current Q instantly.
+
+Cost: Free (limited 1–3 per game) OR -10 coins.
+
+💡 Hint (50/50)
+
+Removes 2 wrong answers.
+
+Cost: 30–50 coins.
+
+🎮 Change Mode
+
+Switch question style mid-game.
+
+Example: Numbers → Visual Puzzle.
+
+💎 Double Reward
+
+Activate before answering.
+
+Correct = 2× Coins Reward.
+
+Cost: 20 coins per use.
+
+🏆 End of Game (Popup / Modal)
+
+Results Summary Card:
+
+✅ Correct: 15/20.
+
+❌ Wrong: 5/20.
+
+🎯 Accuracy: 75%.
+
+💰 Coins Earned: +120.
+
+💵 Cash Earned: ₹1.20.
+
+🧠 XP Gained: +50.
+
+Buttons:
+
+🔁 Play Again.
+
+📤 Share Score (WhatsApp, Insta).
+
+🏅 Leaderboard.
+
+⚡ Extra UX / UI Touches
+
+Top & Bottom bars fixed, main gameplay scrolls if needed.
+
+Floating boosters with glowing effects (to tempt players).
+
+Progress animations for coins, XP, and rewards.
+
+Sound effects: Correct (ding), Wrong (buzz), Power-Up (swoosh).
+
+Haptic Feedback for correct/wrong answers.
