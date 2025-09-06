@@ -38,7 +38,7 @@ import ImageCompressor from "./image/image-compressor";
 import ImageCropper from "./image/image-cropper";
 import ImageFormatConverter from "./image/image-format-converter";
 import ImageToPdfConverter from "./image/image-to-pdf-converter";
-import ImageColorPicker from "./image/image-color-picker";
+// Remove duplicate - using color-picker-tool instead
 import ImageWatermarkTool from "./image/image-watermark-tool";
 import ImageEnhancer from "./image/image-enhancer";
 import MemeGenerator from "./image/meme-generator";
@@ -125,7 +125,7 @@ export default function ToolModal() {
       "image-cropper": ImageCropper,
       "image-format-converter": ImageFormatConverter,
       "image-to-pdf-converter": ImageToPdfConverter,
-      "image-color-picker": ImageColorPicker,
+      "image-color-picker": ColorPickerTool,
       "image-watermark-tool": ImageWatermarkTool,
       "image-enhancer": ImageEnhancer,
       "meme-generator": MemeGenerator,
