@@ -99,6 +99,42 @@ export default function ToolModal() {
     setCurrentToolId(toolId);
   };
 
+  // Generate unique colors for each tool
+  const getToolColor = (toolId: string) => {
+    const colors = [
+      'bg-gradient-to-br from-blue-500 to-blue-600',
+      'bg-gradient-to-br from-green-500 to-green-600',
+      'bg-gradient-to-br from-purple-500 to-purple-600',
+      'bg-gradient-to-br from-orange-500 to-orange-600',
+      'bg-gradient-to-br from-red-500 to-red-600',
+      'bg-gradient-to-br from-pink-500 to-pink-600',
+      'bg-gradient-to-br from-indigo-500 to-indigo-600',
+      'bg-gradient-to-br from-cyan-500 to-cyan-600',
+      'bg-gradient-to-br from-teal-500 to-teal-600',
+      'bg-gradient-to-br from-yellow-500 to-yellow-600',
+      'bg-gradient-to-br from-emerald-500 to-emerald-600',
+      'bg-gradient-to-br from-violet-500 to-violet-600',
+      'bg-gradient-to-br from-rose-500 to-rose-600',
+      'bg-gradient-to-br from-amber-500 to-amber-600',
+      'bg-gradient-to-br from-lime-500 to-lime-600',
+      'bg-gradient-to-br from-sky-500 to-sky-600',
+      'bg-gradient-to-br from-slate-500 to-slate-600',
+      'bg-gradient-to-br from-zinc-500 to-zinc-600',
+      'bg-gradient-to-br from-neutral-500 to-neutral-600',
+      'bg-gradient-to-br from-stone-500 to-stone-600'
+    ];
+    
+    // Use a simple hash function to assign consistent colors to tools
+    let hash = 0;
+    for (let i = 0; i < toolId.length; i++) {
+      const char = toolId.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    
+    return colors[Math.abs(hash) % colors.length];
+  };
+
   const renderIcon = (iconName: string) => {
     // Comprehensive icon mapping to ensure compatibility with all tools
     const iconMap: Record<string, string> = {
@@ -113,6 +149,8 @@ export default function ToolModal() {
       'activity': 'Activity',
       'receipt': 'Receipt',
       'coins': 'Coins',
+      'apple': 'Apple',
+      'piggy-bank': 'PiggyBank',
       
       // Converter tools
       'repeat': 'Repeat',
@@ -121,6 +159,8 @@ export default function ToolModal() {
       'clock': 'Clock',
       'binary': 'Binary',
       'code': 'Code',
+      'ruler': 'Ruler',
+      'table': 'Table',
       
       // Image tools
       'maximize': 'Maximize2',
@@ -137,6 +177,9 @@ export default function ToolModal() {
       'droplet': 'Droplet',
       'paintbrush': 'PaintBucket',
       'smile': 'Smile',
+      'eyedropper': 'Eyedropper',
+      'shield-check': 'ShieldCheck',
+      'grid-3x3': 'Grid3X3',
       
       // Document tools
       'file-json': 'FileJson',
@@ -144,6 +187,13 @@ export default function ToolModal() {
       'merge': 'Merge',
       'split': 'Split',
       'file-plus': 'FilePlus',
+      'file-minus': 'FileMinus',
+      'presentation': 'Presentation',
+      'book': 'Book',
+      'unlock': 'Unlock',
+      'lock': 'Lock',
+      'scan-text': 'ScanText',
+      'markdown': 'FileText',
       
       // Audio/Video tools
       'music': 'Music',
@@ -178,7 +228,9 @@ export default function ToolModal() {
       const variations = [
         iconName?.charAt(0).toUpperCase() + iconName?.slice(1),
         iconName?.toLowerCase(),
-        iconName?.toUpperCase()
+        iconName?.toUpperCase(),
+        iconName?.replace('-', ''),
+        iconName?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('')
       ].filter(Boolean);
       
       for (const variation of variations) {
@@ -273,7 +325,7 @@ export default function ToolModal() {
         <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-muted/20 to-muted/10">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3">
-              <div className={`w-12 h-12 bg-gradient-to-br from-${color} to-${color}/80 rounded-xl flex items-center justify-center shadow-lg`}>
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                 {renderIcon(currentTool.icon)}
               </div>
               <div>
@@ -282,7 +334,7 @@ export default function ToolModal() {
                 </h2>
                 <Badge
                   variant="outline"
-                  className={`bg-${color}/10 text-${color} border-${color}/20 mt-1`}
+                  className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-300 dark:border-blue-800/30 mt-1"
                   data-testid="modal-category"
                 >
                   <Layers className="w-3 h-3 mr-1" />
@@ -311,7 +363,7 @@ export default function ToolModal() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-80 max-h-96 overflow-y-auto" align="end">
                 <DropdownMenuLabel className="flex items-center space-x-2">
-                  <div className={`w-4 h-4 bg-${color} rounded`}></div>
+                  <div className="w-4 h-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded"></div>
                   <span>{toolCategories[currentTool.category].name} Tools</span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -339,24 +391,24 @@ export default function ToolModal() {
                     <DropdownMenuItem
                       key={tool.id}
                       onClick={() => switchTool(tool.id)}
-                      className={`cursor-pointer transition-all ${
+                      className={`cursor-pointer transition-all hover:bg-muted/60 ${
                         tool.id === currentToolId
-                          ? `bg-${color}/10 text-${color}`
-                          : "hover:bg-muted/60"
+                          ? "bg-blue-50 dark:bg-blue-950/20"
+                          : ""
                       }`}
                       data-testid={`dropdown-switch-to-${tool.id}`}
                     >
                       <div className="flex items-center space-x-3 w-full">
-                        <div className={`w-8 h-8 bg-gradient-to-br from-${color} to-${color}/80 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                        <div className={`w-8 h-8 ${getToolColor(tool.id)} rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm`}>
                           {renderIcon(tool.icon)}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className={`font-medium text-sm flex items-center space-x-2 ${
-                            tool.id === currentToolId ? `text-${color}` : "text-foreground"
+                            tool.id === currentToolId ? "text-blue-700 dark:text-blue-300" : "text-foreground"
                           }`}>
                             <span>{tool.name}</span>
                             {tool.popular && (
-                              <Badge variant="outline" className="bg-yellow-400/10 text-yellow-600 border-yellow-400/30 text-xs px-1.5 py-0">
+                              <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950/20 dark:text-yellow-300 dark:border-yellow-800/30 text-xs px-1.5 py-0">
                                 Popular
                               </Badge>
                             )}
