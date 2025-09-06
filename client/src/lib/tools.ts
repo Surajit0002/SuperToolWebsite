@@ -37,7 +37,7 @@ export const tools: Tool[] = [
     name: "BMI Calculator",
     description: "Calculate Body Mass Index quickly",
     category: "calculators",
-    icon: "activity",
+    icon: "Heart",
     clientOnly: true,
     popular: true,
     tags: ["health", "bmi", "fitness"],

@@ -100,8 +100,29 @@ export default function ToolModal() {
   };
 
   const renderIcon = (iconName: string) => {
-    // Map common icon names to ensure compatibility
+    // Comprehensive icon mapping to ensure compatibility with all tools
     const iconMap: Record<string, string> = {
+      // Calculator tools
+      'calculator': 'Calculator',
+      'percent': 'Percent', 
+      'heart': 'Heart',
+      'calendar': 'Calendar',
+      'banknote': 'Banknote',
+      'trending-up': 'TrendingUp',
+      'flame': 'Flame',
+      'activity': 'Activity',
+      'receipt': 'Receipt',
+      'coins': 'Coins',
+      
+      // Converter tools
+      'repeat': 'Repeat',
+      'thermometer': 'Thermometer',
+      'type': 'Type',
+      'clock': 'Clock',
+      'binary': 'Binary',
+      'code': 'Code',
+      
+      // Image tools
       'maximize': 'Maximize2',
       'minimize': 'Minimize2',
       'crop': 'Crop',
@@ -114,33 +135,65 @@ export default function ToolModal() {
       'rotate-cw': 'RotateCw',
       'blur': 'Circle',
       'droplet': 'Droplet',
-      'calculator': 'Calculator',
-      'percent': 'Percent',
-      'heart': 'Heart',
-      'calendar': 'Calendar',
-      'banknote': 'Banknote',
-      'trending-up': 'TrendingUp',
-      'flame': 'Flame',
-      'activity': 'Activity',
-      'receipt': 'Receipt',
-      'repeat': 'Repeat',
-      'coins': 'Coins',
-      'thermometer': 'Thermometer',
-      'type': 'Type',
-      'clock': 'Clock',
-      'binary': 'Binary',
-      'code': 'Code',
+      'paintbrush': 'PaintBucket',
+      'smile': 'Smile',
+      
+      // Document tools
       'file-json': 'FileJson',
       'file-text': 'FileText',
       'merge': 'Merge',
       'split': 'Split',
+      'file-plus': 'FilePlus',
+      
+      // Audio/Video tools
       'music': 'Music',
       'film': 'Film',
-      'download': 'Download'
+      'download': 'Download',
+      'video': 'Video',
+      'play': 'Play',
+      
+      // Additional common mappings
+      'compress': 'Archive',
+      'expand': 'Expand',
+      'watermark': 'Droplets',
+      'enhance': 'Zap',
+      'convert': 'RefreshCw',
+      'resize': 'Move3D',
+      'flip': 'FlipHorizontal',
+      'background': 'Layout'
     };
 
-    const mappedIconName = iconMap[iconName] || iconName;
-    const IconComponent = (LucideIcons as any)[mappedIconName] || (LucideIcons as any)[iconName] || LucideIcons.Calculator;
+    // First try the mapped name, then the original name, then fallback
+    const mappedIconName = iconMap[iconName?.toLowerCase()] || iconName;
+    
+    // Try to get the icon component
+    let IconComponent = null;
+    
+    if (mappedIconName && (LucideIcons as any)[mappedIconName]) {
+      IconComponent = (LucideIcons as any)[mappedIconName];
+    } else if (iconName && (LucideIcons as any)[iconName]) {
+      IconComponent = (LucideIcons as any)[iconName];
+    } else {
+      // Try common variations
+      const variations = [
+        iconName?.charAt(0).toUpperCase() + iconName?.slice(1),
+        iconName?.toLowerCase(),
+        iconName?.toUpperCase()
+      ].filter(Boolean);
+      
+      for (const variation of variations) {
+        if ((LucideIcons as any)[variation]) {
+          IconComponent = (LucideIcons as any)[variation];
+          break;
+        }
+      }
+    }
+    
+    // Final fallback
+    if (!IconComponent) {
+      IconComponent = LucideIcons.Calculator;
+    }
+    
     return <IconComponent className="w-5 h-5 text-white" />;
   };
 
