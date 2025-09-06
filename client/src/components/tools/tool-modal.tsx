@@ -100,7 +100,47 @@ export default function ToolModal() {
   };
 
   const renderIcon = (iconName: string) => {
-    const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
+    // Map common icon names to ensure compatibility
+    const iconMap: Record<string, string> = {
+      'maximize': 'Maximize2',
+      'minimize': 'Minimize2',
+      'crop': 'Crop',
+      'image': 'Image',
+      'file-image': 'FileImage',
+      'scissors': 'Scissors',
+      'layers': 'Layers',
+      'palette': 'Palette',
+      'sparkles': 'Sparkles',
+      'rotate-cw': 'RotateCw',
+      'blur': 'Circle',
+      'droplet': 'Droplet',
+      'calculator': 'Calculator',
+      'percent': 'Percent',
+      'heart': 'Heart',
+      'calendar': 'Calendar',
+      'banknote': 'Banknote',
+      'trending-up': 'TrendingUp',
+      'flame': 'Flame',
+      'activity': 'Activity',
+      'receipt': 'Receipt',
+      'repeat': 'Repeat',
+      'coins': 'Coins',
+      'thermometer': 'Thermometer',
+      'type': 'Type',
+      'clock': 'Clock',
+      'binary': 'Binary',
+      'code': 'Code',
+      'file-json': 'FileJson',
+      'file-text': 'FileText',
+      'merge': 'Merge',
+      'split': 'Split',
+      'music': 'Music',
+      'film': 'Film',
+      'download': 'Download'
+    };
+
+    const mappedIconName = iconMap[iconName] || iconName;
+    const IconComponent = (LucideIcons as any)[mappedIconName] || (LucideIcons as any)[iconName] || LucideIcons.Calculator;
     return <IconComponent className="w-5 h-5 text-white" />;
   };
 
@@ -254,14 +294,19 @@ export default function ToolModal() {
                       data-testid={`dropdown-switch-to-${tool.id}`}
                     >
                       <div className="flex items-center space-x-3 w-full">
-                        <div className={`w-6 h-6 bg-${color} rounded flex items-center justify-center flex-shrink-0`}>
+                        <div className={`w-8 h-8 bg-gradient-to-br from-${color} to-${color}/80 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm`}>
                           {renderIcon(tool.icon)}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className={`font-medium text-sm ${
+                          <div className={`font-medium text-sm flex items-center space-x-2 ${
                             tool.id === currentToolId ? `text-${color}` : "text-foreground"
                           }`}>
-                            {tool.name}
+                            <span>{tool.name}</span>
+                            {tool.popular && (
+                              <Badge variant="outline" className="bg-yellow-400/10 text-yellow-600 border-yellow-400/30 text-xs px-1.5 py-0">
+                                Popular
+                              </Badge>
+                            )}
                           </div>
                           <div className="text-xs text-muted-foreground truncate">
                             {tool.description}
