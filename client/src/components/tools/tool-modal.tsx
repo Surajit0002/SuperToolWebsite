@@ -298,61 +298,10 @@ export default function ToolModal() {
           </div>
         </div>
 
-        {/* Enhanced Modal Body - Grid Layout */}
-        <div className="flex-1 overflow-hidden grid grid-cols-12 gap-0">
-          {/* Sidebar - Tool Navigation */}
-          <div className="col-span-3 border-r border-border bg-muted/10 flex flex-col">
-            {/* Tool List - Scrollable */}
-            <ScrollArea className="flex-1">
-              <div className="p-2 space-y-1">
-                {filteredTools.map((tool) => (
-                  <button
-                    key={tool.id}
-                    onClick={() => switchTool(tool.id)}
-                    className={`w-full text-left p-3 rounded-lg transition-all hover:shadow-sm ${
-                      tool.id === currentToolId
-                        ? `bg-${color}/15 border border-${color}/30 shadow-sm`
-                        : "bg-background hover:bg-muted/40 border border-transparent"
-                    }`}
-                    data-testid={`sidebar-switch-to-${tool.id}`}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className={`w-8 h-8 bg-gradient-to-br from-${color} to-${color}/80 rounded-lg flex items-center justify-center flex-shrink-0`}>
-                        {renderIcon(tool.icon)}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className={`font-medium text-sm ${
-                          tool.id === currentToolId ? `text-${color}` : "text-foreground"
-                        }`}>
-                          {tool.name}
-                        </div>
-                        <div className="text-xs text-muted-foreground truncate">
-                          {tool.description}
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </ScrollArea>
-            
-            {/* Sidebar Footer */}
-            <div className="p-4 border-t border-border bg-muted/5">
-              <div className="text-xs text-muted-foreground text-center">
-                <div className="flex items-center justify-center space-x-2 mb-1">
-                  <div className={`w-2 h-2 bg-${color} rounded-full`}></div>
-                  <span>{categoryTools.length} tools</span>
-                </div>
-                <span className="text-muted-foreground/70">in {toolCategories[currentTool.category].name}</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Main Tool Content Area */}
-          <div className="col-span-9 overflow-hidden bg-background">
-            <div className="h-full overflow-auto">
-              {renderToolComponent(currentToolId)}
-            </div>
+        {/* Enhanced Modal Body - Full Width Tool Content */}
+        <div className="flex-1 overflow-hidden bg-background">
+          <div className="h-full overflow-auto">
+            {renderToolComponent(currentToolId)}
           </div>
         </div>
 
