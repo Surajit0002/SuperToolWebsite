@@ -240,34 +240,31 @@ export default function ToolModal() {
                 
                 <DropdownMenuSeparator />
                 
-                {/* Grid of tools in dropdown */}
-                <div className="p-2 grid grid-cols-2 gap-1 max-h-64 overflow-y-auto">
+                {/* List of tools in dropdown */}
+                <div className="max-h-64 overflow-y-auto">
                   {filteredTools.map((tool) => (
                     <DropdownMenuItem
                       key={tool.id}
                       onClick={() => switchTool(tool.id)}
-                      className={`p-3 cursor-pointer rounded-lg transition-all ${
+                      className={`cursor-pointer transition-all ${
                         tool.id === currentToolId
-                          ? `bg-${color}/10 border border-${color}/20`
+                          ? `bg-${color}/10 text-${color}`
                           : "hover:bg-muted/60"
                       }`}
                       data-testid={`dropdown-switch-to-${tool.id}`}
                     >
-                      <div className="flex flex-col items-center space-y-2 text-center">
-                        <div className={`w-8 h-8 bg-${color} rounded-lg flex items-center justify-center`}>
+                      <div className="flex items-center space-x-3 w-full">
+                        <div className={`w-6 h-6 bg-${color} rounded flex items-center justify-center flex-shrink-0`}>
                           {renderIcon(tool.icon)}
                         </div>
-                        <div className="space-y-1">
-                          <div className={`font-medium text-xs ${
+                        <div className="flex-1 min-w-0">
+                          <div className={`font-medium text-sm ${
                             tool.id === currentToolId ? `text-${color}` : "text-foreground"
                           }`}>
                             {tool.name}
                           </div>
-                          <div className="text-xs text-muted-foreground leading-tight">
-                            {tool.description.length > 40 
-                              ? `${tool.description.substring(0, 40)}...` 
-                              : tool.description
-                            }
+                          <div className="text-xs text-muted-foreground truncate">
+                            {tool.description}
                           </div>
                         </div>
                       </div>
@@ -303,37 +300,8 @@ export default function ToolModal() {
 
         {/* Enhanced Modal Body - Grid Layout */}
         <div className="flex-1 overflow-hidden grid grid-cols-12 gap-0">
-          {/* Sidebar - Quick Tool Navigation */}
+          {/* Sidebar - Tool Navigation */}
           <div className="col-span-3 border-r border-border bg-muted/10 flex flex-col">
-            {/* Quick Actions */}
-            <div className="p-4 border-b border-border">
-              <h3 className="font-semibold text-sm mb-3 flex items-center">
-                <Grid3X3 className="w-4 h-4 mr-2" />
-                Quick Switch
-              </h3>
-              <div className="grid grid-cols-2 gap-2">
-                {categoryTools.slice(0, 4).map((tool) => (
-                  <button
-                    key={tool.id}
-                    onClick={() => switchTool(tool.id)}
-                    className={`p-2 rounded-lg transition-all text-left ${
-                      tool.id === currentToolId
-                        ? `bg-${color}/10 border border-${color}/20`
-                        : "bg-background hover:bg-muted/60 border border-transparent"
-                    }`}
-                    data-testid={`quick-switch-${tool.id}`}
-                  >
-                    <div className={`w-6 h-6 bg-${color} rounded flex items-center justify-center mb-1`}>
-                      {renderIcon(tool.icon)}
-                    </div>
-                    <div className="text-xs font-medium truncate">
-                      {tool.name}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-            
             {/* Tool List - Scrollable */}
             <ScrollArea className="flex-1">
               <div className="p-2 space-y-1">
