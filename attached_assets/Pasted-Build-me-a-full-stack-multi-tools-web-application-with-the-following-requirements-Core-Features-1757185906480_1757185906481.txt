@@ -1,0 +1,192 @@
+Build me a full-stack multi-tools web application with the following requirements:
+
+🔧 Core Features:
+
+A dynamic tools system where each category (Audio/Video, Calculators, Converters, Image Tools, Document Tools) has a shared layout with switchable tools.
+
+Example: If a user opens "Image Tools", they can switch between "Compressor", "Cropper", "Resizer" etc. without leaving the page.
+
+Use a tabbed interface / sidebar / dropdown for tool switching.
+
+Each tool should have:
+
+Clean UI/UX with minimal design (Tailwind + Shadcn UI).
+
+Responsive for mobile/desktop.
+
+Input validation + instant feedback.
+
+Download / Copy output option.
+
+Light/Dark mode toggle.
+
+Add a search bar in each category to quickly find a tool.
+
+🗂️ Categories & Tools:
+🎵 Audio / Video Tools
+
+GIF Maker (from video/images)
+
+Video Downloader (YouTube / Social Media)
+
+MP3 Cutter
+
+Video to MP3 Converter
+
+Audio Converter
+
+Video Compressor
+
+Video Merger / Splitter
+
+🔢 Calculators
+
+Investment Calculator
+
+Calorie Calculator
+
+Compound Interest Calculator
+
+Body Fat Calculator
+
+Tax / GST Calculator
+
+🔄 Converters
+
+Temperature Converter
+
+JSON to XML Converter
+
+XML to JSON Converter
+
+CSV to JSON Converter
+
+JSON to CSV Converter
+
+🖼️ Image Tools
+
+Image Compressor
+
+Image Cropper
+
+Image Resizer
+
+Image Format Converter
+
+Image to PDF Converter
+
+Background Remover
+
+Image Color Picker
+
+Image Watermark Tool
+
+Image Enhancer
+
+Meme Generator
+
+Image Rotator / Flipper
+
+Collage Maker
+
+Image Blur / Pixelate Tool
+
+Color Picker Tool
+
+📄 Document Tools
+
+PDF Merger
+
+PDF Splitter
+
+PDF to Word Converter
+
+Word to PDF Converter
+
+PDF to Excel Converter
+
+Excel to PDF Converter
+
+PDF to PPT Converter
+
+PPT to PDF Converter
+
+PDF to Image Converter
+
+Image to PDF Converter
+
+Text to PDF Generator
+
+PDF to Text Converter
+
+OCR Tool (Image/PDF to Text)
+
+ePub to PDF Converter
+
+PDF Unlock Tool
+
+PDF Lock Tool
+
+PDF Compressor
+
+HTML to PDF Converter
+
+Markdown to PDF Converter
+
+Excel Merger
+
+CSV to Excel Converter
+
+Excel to CSV Converter
+
+🔨 Tech Stack:
+
+Frontend: React + Tailwind + Shadcn UI (for dynamic, clean UI)
+
+Backend: Node.js + Express (for heavy tools like video, document, image)
+
+Libraries:
+
+FFmpeg (Audio/Video processing)
+
+pdf-lib, pdf.js, jsPDF (PDF handling)
+
+Tesseract.js (OCR)
+
+SheetJS, PapaParse (Excel/CSV)
+
+cropper.js, browser-image-compression, canvas API (Image tools)
+
+Optional APIs: Remove.bg (background remover), YouTube-dl/yt-dlp (video download)
+
+⚙️ Extra Functionalities:
+
+Modular tool system → easy to add/remove tools in the future.
+
+Bookmark favorite tools.
+
+History of last 5 used tools.
+
+API-ready endpoints for each tool (so they can be reused in mobile app).
+
+Performance optimized (lazy load tools).
+
+🎨 UI/UX:
+
+Homepage: Category cards (Audio/Video, Calculators, Converters, Image, Document).
+
+Category Page:
+
+Sidebar with tools list.
+
+Tool content area (dynamic load based on selected tool).
+
+Search within category.
+
+Navigation:
+
+Top bar with global search + theme toggle.
+
+Footer with quick links.
+
+-- Build everything modular, clean, and developer-friendly.

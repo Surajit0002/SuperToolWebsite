@@ -1,0 +1,575 @@
+🎵 Audio / Video Tools
+
+GIF Maker (from video/images)
+
+Video Downloader (YouTube / Social Media)
+
+MP3 Cutter
+
+Video to MP3 Converter
+
+Audio Converter
+
+Video Compressor
+
+Video Merger / Splitter
+
+🔢 Calculators
+
+Investment Calculator
+
+Calorie Calculator
+
+Compound Interest Calculator
+
+Body Fat Calculator
+
+Tax / GST Calculator
+
+🔄 Converters
+
+Temperature Converter
+
+JSON to XML Converter
+
+XML to JSON Converter
+
+CSV to JSON Converter
+
+JSON to CSV Converter
+
+🖼️ Image Tools
+
+Image Compressor
+
+Image Cropper
+
+Image Resizer
+
+Image Format Converter
+
+Image to PDF Converter
+
+Background Remover
+
+Image Color Picker
+
+Image Watermark Tool
+
+Image Enhancer
+
+Meme Generator
+
+Image Rotator / Flipper
+
+Collage Maker
+
+Image Blur / Pixelate Tool
+
+Color Picker Tool
+
+📄 Document Tools
+
+PDF Merger
+
+PDF Splitter
+
+PDF to Word Converter
+
+Word to PDF Converter
+
+PDF to Excel Converter
+
+Excel to PDF Converter
+
+PDF to PPT Converter
+
+PPT to PDF Converter
+
+PDF to Image Converter
+
+Image to PDF Converter
+
+Text to PDF Generator
+
+PDF to Text Converter
+
+OCR Tool (Image/PDF to Text)
+
+ePub to PDF Converter
+
+PDF Unlock Tool
+
+PDF Lock Tool
+
+PDF Compressor
+
+HTML to PDF Converter
+
+Markdown to PDF Converter
+
+Excel Merger
+
+CSV to Excel Converter
+
+Excel to CSV Converter
+
+✅ This is your final toolset list (only the ones you chose).
+
+👉 Do you want me to now rewrite these in your standard format (name + description + tags) so it’s ready to add directly into your website database?
+
+You said:
+give me all tools impltetions details full fecahers and funtiolitys 
+ChatGPT said:
+
+Great — now we’re talking about full implementation details 🚀.
+I’ll break this down category by category, with features, functionalities, and implementation logic so you (or your dev team) can directly build these tools.
+
+🎵 Audio / Video Tools
+GIF Maker (from video/images)
+
+Features:
+
+Upload video or multiple images
+
+Select start/end time (for video → GIF)
+
+Adjust frame rate & resolution
+
+Add text overlay / watermark
+
+Download GIF
+
+Implementation:
+
+Frontend: File upload, preview, trimming UI
+
+Backend: FFmpeg to convert video → GIF / merge images → GIF
+
+Video Downloader (YouTube / Social Media)
+
+Features:
+
+Paste video link (YouTube, FB, Insta, TikTok)
+
+Choose resolution (360p, 720p, 1080p)
+
+Extract audio only option (MP3)
+
+Direct download button
+
+Implementation:
+
+Needs API or backend (yt-dlp / youtube-dl)
+
+Frontend: input box, format selector
+
+Backend: fetch & process video
+
+MP3 Cutter
+
+Features:
+
+Upload MP3 file
+
+Select start & end time
+
+Preview cut audio
+
+Save trimmed audio
+
+Implementation:
+
+Frontend: waveform slider for trimming
+
+Backend: FFmpeg cut audio
+
+Video to MP3 Converter
+
+Features:
+
+Upload video (MP4, AVI, MKV)
+
+Extract audio in MP3 format
+
+Option for bitrate (128kbps, 320kbps)
+
+Implementation:
+
+Backend: FFmpeg extract audio
+
+Audio Converter
+
+Features:
+
+Upload audio file
+
+Convert between formats (MP3, WAV, OGG, AAC, FLAC)
+
+Select quality/bitrate
+
+Implementation:
+
+Backend: FFmpeg format conversion
+
+Video Compressor
+
+Features:
+
+Upload video
+
+Choose quality (High / Medium / Low)
+
+Show estimated file size before compression
+
+Download compressed video
+
+Implementation:
+
+Backend: FFmpeg compression presets
+
+Video Merger / Splitter
+
+Features:
+
+Upload multiple videos → Merge into one
+
+Split video by time or size
+
+Reorder videos before merging
+
+Implementation:
+
+Backend: FFmpeg merge/split
+
+🔢 Calculators
+Investment Calculator
+
+Features:
+
+Input: amount, rate, time
+
+Options: simple vs compound interest
+
+Show growth chart (line chart)
+
+EMI schedule table
+
+Implementation:
+
+Pure JavaScript formula logic
+
+Visualization: Chart.js or Recharts
+
+Calorie Calculator
+
+Features:
+
+Input: age, gender, height, weight, activity level
+
+Output: daily calorie needs (maintenance, loss, gain)
+
+Show macronutrient breakdown
+
+Implementation:
+
+Formula: Mifflin-St Jeor Equation
+
+Pure JavaScript logic
+
+Compound Interest Calculator
+
+Features:
+
+Input: principal, rate, compounding frequency, years
+
+Show final amount
+
+Show yearly growth chart
+
+Implementation:
+
+Pure JavaScript formula logic
+
+Body Fat Calculator
+
+Features:
+
+Input: weight, height, waist, gender
+
+Output: body fat % estimate
+
+Show healthy range
+
+Implementation:
+
+Formula: US Navy or BMI-based method
+
+Tax / GST Calculator
+
+Features:
+
+Input: amount, tax rate
+
+Output: tax amount + net amount
+
+Option: Inclusive vs Exclusive tax
+
+Implementation:
+
+Pure JavaScript math logic
+
+🔄 Converters
+Temperature Converter
+
+Features:
+
+Celsius ↔ Fahrenheit ↔ Kelvin
+
+Auto convert when typing
+
+Quick copy button
+
+Implementation:
+
+Pure JS logic
+
+JSON to XML / XML to JSON Converter
+
+Features:
+
+Paste JSON or XML
+
+Convert to other format
+
+Syntax highlighting + validation
+
+Implementation:
+
+Libraries: xml-js, json2xml
+
+Frontend only
+
+CSV to JSON / JSON to CSV Converter
+
+Features:
+
+Upload CSV / paste JSON
+
+Convert instantly
+
+Download file in other format
+
+Implementation:
+
+Libraries: PapaParse (CSV), JSON.stringify
+
+🖼️ Image Tools
+Image Compressor
+
+Compress JPG/PNG/WebP
+
+Adjust quality slider
+
+Show before/after size
+
+Implementation: browser-image-compression
+
+Image Cropper
+
+Crop with free/custom aspect ratio
+
+Preview before save
+
+Implementation: cropper.js
+
+Image Resizer
+
+Resize by pixels or percentage
+
+Maintain aspect ratio
+
+Implementation: canvas API
+
+Image Format Converter
+
+Convert PNG ↔ JPG ↔ WebP ↔ SVG
+
+Download option
+
+Implementation: canvas + JS libraries
+
+Image to PDF Converter
+
+Multiple images → PDF pages
+
+Reorder before save
+
+Implementation: jsPDF
+
+Background Remover
+
+AI-powered background removal
+
+Download transparent PNG
+
+Implementation: Remove.bg API or U²Net model
+
+Image Color Picker
+
+Upload image, click pixel → show HEX/RGB
+
+Copy color button
+
+Implementation: canvas + JS
+
+Image Watermark Tool
+
+Add text/logo watermark
+
+Adjust opacity & position
+
+Implementation: canvas API
+
+Image Enhancer
+
+Brightness, contrast, sharpen sliders
+
+Implementation: CSS filters / OpenCV.js
+
+Meme Generator
+
+Upload image
+
+Add top/bottom text
+
+Customize font & color
+
+Implementation: canvas text overlay
+
+Image Rotator / Flipper
+
+Rotate 90°, 180°, flip H/V
+
+Implementation: canvas API
+
+Collage Maker
+
+Upload multiple images
+
+Drag-drop layout
+
+Export as single image
+
+Implementation: canvas/grid system
+
+Image Blur / Pixelate Tool
+
+Apply blur/pixel filter
+
+Implementation: CSS filters / canvas
+
+Color Picker Tool
+
+Real-time HEX/RGB color picker
+
+Copy button
+
+Implementation: <input type="color">
+
+📄 Document Tools
+PDF Merger
+
+Upload multiple PDFs → combine into one
+
+Implementation: pdf-lib
+
+PDF Splitter
+
+Select page range → split into separate file
+
+Implementation: pdf-lib
+
+PDF to Word / Word to PDF Converter
+
+Convert editable Word ↔ PDF
+
+Implementation: libreoffice API / cloud API
+
+PDF to Excel / Excel to PDF Converter
+
+Extract tables from PDF → Excel
+
+Convert Excel sheets → PDF
+
+Implementation: Tabula API / SheetJS
+
+PDF to PPT / PPT to PDF Converter
+
+Convert slides to PDF
+
+Export PDF pages → PPT slides
+
+Implementation: CloudConvert API
+
+PDF to Image / Image to PDF Converter
+
+Convert each PDF page → image
+
+Convert images → multipage PDF
+
+Implementation: pdf-lib + jsPDF
+
+Text to PDF Generator
+
+Paste text → export PDF
+
+Implementation: jsPDF
+
+PDF to Text Converter
+
+Extract raw text from PDF
+
+Implementation: pdf.js
+
+OCR Tool (Image/PDF to Text)
+
+Upload image/PDF → extract text
+
+Implementation: Tesseract.js
+
+ePub to PDF Converter
+
+Upload ePub → convert to PDF
+
+Implementation: epub.js + jsPDF
+
+PDF Unlock / Lock Tool
+
+Remove password / Add password to PDF
+
+Implementation: pdf-lib encryption
+
+PDF Compressor
+
+Reduce PDF size by optimizing images
+
+Implementation: Ghostscript or compression APIs
+
+HTML to PDF / Markdown to PDF Converter
+
+Paste HTML/Markdown → generate styled PDF
+
+Implementation: jsPDF + showdown.js
+
+Excel Merger
+
+Merge multiple Excel sheets/files
+
+Implementation: SheetJS
+
+CSV to Excel / Excel to CSV Converter
+
+Convert between formats
+
+Implementation: SheetJS + PapaParse
