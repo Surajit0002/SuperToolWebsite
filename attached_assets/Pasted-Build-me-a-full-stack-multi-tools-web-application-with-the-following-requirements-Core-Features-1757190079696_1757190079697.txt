@@ -1,0 +1,142 @@
+Build me a full-stack multi-tools web application with the following requirements:
+
+🔧 Core Features:
+
+Categorized tools: Calculators, Converters, Image Tools, Document Tools, Audio/Video Tools.
+
+Each category uses a dynamic layout where users can switch between tools (sidebar, tabs, or dropdown).
+
+Each tool should have:
+
+Clean, responsive UI/UX (React + Tailwind + shadcn/ui).
+
+Input fields with validation.
+
+Copy / Download output options.
+
+Light/Dark mode toggle.
+
+Add a global search bar to find tools quickly.
+
+📊 Chart Library Rules:
+
+Use Recharts for simple calculators, comparisons, and input/output visualizations.
+
+Use ECharts for advanced, interactive charts (financial, compound growth, word clouds, color palettes).
+
+Use WaveSurfer.js or Recharts custom line chart for audio waveform (MP3 Cutter).
+
+📊 Chart Integration by Tool:
+🎵 Audio/Video Tools
+
+MP3 Cutter → Waveform chart (WaveSurfer.js).
+
+Video to MP3 Converter → Recharts bar chart (file size before vs after).
+
+Audio Converter → Recharts pie chart (bitrate or format).
+
+Video Compressor → Recharts bar chart (before vs after size).
+
+Video Merger/Splitter → Recharts timeline chart (segments).
+
+🔢 Calculators
+
+BMI Calculator → ECharts gauge chart (BMI category).
+
+Body Fat Calculator → ECharts gauge chart (ideal vs current %).
+
+Calorie Calculator → ECharts pie chart (macronutrient breakdown).
+
+Compound Interest Calculator → Recharts line chart (growth over years).
+
+Investment Calculator → Recharts line/area chart (returns vs principal).
+
+Loan Calculator → Recharts stacked bar (EMI breakdown).
+
+Percentage Calculator → Recharts bar chart (before vs after).
+
+Tax / GST Calculator → Recharts bar chart (price comparison).
+
+🔄 Converters
+
+Temperature Converter → ECharts gauge (scale visualization).
+
+CSV to JSON / JSON to CSV → Recharts bar chart (row/column stats).
+
+CSV to Excel / Excel to CSV → Recharts bar chart (row/column stats).
+
+🖼️ Image Tools
+
+Image Compressor → Recharts bar chart (file size before vs after).
+
+Image Resizer → Recharts bar chart (original vs new dimensions).
+
+Background Remover → ECharts pie chart (% removed vs kept).
+
+Image Enhancer → Recharts bar chart (before vs after brightness/contrast).
+
+Image Color Picker → ECharts pie chart (dominant colors).
+
+Color Picker Tool → ECharts palette chart (color distribution).
+
+Image Blur/Pixelate Tool → Recharts bar chart (blur intensity).
+
+📄 Document Tools
+
+PDF to Excel → Recharts bar chart (rows/columns count).
+
+Excel to PDF → Recharts bar chart (rows/columns count).
+
+PDF to Text → ECharts word frequency bar chart.
+
+OCR Tool → ECharts word cloud + bar chart.
+
+Excel Merger → Recharts bar chart (row/column comparison).
+
+CSV ↔ Excel → Recharts bar chart (rows, columns).
+
+PDF Compressor → Recharts bar chart (before vs after file size).
+
+⚙️ Tech Stack:
+
+Frontend: React, TailwindCSS, shadcn/ui.
+
+Backend: Node.js + Express (for heavy tools like video, PDF, image).
+
+Libraries:
+
+Charts: Recharts + ECharts
+
+Audio waveform: WaveSurfer.js
+
+Video/Audio: FFmpeg
+
+PDF: pdf-lib, pdf.js, jsPDF
+
+Excel/CSV: SheetJS, PapaParse
+
+OCR: Tesseract.js
+
+Images: canvas API, cropper.js, browser-image-compression
+
+Optional APIs: Remove.bg (background remover), yt-dlp (video downloader).
+
+🎨 UI/UX:
+
+Homepage: Category cards → click to open tool category.
+
+Category page:
+
+Sidebar with tool list.
+
+Tool panel loads dynamically.
+
+Chart displays automatically if the tool supports visualization.
+
+Navigation:
+
+Top bar → global search, theme toggle.
+
+Footer → quick links.
+
+Build everything modular, clean, and scalable so new tools and charts can be added easily.

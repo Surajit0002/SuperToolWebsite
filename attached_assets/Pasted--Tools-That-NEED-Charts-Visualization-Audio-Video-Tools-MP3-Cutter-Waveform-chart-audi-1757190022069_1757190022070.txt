@@ -1,0 +1,136 @@
+📊 Tools That NEED Charts (Visualization)
+🎵 Audio/Video Tools
+
+MP3 Cutter → 📈 Waveform chart (audio timeline, highlight cut region).
+
+Video to MP3 Converter → 📊 Bar chart (file size before vs after).
+
+Audio Converter → 📊 Pie chart (bitrate or format comparison).
+
+Video Compressor → 📊 Bar chart (before vs after compression).
+
+Video Merger/Splitter → 📈 Timeline chart (video segments overview).
+
+🔢 Calculators
+
+BMI Calculator → 🕹️ Gauge chart (BMI category: underweight, normal, overweight).
+
+Body Fat Calculator → 🕹️ Gauge chart (current vs ideal).
+
+Calorie Calculator → 🥧 Pie chart (protein vs carbs vs fats distribution).
+
+Compound Interest Calculator → 📈 Line chart (growth over time: principal vs interest).
+
+Investment Calculator → 📈 Line/area chart (returns over time).
+
+Loan Calculator → 📊 Bar/line chart (EMI breakdown: principal vs interest).
+
+Percentage Calculator → 📊 Bar chart (original vs discounted value).
+
+Tax / GST Calculator → 📊 Bar chart (price before vs after tax).
+
+🔄 Converters
+
+Temperature Converter → 🕹️ Gauge chart (temperature scale).
+
+CSV to JSON Converter → 📊 Bar chart (rows, columns count).
+
+JSON to CSV Converter → 📊 Bar chart (data field distribution).
+
+CSV to Excel Converter → 📊 Row/column stats chart.
+
+Excel to CSV Converter → 📊 Row/column stats chart.
+
+🖼️ Image Tools
+
+Image Compressor → 📊 Bar chart (before vs after size).
+
+Image Resizer → 📊 Bar chart (original vs new dimensions).
+
+Background Remover → 🥧 Pie chart (% removed vs kept).
+
+Image Enhancer → 📊 Bar chart (before vs after brightness/contrast).
+
+Image Color Picker → 🥧 Pie chart (dominant colors in image).
+
+Color Picker Tool → 🎨 Palette chart (color distribution).
+
+Image Blur / Pixelate Tool → 📊 Bar chart (blur intensity levels).
+
+📄 Document Tools
+
+PDF to Excel Converter → 📊 Table preview + bar chart (rows/columns count).
+
+Excel to PDF Converter → 📊 Table stats (rows, columns).
+
+PDF to Text Converter → 📊 Word frequency chart.
+
+OCR Tool → 📊 Word frequency chart / Word cloud.
+
+Excel Merger → 📊 Table + comparison chart (rows, sheets count).
+
+CSV to Excel Converter → 📊 Row/column stats chart.
+
+Excel to CSV Converter → 📊 Row/column stats chart.
+
+PDF Compressor → 📊 Bar chart (file size before vs after).
+
+❌ Tools That DON’T Need Charts
+
+Age Calculator
+
+Collage Maker
+
+Currency Converter
+
+Date Calculator
+
+General Calculator
+
+GIF Maker
+
+Image Cropper
+
+Image Format Converter
+
+Image Rotator / Flipper
+
+Image to PDF Converter
+
+Image Watermark Tool
+
+Meme Generator
+
+ePub to PDF Converter
+
+HTML to PDF Converter
+
+Markdown to PDF Converter
+
+PDF Merger / Splitter
+
+PDF to Image Converter
+
+PDF to PPT Converter
+
+PPT to PDF Converter
+
+PDF to Word Converter
+
+Word to PDF Converter
+
+PDF Unlock / Lock Tool
+
+Text Case Converter
+
+Text to PDF Generator
+
+Time Zone Converter
+
+Unit Converter
+
+Number System Converter
+
+JSON ↔ XML Converter
+
+Video Downloader
