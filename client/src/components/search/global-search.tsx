@@ -73,20 +73,24 @@ export default function GlobalSearch() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="modal-backdrop absolute inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-black/40 backdrop-blur-md">
+      <DialogContent className="fixed inset-0 z-[100] flex items-start justify-center pt-8 sm:pt-16 px-4 bg-black/60 backdrop-blur-xl animate-in fade-in-0 duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
         <DialogTitle className="sr-only">
           Global Search - Search Tools and Calculators
         </DialogTitle>
         <DialogDescription className="sr-only">
           Search through all available tools, calculators, converters, image tools, document tools, and audio/video tools. Use arrow keys to navigate and Enter to select.
         </DialogDescription>
-        <div className="bg-background/95 border border-border/50 rounded-3xl shadow-2xl w-full max-w-3xl backdrop-blur-xl animate-in fade-in-0 zoom-in-95 duration-300 slide-in-from-top-4">
+        <div className="relative bg-background/98 border border-border/30 rounded-3xl shadow-2xl w-full max-w-4xl backdrop-blur-2xl animate-in fade-in-0 zoom-in-95 duration-300 slide-in-from-top-4 max-h-[85vh] overflow-hidden ring-1 ring-white/5">
           {/* Search Header */}
-          <div className="p-6 border-b border-border/50">
+          <div className="p-6 pb-4 border-b border-border/30 bg-gradient-to-b from-background/50 to-transparent">
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl opacity-0 group-focus-within:opacity-100 transition-all duration-300 blur-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 rounded-3xl opacity-0 group-focus-within:opacity-100 transition-all duration-500 blur-2xl scale-110"></div>
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-muted-foreground group-focus-within:text-primary transition-colors duration-200" />
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center group-focus-within:scale-110 transition-transform duration-300">
+                    <Search className="w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
+                  </div>
+                </div>
                 <Input
                   type="text"
                   placeholder="Search tools, calculators, converters, and more..."
@@ -95,7 +99,7 @@ export default function GlobalSearch() {
                     setQuery(e.target.value);
                     setSelectedIndex(0);
                   }}
-                  className="pl-12 pr-6 py-4 text-lg bg-muted/30 border-2 border-border/50 rounded-2xl focus:outline-none focus:ring-0 focus:border-primary/50 transition-all duration-200 placeholder:text-muted-foreground/70"
+                  className="pl-16 pr-24 py-5 text-lg bg-gradient-to-r from-muted/40 via-muted/30 to-muted/40 border-2 border-border/40 rounded-3xl focus:outline-none focus:ring-0 focus:border-primary/60 focus:bg-background/80 transition-all duration-300 placeholder:text-muted-foreground/60 shadow-inner backdrop-blur-sm"
                   autoFocus
                   data-testid="global-search-input"
                 />
@@ -120,8 +124,8 @@ export default function GlobalSearch() {
           </div>
 
           {/* Search Results */}
-          <div className="max-h-[500px] overflow-y-auto scrollbar-hide">
-            <div className="p-4">
+          <div className="max-h-[60vh] overflow-y-auto scrollbar-hide bg-gradient-to-b from-transparent via-background/20 to-background/40">
+            <div className="p-6 pt-4">
               {query ? (
                 <>
                   {searchResults.length > 0 ? (
@@ -143,17 +147,19 @@ export default function GlobalSearch() {
                           return (
                             <div
                               key={tool.id}
-                              className={`cursor-pointer rounded-xl p-4 flex items-center space-x-4 transition-all duration-200 group ${
+                              className={`cursor-pointer rounded-2xl p-5 flex items-center space-x-4 transition-all duration-300 group relative overflow-hidden ${
                                 isSelected 
-                                  ? `bg-primary/10 border border-primary/20 shadow-lg scale-[1.02]` 
-                                  : "hover:bg-muted/60 border border-transparent hover:shadow-md hover:scale-[1.01]"
+                                  ? `bg-gradient-to-r from-primary/15 via-primary/10 to-primary/15 border border-primary/30 shadow-xl scale-[1.03] ring-2 ring-primary/20` 
+                                  : "hover:bg-gradient-to-r hover:from-muted/70 hover:via-muted/50 hover:to-muted/70 border border-transparent hover:border-border/40 hover:shadow-lg hover:scale-[1.02] hover:ring-1 hover:ring-border/20"
                               }`}
                               onClick={() => openTool(tool.id, tool.category)}
                               data-testid={`search-result-${tool.id}`}
                             >
-                              <div className={`w-12 h-12 bg-gradient-to-br from-${color}/20 to-${color}/10 border border-${color}/20 rounded-xl flex items-center justify-center shadow-sm ${
-                                isSelected ? 'scale-110' : 'group-hover:scale-105'
-                              } transition-transform duration-200`}>
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                              <div className={`relative w-14 h-14 bg-gradient-to-br from-${color}/25 via-${color}/15 to-${color}/10 border border-${color}/25 rounded-2xl flex items-center justify-center shadow-lg ${
+                                isSelected ? 'scale-115 shadow-xl' : 'group-hover:scale-110 group-hover:shadow-xl'
+                              } transition-all duration-300 backdrop-blur-sm`}>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-white/10 rounded-2xl"></div>
                                 {renderIcon(tool.icon, color)}
                               </div>
                               <div className="flex-1 min-w-0">
@@ -287,21 +293,21 @@ export default function GlobalSearch() {
           </div>
 
           {/* Search Footer */}
-          <div className="p-4 border-t border-border/50 bg-muted/20 rounded-b-3xl">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center space-x-2">
-                  <kbd className="px-2 py-1 bg-background border border-border/50 rounded-lg font-mono shadow-sm">↵</kbd>
+          <div className="p-6 pt-4 border-t border-border/30 bg-gradient-to-t from-muted/30 via-muted/15 to-transparent backdrop-blur-sm rounded-b-3xl">
+            <div className="flex items-center justify-between text-sm text-muted-foreground">
+              <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-3">
+                  <kbd className="px-3 py-2 bg-gradient-to-b from-background to-muted/50 border border-border/60 rounded-xl font-mono shadow-md text-xs font-medium">↵</kbd>
                   <span className="font-medium">to select</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <kbd className="px-2 py-1 bg-background border border-border/50 rounded-lg font-mono shadow-sm">↑↓</kbd>
-                  <span className="font-medium">to navigate</span>
+                <div className="flex items-center space-x-3">
+                  <kbd className="px-3 py-2 bg-gradient-to-b from-background to-muted/50 border border-border/60 rounded-xl font-mono shadow-md text-xs font-medium">↑↓</kbd>
+                  <span className="font-medium">navigate</span>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <kbd className="px-2 py-1 bg-background border border-border/50 rounded-lg font-mono shadow-sm">ESC</kbd>
-                <span className="font-medium">to close</span>
+              <div className="flex items-center space-x-3">
+                <kbd className="px-3 py-2 bg-gradient-to-b from-background to-muted/50 border border-border/60 rounded-xl font-mono shadow-md text-xs font-medium">ESC</kbd>
+                <span className="font-medium">close</span>
               </div>
             </div>
           </div>
