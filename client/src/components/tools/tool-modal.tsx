@@ -70,7 +70,9 @@ export default function ToolModal() {
       const { toolId } = event.detail;
       setCurrentToolId(toolId);
       setIsOpen(true);
+      // Prevent body scrolling when modal is open
       document.body.style.overflow = 'hidden';
+      document.body.style.overflowY = 'hidden';
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -85,6 +87,9 @@ export default function ToolModal() {
     return () => {
       document.removeEventListener("open-tool", handleOpenTool as EventListener);
       document.removeEventListener("keydown", handleKeyDown);
+      // Ensure body scroll is restored on cleanup
+      document.body.style.overflow = '';
+      document.body.style.overflowY = '';
     };
   }, [isOpen]);
 
@@ -92,7 +97,16 @@ export default function ToolModal() {
     setIsOpen(false);
     setCurrentToolId(null);
     setSearchQuery("");
-    document.body.style.overflow = 'auto';
+    // Restore body scrolling with smooth transition
+    document.body.style.overflow = 'visible';
+    document.body.style.overflowY = 'auto';
+    document.documentElement.style.scrollBehavior = 'smooth';
+    
+    // Force re-enable scrolling after a short delay to ensure it takes effect
+    setTimeout(() => {
+      document.body.style.overflow = '';
+      document.body.style.overflowY = '';
+    }, 100);
   };
 
   const switchTool = (toolId: string) => {
@@ -312,7 +326,13 @@ export default function ToolModal() {
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      if (!open) {
+        closeTool();
+      } else {
+        setIsOpen(true);
+      }
+    }}>
       <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[90vh] max-h-[95vh] flex flex-col animate-fade-in p-0 overflow-hidden">
         <DialogTitle className="sr-only">
           {currentTool.name} - {toolCategories[currentTool.category].name}
