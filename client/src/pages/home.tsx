@@ -90,25 +90,6 @@ export default function Home() {
     }
     const configIndex = Math.abs(hash) % toolConfigs.length;
     return toolConfigs[configIndex];
-        return { bg: 'bg-amber-600', text: 'text-white', badge: 'bg-amber-700 border-amber-700', arrow: 'text-white', icon: 'Percent' };
-      case 'age-calculator':
-        return { bg: 'bg-violet-600', text: 'text-white', badge: 'bg-violet-700 border-violet-700', arrow: 'text-white', icon: 'Calendar' };
-      case 'date-calculator':
-        return { bg: 'bg-emerald-600', text: 'text-white', badge: 'bg-emerald-700 border-emerald-700', arrow: 'text-white', icon: 'CalendarDays' };
-      case 'loan-calculator':
-        return { bg: 'bg-slate-600', text: 'text-white', badge: 'bg-slate-700 border-slate-700', arrow: 'text-white', icon: 'TrendingUp' };
-      case 'text-to-speech':
-        return { bg: 'bg-yellow-600', text: 'text-black', badge: 'bg-yellow-700 border-yellow-700', arrow: 'text-black', icon: 'Volume2' };
-      case 'speech-to-text':
-        return { bg: 'bg-cyan-600', text: 'text-white', badge: 'bg-cyan-700 border-cyan-700', arrow: 'text-white', icon: 'Mic' };
-      case 'mp3-cutter':
-        return { bg: 'bg-fuchsia-600', text: 'text-white', badge: 'bg-fuchsia-700 border-fuchsia-700', arrow: 'text-white', icon: 'Scissors' };
-      case 'wav-to-mp3':
-        return { bg: 'bg-lime-600', text: 'text-black', badge: 'bg-lime-700 border-lime-700', arrow: 'text-black', icon: 'Music' };
-      case 'text-case-converter':
-        return { bg: 'bg-rose-600', text: 'text-white', badge: 'bg-rose-700 border-rose-700', arrow: 'text-white', icon: 'Type' };
-      case 'timezone-converter':
-        };
 
   const renderToolCardIcon = (iconName: string) => {
     const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
