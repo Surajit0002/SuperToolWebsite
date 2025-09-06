@@ -128,7 +128,23 @@ export default function AllTools() {
                 { bg: 'bg-amber-500', text: 'text-white', badge: 'bg-amber-600', arrow: 'text-amber-200', icon: 'Percent' },
                 { bg: 'bg-lime-500', text: 'text-black', badge: 'bg-lime-600', arrow: 'text-lime-800', icon: 'Music' },
                 { bg: 'bg-sky-500', text: 'text-white', badge: 'bg-sky-600', arrow: 'text-sky-200', icon: 'Volume2' },
-                { bg: 'bg-slate-500', text: 'text-white', badge: 'bg-slate-600', arrow: 'text-slate-200', icon: 'TrendingUp' }
+                { bg: 'bg-slate-500', text: 'text-white', badge: 'bg-slate-600', arrow: 'text-slate-200', icon: 'TrendingUp' },
+                { bg: 'bg-fuchsia-500', text: 'text-white', badge: 'bg-fuchsia-600', arrow: 'text-fuchsia-200', icon: 'Zap' },
+                { bg: 'bg-yellow-500', text: 'text-black', badge: 'bg-yellow-600', arrow: 'text-yellow-800', icon: 'Sun' },
+                { bg: 'bg-stone-500', text: 'text-white', badge: 'bg-stone-600', arrow: 'text-stone-200', icon: 'Mountain' },
+                { bg: 'bg-zinc-500', text: 'text-white', badge: 'bg-zinc-600', arrow: 'text-zinc-200', icon: 'Shield' },
+                { bg: 'bg-neutral-500', text: 'text-white', badge: 'bg-neutral-600', arrow: 'text-neutral-200', icon: 'Circle' },
+                { bg: 'bg-gray-500', text: 'text-white', badge: 'bg-gray-600', arrow: 'text-gray-200', icon: 'Square' },
+                { bg: 'bg-blue-600', text: 'text-white', badge: 'bg-blue-700', arrow: 'text-blue-200', icon: 'Database' },
+                { bg: 'bg-green-600', text: 'text-white', badge: 'bg-green-700', arrow: 'text-green-200', icon: 'Leaf' },
+                { bg: 'bg-purple-600', text: 'text-white', badge: 'bg-purple-700', arrow: 'text-purple-200', icon: 'Palette' },
+                { bg: 'bg-orange-600', text: 'text-white', badge: 'bg-orange-700', arrow: 'text-orange-200', icon: 'Flame' },
+                { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-700', arrow: 'text-red-200', icon: 'Heart' },
+                { bg: 'bg-pink-600', text: 'text-white', badge: 'bg-pink-700', arrow: 'text-pink-200', icon: 'Star' },
+                { bg: 'bg-indigo-600', text: 'text-white', badge: 'bg-indigo-700', arrow: 'text-indigo-200', icon: 'Cpu' },
+                { bg: 'bg-cyan-600', text: 'text-white', badge: 'bg-cyan-700', arrow: 'text-cyan-200', icon: 'Waves' },
+                { bg: 'bg-teal-600', text: 'text-white', badge: 'bg-teal-700', arrow: 'text-teal-200', icon: 'Compass' },
+                { bg: 'bg-emerald-600', text: 'text-white', badge: 'bg-emerald-700', arrow: 'text-emerald-200', icon: 'TreePine' }
               ];
 
               let hash = 0;

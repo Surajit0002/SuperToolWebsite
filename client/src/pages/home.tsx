@@ -49,24 +49,47 @@ export default function Home() {
 
   // Function to get solid colors and icons for tool cards based on tool ID
   const getToolSolidColors = (toolId: string) => {
-    switch (toolId) {
-      case 'unit-converter':
-        return { bg: 'bg-blue-600', text: 'text-white', badge: 'bg-blue-700 border-blue-700', arrow: 'text-white', icon: 'Ruler' };
-      case 'currency-converter':
-        return { bg: 'bg-green-600', text: 'text-white', badge: 'bg-green-700 border-green-700', arrow: 'text-white', icon: 'DollarSign' };
-      case 'image-resizer':
-        return { bg: 'bg-purple-600', text: 'text-white', badge: 'bg-purple-700 border-purple-700', arrow: 'text-white', icon: 'ImageIcon' };
-      case 'pdf-to-text':
-        return { bg: 'bg-orange-600', text: 'text-white', badge: 'bg-orange-700 border-orange-700', arrow: 'text-white', icon: 'FileText' };
-      case 'video-to-gif':
-        return { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-700 border-red-700', arrow: 'text-white', icon: 'Video' };
-      case 'basic-calculator':
-        return { bg: 'bg-indigo-600', text: 'text-white', badge: 'bg-indigo-700 border-indigo-700', arrow: 'text-white', icon: 'Calculator' };
-      case 'scientific-calculator':
-        return { bg: 'bg-teal-600', text: 'text-white', badge: 'bg-teal-700 border-teal-700', arrow: 'text-white', icon: 'Pi' };
-      case 'bmi-calculator':
-        return { bg: 'bg-pink-600', text: 'text-white', badge: 'bg-pink-700 border-pink-700', arrow: 'text-white', icon: 'Activity' };
-      case 'percentage-calculator':
+    const toolConfigs = [
+      { bg: 'bg-blue-500', text: 'text-white', badge: 'bg-blue-600 border-blue-600', arrow: 'text-white', icon: 'Calculator' },
+      { bg: 'bg-green-500', text: 'text-white', badge: 'bg-green-600 border-green-600', arrow: 'text-white', icon: 'DollarSign' },
+      { bg: 'bg-purple-500', text: 'text-white', badge: 'bg-purple-600 border-purple-600', arrow: 'text-white', icon: 'ImageIcon' },
+      { bg: 'bg-orange-500', text: 'text-white', badge: 'bg-orange-600 border-orange-600', arrow: 'text-white', icon: 'FileText' },
+      { bg: 'bg-red-500', text: 'text-white', badge: 'bg-red-600 border-red-600', arrow: 'text-white', icon: 'Video' },
+      { bg: 'bg-pink-500', text: 'text-white', badge: 'bg-pink-600 border-pink-600', arrow: 'text-white', icon: 'Activity' },
+      { bg: 'bg-indigo-500', text: 'text-white', badge: 'bg-indigo-600 border-indigo-600', arrow: 'text-white', icon: 'Pi' },
+      { bg: 'bg-cyan-500', text: 'text-white', badge: 'bg-cyan-600 border-cyan-600', arrow: 'text-white', icon: 'Mic' },
+      { bg: 'bg-teal-500', text: 'text-white', badge: 'bg-teal-600 border-teal-600', arrow: 'text-white', icon: 'Ruler' },
+      { bg: 'bg-emerald-500', text: 'text-white', badge: 'bg-emerald-600 border-emerald-600', arrow: 'text-white', icon: 'Calendar' },
+      { bg: 'bg-violet-500', text: 'text-white', badge: 'bg-violet-600 border-violet-600', arrow: 'text-white', icon: 'Type' },
+      { bg: 'bg-rose-500', text: 'text-white', badge: 'bg-rose-600 border-rose-600', arrow: 'text-white', icon: 'Globe' },
+      { bg: 'bg-amber-500', text: 'text-white', badge: 'bg-amber-600 border-amber-600', arrow: 'text-white', icon: 'Percent' },
+      { bg: 'bg-lime-500', text: 'text-black', badge: 'bg-lime-600 border-lime-600', arrow: 'text-lime-800', icon: 'Music' },
+      { bg: 'bg-sky-500', text: 'text-white', badge: 'bg-sky-600 border-sky-600', arrow: 'text-white', icon: 'Volume2' },
+      { bg: 'bg-slate-500', text: 'text-white', badge: 'bg-slate-600 border-slate-600', arrow: 'text-white', icon: 'TrendingUp' },
+      { bg: 'bg-fuchsia-500', text: 'text-white', badge: 'bg-fuchsia-600 border-fuchsia-600', arrow: 'text-white', icon: 'Zap' },
+      { bg: 'bg-yellow-500', text: 'text-black', badge: 'bg-yellow-600 border-yellow-600', arrow: 'text-yellow-800', icon: 'Sun' },
+      { bg: 'bg-stone-500', text: 'text-white', badge: 'bg-stone-600 border-stone-600', arrow: 'text-white', icon: 'Mountain' },
+      { bg: 'bg-zinc-500', text: 'text-white', badge: 'bg-zinc-600 border-zinc-600', arrow: 'text-white', icon: 'Shield' },
+      { bg: 'bg-neutral-500', text: 'text-white', badge: 'bg-neutral-600 border-neutral-600', arrow: 'text-white', icon: 'Circle' },
+      { bg: 'bg-gray-500', text: 'text-white', badge: 'bg-gray-600 border-gray-600', arrow: 'text-white', icon: 'Square' },
+      { bg: 'bg-blue-600', text: 'text-white', badge: 'bg-blue-700 border-blue-700', arrow: 'text-white', icon: 'Database' },
+      { bg: 'bg-green-600', text: 'text-white', badge: 'bg-green-700 border-green-700', arrow: 'text-white', icon: 'Leaf' },
+      { bg: 'bg-purple-600', text: 'text-white', badge: 'bg-purple-700 border-purple-700', arrow: 'text-white', icon: 'Palette' },
+      { bg: 'bg-orange-600', text: 'text-white', badge: 'bg-orange-700 border-orange-700', arrow: 'text-white', icon: 'Flame' },
+      { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-700 border-red-700', arrow: 'text-white', icon: 'Heart' },
+      { bg: 'bg-pink-600', text: 'text-white', badge: 'bg-pink-700 border-pink-700', arrow: 'text-white', icon: 'Star' },
+      { bg: 'bg-indigo-600', text: 'text-white', badge: 'bg-indigo-700 border-indigo-700', arrow: 'text-white', icon: 'Cpu' },
+      { bg: 'bg-cyan-600', text: 'text-white', badge: 'bg-cyan-700 border-cyan-700', arrow: 'text-white', icon: 'Waves' },
+      { bg: 'bg-teal-600', text: 'text-white', badge: 'bg-teal-700 border-teal-700', arrow: 'text-white', icon: 'Compass' },
+      { bg: 'bg-emerald-600', text: 'text-white', badge: 'bg-emerald-700 border-emerald-700', arrow: 'text-white', icon: 'TreePine' }
+    ];
+
+    let hash = 0;
+    for (let i = 0; i < toolId.length; i++) {
+      hash = toolId.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const configIndex = Math.abs(hash) % toolConfigs.length;
+    return toolConfigs[configIndex];
         return { bg: 'bg-amber-600', text: 'text-white', badge: 'bg-amber-700 border-amber-700', arrow: 'text-white', icon: 'Percent' };
       case 'age-calculator':
         return { bg: 'bg-violet-600', text: 'text-white', badge: 'bg-violet-700 border-violet-700', arrow: 'text-white', icon: 'Calendar' };
@@ -85,21 +108,7 @@ export default function Home() {
       case 'text-case-converter':
         return { bg: 'bg-rose-600', text: 'text-white', badge: 'bg-rose-700 border-rose-700', arrow: 'text-white', icon: 'Type' };
       case 'timezone-converter':
-        return { bg: 'bg-sky-600', text: 'text-white', badge: 'bg-sky-700 border-sky-700', arrow: 'text-white', icon: 'Globe' };
-      case 'number-system-converter':
-        return { bg: 'bg-stone-600', text: 'text-white', badge: 'bg-stone-700 border-stone-700', arrow: 'text-white', icon: 'Hash' };
-      case 'image-compressor':
-        return { bg: 'bg-purple-500', text: 'text-white', badge: 'bg-purple-600 border-purple-600', arrow: 'text-white', icon: 'Minimize' };
-      case 'image-cropper':
-        return { bg: 'bg-indigo-500', text: 'text-white', badge: 'bg-indigo-600 border-indigo-600', arrow: 'text-white', icon: 'Crop' };
-      case 'pdf-merger':
-        return { bg: 'bg-orange-500', text: 'text-white', badge: 'bg-orange-600 border-orange-600', arrow: 'text-white', icon: 'FileStack' };
-      case 'pdf-splitter':
-        return { bg: 'bg-red-500', text: 'text-white', badge: 'bg-red-600 border-red-600', arrow: 'text-white', icon: 'FileMinus' };
-      default:
-        return { bg: 'bg-gray-600', text: 'text-white', badge: 'bg-gray-700 border-gray-700', arrow: 'text-white', icon: 'Tool' };
-    }
-  };
+        };
 
   const renderToolCardIcon = (iconName: string) => {
     const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
