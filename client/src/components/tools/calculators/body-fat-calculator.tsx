@@ -247,9 +247,9 @@ export default function BodyFatCalculator() {
       {/* Left Pane - Inputs */}
       <div className="w-1/2 p-6 border-r border-border overflow-y-auto">
         <div className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="age" className="block text-sm font-medium mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl">
+              <Label htmlFor="age" className="block text-sm font-semibold mb-3 text-blue-800">
                 Age (years)
               </Label>
               <Input
@@ -258,14 +258,14 @@ export default function BodyFatCalculator() {
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 placeholder="30"
-                className="w-full px-4 py-3 text-lg"
+                className="w-full px-4 py-3 text-lg border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                 data-testid="age-input"
               />
-            </div>
-            <div>
-              <Label className="block text-sm font-medium mb-2">Gender</Label>
+            </Card>
+            <Card className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 rounded-xl">
+              <Label className="block text-sm font-semibold mb-3 text-purple-800">Gender</Label>
               <Select value={gender} onValueChange={(value: any) => setGender(value)}>
-                <SelectTrigger data-testid="gender-select">
+                <SelectTrigger data-testid="gender-select" className="border-purple-200 focus:border-purple-400">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
@@ -273,13 +273,13 @@ export default function BodyFatCalculator() {
                   <SelectItem value="female">Female</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            </Card>
           </div>
 
-          <div>
-            <Label className="block text-sm font-medium mb-2">Calculation Method</Label>
+          <Card className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl">
+            <Label className="block text-sm font-semibold mb-3 text-green-800">Calculation Method</Label>
             <Select value={method} onValueChange={(value: any) => setMethod(value)}>
-              <SelectTrigger data-testid="method-select">
+              <SelectTrigger data-testid="method-select" className="border-green-200 focus:border-green-400">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -288,134 +288,142 @@ export default function BodyFatCalculator() {
                 <SelectItem value="ymca">YMCA Method</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </Card>
 
-          <div>
-            <Label className="block text-sm font-medium mb-2">Height</Label>
-            <div className="flex items-center space-x-2 mb-2">
-              <Select value={heightUnit} onValueChange={(value: any) => setHeightUnit(value)}>
-                <SelectTrigger className="w-24" data-testid="height-unit-select">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cm">cm</SelectItem>
-                  <SelectItem value="ft">ft/in</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            {heightUnit === "cm" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="p-4 bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-xl">
+              <Label className="block text-sm font-semibold mb-3 text-orange-800">Height</Label>
+              <div className="flex items-center space-x-2 mb-3">
+                <Select value={heightUnit} onValueChange={(value: any) => setHeightUnit(value)}>
+                  <SelectTrigger className="w-24 border-orange-200 focus:border-orange-400" data-testid="height-unit-select">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cm">cm</SelectItem>
+                    <SelectItem value="ft">ft/in</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {heightUnit === "cm" ? (
+                <Input
+                  type="number"
+                  value={height}
+                  onChange={(e) => setHeight(e.target.value)}
+                  placeholder="170"
+                  className="w-full px-4 py-3 text-lg border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                  data-testid="height-cm-input"
+                />
+              ) : (
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      value={feet}
+                      onChange={(e) => setFeet(e.target.value)}
+                      placeholder="5"
+                      className="px-4 py-3 text-lg border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                      data-testid="height-feet-input"
+                    />
+                    <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-orange-600 font-medium">ft</span>
+                  </div>
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      value={inches}
+                      onChange={(e) => setInches(e.target.value)}
+                      placeholder="8"
+                      className="px-4 py-3 text-lg border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                      data-testid="height-inches-input"
+                    />
+                    <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-orange-600 font-medium">in</span>
+                  </div>
+                </div>
+              )}
+            </Card>
+
+            <Card className="p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-200 rounded-xl">
+              <Label className="block text-sm font-semibold mb-3 text-teal-800">Weight</Label>
+              <div className="flex items-center space-x-2 mb-3">
+                <Select value={weightUnit} onValueChange={(value: any) => setWeightUnit(value)}>
+                  <SelectTrigger className="w-24 border-teal-200 focus:border-teal-400" data-testid="weight-unit-select">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="kg">kg</SelectItem>
+                    <SelectItem value="lb">lb</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <Input
                 type="number"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                placeholder="170"
-                className="w-full px-4 py-3 text-lg"
-                data-testid="height-cm-input"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                placeholder={weightUnit === "kg" ? "70" : "154"}
+                className="w-full px-4 py-3 text-lg border-teal-200 focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
+                data-testid="weight-input"
               />
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="number"
-                  value={feet}
-                  onChange={(e) => setFeet(e.target.value)}
-                  placeholder="5"
-                  className="flex-1 px-4 py-3 text-lg"
-                  data-testid="height-feet-input"
-                />
-                <span className="text-sm text-muted-foreground">ft</span>
-                <Input
-                  type="number"
-                  value={inches}
-                  onChange={(e) => setInches(e.target.value)}
-                  placeholder="8"
-                  className="flex-1 px-4 py-3 text-lg"
-                  data-testid="height-inches-input"
-                />
-                <span className="text-sm text-muted-foreground">in</span>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <Label className="block text-sm font-medium mb-2">Weight</Label>
-            <div className="flex items-center space-x-2 mb-2">
-              <Select value={weightUnit} onValueChange={(value: any) => setWeightUnit(value)}>
-                <SelectTrigger className="w-24" data-testid="weight-unit-select">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="kg">kg</SelectItem>
-                  <SelectItem value="lb">lb</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <Input
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              placeholder={weightUnit === "kg" ? "70" : "154"}
-              className="w-full px-4 py-3 text-lg"
-              data-testid="weight-input"
-            />
+            </Card>
           </div>
 
           {/* Method-specific measurements */}
           {method === "navy" && (
-            <div className="space-y-4">
-              <h3 className="font-medium">Navy Method Measurements (cm)</h3>
-              <div>
-                <Label className="block text-sm font-medium mb-2">Neck Circumference</Label>
-                <Input
-                  type="number"
-                  value={neck}
-                  onChange={(e) => setNeck(e.target.value)}
-                  placeholder="37"
-                  className="w-full px-4 py-3"
-                  data-testid="neck-input"
-                />
-              </div>
-              <div>
-                <Label className="block text-sm font-medium mb-2">Waist Circumference</Label>
-                <Input
-                  type="number"
-                  value={waist}
-                  onChange={(e) => setWaist(e.target.value)}
-                  placeholder="85"
-                  className="w-full px-4 py-3"
-                  data-testid="waist-input"
-                />
-              </div>
-              {gender === "female" && (
-                <div>
-                  <Label className="block text-sm font-medium mb-2">Hip Circumference</Label>
+            <Card className="p-6 bg-gradient-to-br from-slate-50 to-gray-50 border border-slate-200 rounded-xl">
+              <h3 className="font-semibold text-lg mb-4 text-slate-800">Navy Method Measurements (cm)</h3>
+              <div className={`grid gap-4 ${gender === "female" ? "grid-cols-1 lg:grid-cols-3" : "grid-cols-1 lg:grid-cols-2"}`}>
+                <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                  <Label className="block text-sm font-semibold mb-2 text-slate-700">Neck Circumference</Label>
                   <Input
                     type="number"
-                    value={hips}
-                    onChange={(e) => setHips(e.target.value)}
-                    placeholder="95"
-                    className="w-full px-4 py-3"
-                    data-testid="hips-input"
+                    value={neck}
+                    onChange={(e) => setNeck(e.target.value)}
+                    placeholder="37"
+                    className="w-full px-4 py-3 border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
+                    data-testid="neck-input"
                   />
                 </div>
-              )}
-            </div>
+                <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                  <Label className="block text-sm font-semibold mb-2 text-slate-700">Waist Circumference</Label>
+                  <Input
+                    type="number"
+                    value={waist}
+                    onChange={(e) => setWaist(e.target.value)}
+                    placeholder="85"
+                    className="w-full px-4 py-3 border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
+                    data-testid="waist-input"
+                  />
+                </div>
+                {gender === "female" && (
+                  <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                    <Label className="block text-sm font-semibold mb-2 text-slate-700">Hip Circumference</Label>
+                    <Input
+                      type="number"
+                      value={hips}
+                      onChange={(e) => setHips(e.target.value)}
+                      placeholder="95"
+                      className="w-full px-4 py-3 border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
+                      data-testid="hips-input"
+                    />
+                  </div>
+                )}
+              </div>
+            </Card>
           )}
 
           {method === "ymca" && (
-            <div>
-              <h3 className="font-medium mb-2">YMCA Method Measurements</h3>
-              <div>
-                <Label className="block text-sm font-medium mb-2">Abdomen Circumference (cm)</Label>
+            <Card className="p-6 bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-200 rounded-xl">
+              <h3 className="font-semibold text-lg mb-4 text-violet-800">YMCA Method Measurements</h3>
+              <div className="bg-white p-4 rounded-lg border border-violet-200 shadow-sm">
+                <Label className="block text-sm font-semibold mb-2 text-violet-700">Abdomen Circumference (cm)</Label>
                 <Input
                   type="number"
                   value={abdomen}
                   onChange={(e) => setAbdomen(e.target.value)}
                   placeholder="85"
-                  className="w-full px-4 py-3"
+                  className="w-full px-4 py-3 border-violet-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
                   data-testid="abdomen-input"
                 />
               </div>
-            </div>
+            </Card>
           )}
 
           <Button
@@ -463,15 +471,15 @@ export default function BodyFatCalculator() {
             </Card>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Button
               variant="outline"
               onClick={copyResult}
               disabled={!result}
-              className="flex items-center justify-center space-x-2 px-4 py-3 bg-calculator/10 hover:bg-calculator/20 border border-calculator/20 text-calculator rounded-xl font-medium"
+              className="flex items-center justify-center space-x-2 px-6 py-4 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-200 text-blue-700 rounded-xl font-semibold transition-all duration-200 shadow-sm hover:shadow-md"
               data-testid="copy-body-fat-result"
             >
-              <Copy className="w-4 h-4" />
+              <Copy className="w-5 h-5" />
               <span>Copy Result</span>
             </Button>
             <Button
@@ -485,90 +493,90 @@ export default function BodyFatCalculator() {
                 }
               }}
               disabled={!result}
-              className="flex items-center justify-center space-x-2 px-4 py-3 bg-muted/50 hover:bg-muted border border-border rounded-xl font-medium"
+              className="flex items-center justify-center space-x-2 px-6 py-4 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 border border-green-200 text-green-700 rounded-xl font-semibold transition-all duration-200 shadow-sm hover:shadow-md"
               data-testid="share-body-fat-calculation"
             >
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-5 h-5" />
               <span>Share</span>
             </Button>
           </div>
 
           {result && (
             <div>
-              <h3 className="font-medium mb-3">Body Composition</h3>
-              <div className="space-y-3">
-                <Card className="p-4 bg-muted/30 rounded-xl">
-                  <div className="text-sm font-medium mb-1">BMI</div>
-                  <div className="text-sm text-muted-foreground">{result.bmi.toFixed(1)}</div>
+              <h3 className="font-semibold text-lg mb-4 text-gray-800">Body Composition</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Card className="p-5 bg-gradient-to-br from-gray-50 to-slate-100 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="text-sm font-semibold text-gray-700 mb-2">BMI</div>
+                  <div className="text-2xl font-bold text-gray-900">{result.bmi.toFixed(1)}</div>
                 </Card>
-                <Card className="p-4 bg-green-50 border border-green-200 rounded-xl">
-                  <div className="text-sm font-medium text-green-800 mb-1">Lean Body Mass</div>
-                  <div className="text-sm text-green-600">{result.leanMass.toFixed(1)} kg</div>
+                <Card className="p-5 bg-gradient-to-br from-green-50 to-emerald-100 border border-green-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="text-sm font-semibold text-green-800 mb-2">Lean Body Mass</div>
+                  <div className="text-2xl font-bold text-green-700">{result.leanMass.toFixed(1)} kg</div>
                 </Card>
-                <Card className="p-4 bg-orange-50 border border-orange-200 rounded-xl">
-                  <div className="text-sm font-medium text-orange-800 mb-1">Fat Mass</div>
-                  <div className="text-sm text-orange-600">{result.fatMass.toFixed(1)} kg</div>
+                <Card className="p-5 bg-gradient-to-br from-orange-50 to-red-100 border border-orange-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="text-sm font-semibold text-orange-800 mb-2">Fat Mass</div>
+                  <div className="text-2xl font-bold text-orange-700">{result.fatMass.toFixed(1)} kg</div>
                 </Card>
-                <Card className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                  <div className="text-sm font-medium text-blue-800 mb-1">Healthy Range</div>
-                  <div className="text-sm text-blue-600">{result.healthyRange.min}% - {result.healthyRange.max}%</div>
+                <Card className="p-5 bg-gradient-to-br from-blue-50 to-indigo-100 border border-blue-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="text-sm font-semibold text-blue-800 mb-2">Healthy Range</div>
+                  <div className="text-lg font-bold text-blue-700">{result.healthyRange.min}% - {result.healthyRange.max}%</div>
                 </Card>
               </div>
             </div>
           )}
 
           <div>
-            <h3 className="font-medium mb-3">Body Fat Categories ({gender || "general"})</h3>
-            <div className="space-y-3">
+            <h3 className="font-semibold text-lg mb-4 text-gray-800">Body Fat Categories ({gender || "general"})</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
               {gender === "male" ? (
                 <>
-                  <Card className="p-4 bg-red-50 border border-red-200 rounded-xl">
-                    <div className="text-sm font-medium text-red-800">Essential fat</div>
-                    <div className="text-sm text-red-600">2-5%</div>
+                  <Card className="p-4 bg-gradient-to-br from-rose-50 to-red-100 border border-rose-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-rose-800 mb-1">Essential fat</div>
+                    <div className="text-lg font-bold text-rose-700">2-5%</div>
                   </Card>
-                  <Card className="p-4 bg-green-50 border border-green-200 rounded-xl">
-                    <div className="text-sm font-medium text-green-800">Athletic</div>
-                    <div className="text-sm text-green-600">6-13%</div>
+                  <Card className="p-4 bg-gradient-to-br from-emerald-50 to-green-100 border border-emerald-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-emerald-800 mb-1">Athletic</div>
+                    <div className="text-lg font-bold text-emerald-700">6-13%</div>
                   </Card>
-                  <Card className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                    <div className="text-sm font-medium text-blue-800">Fitness</div>
-                    <div className="text-sm text-blue-600">14-17%</div>
+                  <Card className="p-4 bg-gradient-to-br from-sky-50 to-blue-100 border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-sky-800 mb-1">Fitness</div>
+                    <div className="text-lg font-bold text-sky-700">14-17%</div>
                   </Card>
-                  <Card className="p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
-                    <div className="text-sm font-medium text-yellow-800">Average</div>
-                    <div className="text-sm text-yellow-600">18-24%</div>
+                  <Card className="p-4 bg-gradient-to-br from-amber-50 to-yellow-100 border border-amber-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-amber-800 mb-1">Average</div>
+                    <div className="text-lg font-bold text-amber-700">18-24%</div>
                   </Card>
-                  <Card className="p-4 bg-red-50 border border-red-200 rounded-xl">
-                    <div className="text-sm font-medium text-red-800">Obese</div>
-                    <div className="text-sm text-red-600">25%+</div>
+                  <Card className="p-4 bg-gradient-to-br from-red-50 to-rose-100 border border-red-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-red-800 mb-1">Obese</div>
+                    <div className="text-lg font-bold text-red-700">25%+</div>
                   </Card>
                 </>
               ) : gender === "female" ? (
                 <>
-                  <Card className="p-4 bg-red-50 border border-red-200 rounded-xl">
-                    <div className="text-sm font-medium text-red-800">Essential fat</div>
-                    <div className="text-sm text-red-600">10-13%</div>
+                  <Card className="p-4 bg-gradient-to-br from-rose-50 to-red-100 border border-rose-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-rose-800 mb-1">Essential fat</div>
+                    <div className="text-lg font-bold text-rose-700">10-13%</div>
                   </Card>
-                  <Card className="p-4 bg-green-50 border border-green-200 rounded-xl">
-                    <div className="text-sm font-medium text-green-800">Athletic</div>
-                    <div className="text-sm text-green-600">14-20%</div>
+                  <Card className="p-4 bg-gradient-to-br from-emerald-50 to-green-100 border border-emerald-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-emerald-800 mb-1">Athletic</div>
+                    <div className="text-lg font-bold text-emerald-700">14-20%</div>
                   </Card>
-                  <Card className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                    <div className="text-sm font-medium text-blue-800">Fitness</div>
-                    <div className="text-sm text-blue-600">21-24%</div>
+                  <Card className="p-4 bg-gradient-to-br from-sky-50 to-blue-100 border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-sky-800 mb-1">Fitness</div>
+                    <div className="text-lg font-bold text-sky-700">21-24%</div>
                   </Card>
-                  <Card className="p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
-                    <div className="text-sm font-medium text-yellow-800">Average</div>
-                    <div className="text-sm text-yellow-600">25-31%</div>
+                  <Card className="p-4 bg-gradient-to-br from-amber-50 to-yellow-100 border border-amber-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-amber-800 mb-1">Average</div>
+                    <div className="text-lg font-bold text-amber-700">25-31%</div>
                   </Card>
-                  <Card className="p-4 bg-red-50 border border-red-200 rounded-xl">
-                    <div className="text-sm font-medium text-red-800">Obese</div>
-                    <div className="text-sm text-red-600">32%+</div>
+                  <Card className="p-4 bg-gradient-to-br from-red-50 to-rose-100 border border-red-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                    <div className="text-sm font-semibold text-red-800 mb-1">Obese</div>
+                    <div className="text-lg font-bold text-red-700">32%+</div>
                   </Card>
                 </>
               ) : (
-                <Card className="p-4 bg-muted/30 rounded-xl">
-                  <div className="text-sm text-muted-foreground">Select gender to see categories</div>
+                <Card className="p-4 bg-gradient-to-br from-gray-50 to-slate-100 border border-gray-200 rounded-xl shadow-sm col-span-full">
+                  <div className="text-sm text-gray-600 text-center">Select gender to see categories</div>
                 </Card>
               )}
             </div>
