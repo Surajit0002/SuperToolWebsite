@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -137,6 +137,13 @@ export default function ToolModal() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[85vh] max-h-[90vh] flex flex-col animate-fade-in p-0">
+        <DialogTitle className="sr-only">
+          {currentTool.name} - {toolCategories[currentTool.category].name}
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          {currentTool.description}
+        </DialogDescription>
+        
         {/* Modal Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div className="flex items-center space-x-4">

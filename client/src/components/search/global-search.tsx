@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, ArrowRight } from "lucide-react";
@@ -74,6 +74,12 @@ export default function GlobalSearch() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="modal-backdrop absolute inset-0 z-50 flex items-start justify-center pt-20 px-4">
+        <DialogTitle className="sr-only">
+          Global Search - Search Tools and Calculators
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          Search through all available tools, calculators, converters, image tools, document tools, and audio/video tools. Use arrow keys to navigate and Enter to select.
+        </DialogDescription>
         <div className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-2xl animate-fade-in">
           {/* Search Header */}
           <div className="p-4 border-b border-border">
