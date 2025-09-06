@@ -42,9 +42,13 @@
   --document-background: hsl(25, 95%, 95%);
   --document-foreground: hsl(25, 95%, 15%);
 
-  --audio: hsl(330, 81%, 60%);
-  --audio-background: hsl(330, 81%, 95%);
-  --audio-foreground: hsl(330, 81%, 15%);
+  --audio: hsl(350, 89%, 60%);
+  --audio-background: hsl(350, 89%, 95%);
+  --audio-foreground: hsl(350, 89%, 15%);
+
+  /* Glass effect variables */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
 .dark {
@@ -85,9 +89,9 @@
   --document-background: hsl(25, 95%, 10%);
   --document-foreground: hsl(25, 95%, 85%);
 
-  --audio: hsl(330, 81%, 60%);
-  --audio-background: hsl(330, 81%, 10%);
-  --audio-foreground: hsl(330, 81%, 85%);
+  --audio: hsl(350, 89%, 60%);
+  --audio-background: hsl(350, 89%, 10%);
+  --audio-foreground: hsl(350, 89%, 85%);
 }
 
 @layer base {
@@ -131,15 +135,17 @@
   }
 }
 
+/* Enhanced glass effect */
 .glass-effect {
-  backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .dark .glass-effect {
-  background-color: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .modal-backdrop {
@@ -246,10 +252,46 @@
   }
 }
 
-/* Gradient text */
+/* Gradient text animation */
 .gradient-text {
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)) 100%);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)) 40%, hsl(var(--primary)) 60%);
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease-in-out infinite;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Enhanced dropdown animations */
+.dropdown-item {
+  transition: all 0.15s ease-in-out;
+}
+
+.dropdown-item:hover {
+  transform: translateX(4px);
+}
+
+/* Mobile menu enhancements */
+.mobile-nav-item {
+  transition: all 0.2s ease-in-out;
+  border-left: 3px solid transparent;
+}
+
+.mobile-nav-item:hover {
+  border-left-color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.05);
+}
+
+.mobile-nav-item.active {
+  border-left-color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.1);
 }
