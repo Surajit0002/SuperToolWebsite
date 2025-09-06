@@ -133,12 +133,12 @@ export default function Navbar() {
               variant="outline"
               size="sm"
               onClick={openSearch}
-              className="hidden sm:flex items-center space-x-2 bg-background/80 border-border/60 hover:bg-muted/80 backdrop-blur-sm transition-all duration-200 hover:shadow-md"
+              className="hidden sm:flex items-center space-x-2 bg-background/80 border-border/60 hover:bg-muted/80 backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:scale-105 group"
               data-testid="search-button"
             >
-              <Search className="w-4 h-4" />
-              <span className="hidden md:inline">Search tools...</span>
-              <div className="hidden lg:flex items-center justify-center bg-muted/60 text-muted-foreground text-xs px-1.5 py-0.5 rounded border">
+              <Search className="w-4 h-4 group-hover:text-primary transition-colors" />
+              <span className="hidden md:inline group-hover:text-primary transition-colors">Search tools...</span>
+              <div className="hidden lg:flex items-center justify-center bg-muted/60 text-muted-foreground text-xs px-1.5 py-0.5 rounded border group-hover:bg-primary/10 group-hover:text-primary transition-all">
                 ⌘K
               </div>
             </Button>
@@ -148,10 +148,10 @@ export default function Navbar() {
               variant="ghost"
               size="sm"
               onClick={openSearch}
-              className="sm:hidden w-9 h-9 p-0"
+              className="sm:hidden w-9 h-9 p-0 hover:bg-muted/80 hover:scale-105 transition-all duration-200 group"
               data-testid="mobile-search-button"
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-4 h-4 group-hover:text-primary transition-colors" />
             </Button>
 
             {/* Language Dropdown */}
