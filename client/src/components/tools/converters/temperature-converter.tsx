@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { ArrowUpDown, Copy, Share2, Thermometer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import GaugeChart from "@/components/charts/gauge-chart";
 
 export default function TemperatureConverter() {
   const [temperature, setTemperature] = useState("");
@@ -296,6 +297,28 @@ export default function TemperatureConverter() {
               <span>Share</span>
             </Button>
           </div>
+
+          {results && (
+            <div>
+              <h3 className="font-medium mb-3">Temperature Scale</h3>
+              <Card className="p-4 bg-muted/30 rounded-xl">
+                <GaugeChart
+                  value={results.celsius}
+                  min={-50}
+                  max={150}
+                  title="Temperature"
+                  unit="°C"
+                  categories={[
+                    { name: "Freezing", range: [-50, 0], color: "#3b82f6" },
+                    { name: "Cold", range: [0, 20], color: "#06b6d4" },
+                    { name: "Comfortable", range: [20, 30], color: "#10b981" },
+                    { name: "Warm", range: [30, 40], color: "#f59e0b" },
+                    { name: "Hot", range: [40, 150], color: "#ef4444" }
+                  ]}
+                />
+              </Card>
+            </div>
+          )}
 
           {results && (
             <div>

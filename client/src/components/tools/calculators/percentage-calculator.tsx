@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Copy, Share2, Calculator } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import BarChart from "@/components/charts/bar-chart";
 
 export default function PercentageCalculator() {
   const [mode, setMode] = useState<"of" | "change" | "what">("of");
@@ -250,6 +251,31 @@ export default function PercentageCalculator() {
               <span>Share</span>
             </Button>
           </div>
+
+          {result !== null && (
+            <div>
+              <h3 className="font-medium mb-3">Visual Comparison</h3>
+              <Card className="p-4 bg-muted/30 rounded-xl">
+                <BarChart
+                  data={[
+                    { 
+                      name: mode === "of" ? "Original" : mode === "change" ? "Original" : "Part", 
+                      value: parseFloat(value1), 
+                      color: "#3b82f6" 
+                    },
+                    { 
+                      name: mode === "of" ? "Result" : mode === "change" ? "New" : "Total", 
+                      value: mode === "of" ? result : parseFloat(value2), 
+                      color: "#10b981" 
+                    }
+                  ]}
+                  title={mode === "of" ? "Value Comparison" : mode === "change" ? "Before vs After" : "Part vs Total"}
+                  valueFormatter={(value) => value.toFixed(2)}
+                  height={200}
+                />
+              </Card>
+            </div>
+          )}
 
           {result !== null && (
             <div>

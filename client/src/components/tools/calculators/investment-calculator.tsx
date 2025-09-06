@@ -13,6 +13,7 @@ import {
 import { Copy, Share2, TrendingUp, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useSettings } from "@/hooks/use-settings";
+import LineChart from "@/components/charts/line-chart";
 
 export default function InvestmentCalculator() {
   const [initialAmount, setInitialAmount] = useState("");
@@ -308,6 +309,32 @@ export default function InvestmentCalculator() {
               <span>Download CSV</span>
             </Button>
           </div>
+
+          {result && (
+            <div>
+              <h3 className="font-medium mb-3">Growth Over Time</h3>
+              <Card className="p-4 bg-muted/30 rounded-xl">
+                <LineChart
+                  data={result.yearlyBreakdown.map(year => ({
+                    name: year.year,
+                    Principal: year.startBalance + year.contributions - year.interest,
+                    Interest: year.interest,
+                    Total: year.endBalance
+                  }))}
+                  lines={[
+                    { dataKey: "Principal", name: "Principal", color: "#3b82f6" },
+                    { dataKey: "Interest", name: "Interest", color: "#10b981" },
+                    { dataKey: "Total", name: "Total Value", color: "#8b5cf6" }
+                  ]}
+                  title="Investment Growth"
+                  xLabel="Year"
+                  yLabel="Amount"
+                  valueFormatter={(value) => getCurrencySymbol() + value.toLocaleString()}
+                  height={250}
+                />
+              </Card>
+            </div>
+          )}
 
           {result && (
             <div>

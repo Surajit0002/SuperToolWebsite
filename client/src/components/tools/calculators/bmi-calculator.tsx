@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Copy, Share2, Activity } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import GaugeChart from "@/components/charts/gauge-chart";
 
 export default function BMICalculator() {
   const [height, setHeight] = useState("");
@@ -284,6 +285,26 @@ export default function BMICalculator() {
               <span>Share</span>
             </Button>
           </div>
+
+          {bmi !== null && (
+            <div>
+              <h3 className="font-medium mb-3">BMI Gauge</h3>
+              <Card className="p-4 bg-muted/30 rounded-xl">
+                <GaugeChart
+                  value={bmi}
+                  min={15}
+                  max={40}
+                  title="BMI"
+                  categories={[
+                    { name: "Underweight", range: [15, 18.5], color: "#3b82f6" },
+                    { name: "Normal", range: [18.5, 25], color: "#10b981" },
+                    { name: "Overweight", range: [25, 30], color: "#f59e0b" },
+                    { name: "Obese", range: [30, 40], color: "#ef4444" }
+                  ]}
+                />
+              </Card>
+            </div>
+          )}
 
           {bmi !== null && (
             <div>

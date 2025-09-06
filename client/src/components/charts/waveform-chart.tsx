@@ -30,10 +30,8 @@ export default function WaveformChart({
       cursorColor: '#ef4444',
       barWidth: 2,
       barRadius: 1,
-      responsive: true,
       height: height,
       normalize: true,
-      backend: 'WebAudio',
       mediaControls: false,
     });
 
@@ -51,8 +49,10 @@ export default function WaveformChart({
 
     // Handle region updates
     if (onRegionUpdate) {
-      wavesurfer.current.on('region-update-end', (region: any) => {
-        onRegionUpdate(region.start, region.end);
+      wavesurfer.current.on('interaction', () => {
+        const currentTime = wavesurfer.current?.getCurrentTime() || 0;
+        const duration = wavesurfer.current?.getDuration() || 0;
+        onRegionUpdate(currentTime, duration);
       });
     }
 
