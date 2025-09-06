@@ -36,9 +36,21 @@ import JsonToCsvConverter from "./converters/json-to-csv-converter";
 import ImageResizer from "./image/image-resizer";
 import ImageCompressor from "./image/image-compressor";
 import ImageCropper from "./image/image-cropper";
+import ImageFormatConverter from "./image/image-format-converter";
+import ImageToPdfConverter from "./image/image-to-pdf-converter";
+import ImageColorPicker from "./image/image-color-picker";
+import ImageWatermarkTool from "./image/image-watermark-tool";
+import ImageEnhancer from "./image/image-enhancer";
+import MemeGenerator from "./image/meme-generator";
+import ImageRotatorFlipper from "./image/image-rotator-flipper";
+import ImageBlurPixelate from "./image/image-blur-pixelate";
+import ColorPickerTool from "./image/color-picker-tool";
 import PDFMerger from "./document/pdf-merger";
 import PDFSplitter from "./document/pdf-splitter";
+import TextToPdfGenerator from "./document/text-to-pdf-generator";
 import MP3Cutter from "./audio/mp3-cutter";
+import GifMaker from "./audio/gif-maker";
+import VideoDownloader from "./audio/video-downloader";
 
 export default function ToolModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,9 +123,21 @@ export default function ToolModal() {
       "image-resizer": ImageResizer,
       "image-compressor": ImageCompressor,
       "image-cropper": ImageCropper,
+      "image-format-converter": ImageFormatConverter,
+      "image-to-pdf-converter": ImageToPdfConverter,
+      "image-color-picker": ImageColorPicker,
+      "image-watermark-tool": ImageWatermarkTool,
+      "image-enhancer": ImageEnhancer,
+      "meme-generator": MemeGenerator,
+      "image-rotator-flipper": ImageRotatorFlipper,
+      "image-blur-pixelate": ImageBlurPixelate,
+      "color-picker-tool": ColorPickerTool,
       "pdf-merger": PDFMerger,
       "pdf-splitter": PDFSplitter,
+      "text-to-pdf-generator": TextToPdfGenerator,
       "mp3-cutter": MP3Cutter,
+      "gif-maker": GifMaker,
+      "video-downloader": VideoDownloader,
     };
 
     const Component = componentMap[toolId];
