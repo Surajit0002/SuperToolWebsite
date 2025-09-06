@@ -5,7 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { X, Search, ShieldCheck } from "lucide-react";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { X, Search, ShieldCheck, ChevronDown, Grid3X3, Layers } from "lucide-react";
 import { getToolById, getToolsByCategory, getCategoryColor, toolCategories } from "@/lib/tools";
 import { ToolCategory } from "@shared/schema";
 import * as LucideIcons from "lucide-react";
@@ -160,7 +168,7 @@ export default function ToolModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[85vh] max-h-[90vh] flex flex-col animate-fade-in p-0">
+      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[90vh] max-h-[95vh] flex flex-col animate-fade-in p-0 overflow-hidden">
         <DialogTitle className="sr-only">
           {currentTool.name} - {toolCategories[currentTool.category].name}
         </DialogTitle>
@@ -168,15 +176,15 @@ export default function ToolModal() {
           {currentTool.description}
         </DialogDescription>
         
-        {/* Modal Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border">
+        {/* Enhanced Modal Header */}
+        <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-muted/20 to-muted/10">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3">
-              <div className={`w-10 h-10 bg-${color} rounded-xl flex items-center justify-center`}>
+              <div className={`w-12 h-12 bg-gradient-to-br from-${color} to-${color}/80 rounded-xl flex items-center justify-center shadow-lg`}>
                 {renderIcon(currentTool.icon)}
               </div>
               <div>
-                <h2 className="text-2xl font-bold" data-testid="modal-title">
+                <h2 className="text-2xl font-bold text-foreground" data-testid="modal-title">
                   {currentTool.name}
                 </h2>
                 <Badge
@@ -184,6 +192,7 @@ export default function ToolModal() {
                   className={`bg-${color}/10 text-${color} border-${color}/20 mt-1`}
                   data-testid="modal-category"
                 >
+                  <Layers className="w-3 h-3 mr-1" />
                   {toolCategories[currentTool.category].name}
                 </Badge>
               </div>
@@ -191,11 +200,100 @@ export default function ToolModal() {
           </div>
 
           <div className="flex items-center space-x-3">
-            {/* Close Button */}
+            {/* Advanced Tool Switcher Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center space-x-2 min-w-[180px] justify-between"
+                  data-testid="tool-switcher"
+                >
+                  <div className="flex items-center space-x-2">
+                    <Grid3X3 className="w-4 h-4" />
+                    <span className="truncate">Switch Tool</span>
+                  </div>
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-80 max-h-96 overflow-y-auto" align="end">
+                <DropdownMenuLabel className="flex items-center space-x-2">
+                  <div className={`w-4 h-4 bg-${color} rounded`}></div>
+                  <span>{toolCategories[currentTool.category].name} Tools</span>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                
+                {/* Search within dropdown */}
+                <div className="p-2">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      type="text"
+                      placeholder="Search tools..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10 h-8"
+                      data-testid="dropdown-search"
+                    />
+                  </div>
+                </div>
+                
+                <DropdownMenuSeparator />
+                
+                {/* Grid of tools in dropdown */}
+                <div className="p-2 grid grid-cols-2 gap-1 max-h-64 overflow-y-auto">
+                  {filteredTools.map((tool) => (
+                    <DropdownMenuItem
+                      key={tool.id}
+                      onClick={() => switchTool(tool.id)}
+                      className={`p-3 cursor-pointer rounded-lg transition-all ${
+                        tool.id === currentToolId
+                          ? `bg-${color}/10 border border-${color}/20`
+                          : "hover:bg-muted/60"
+                      }`}
+                      data-testid={`dropdown-switch-to-${tool.id}`}
+                    >
+                      <div className="flex flex-col items-center space-y-2 text-center">
+                        <div className={`w-8 h-8 bg-${color} rounded-lg flex items-center justify-center`}>
+                          {renderIcon(tool.icon)}
+                        </div>
+                        <div className="space-y-1">
+                          <div className={`font-medium text-xs ${
+                            tool.id === currentToolId ? `text-${color}` : "text-foreground"
+                          }`}>
+                            {tool.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground leading-tight">
+                            {tool.description.length > 40 
+                              ? `${tool.description.substring(0, 40)}...` 
+                              : tool.description
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                  ))}
+                </div>
+                
+                {filteredTools.length === 0 && searchQuery && (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p className="text-sm">No tools found matching "{searchQuery}"</p>
+                  </div>
+                )}
+                
+                <DropdownMenuSeparator />
+                <div className="p-2 text-xs text-muted-foreground text-center">
+                  {categoryTools.length} tools available
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Single Close Button */}
             <Button
               variant="ghost"
               size="sm"
               onClick={closeTool}
+              className="hover:bg-destructive/10 hover:text-destructive"
               data-testid="close-modal"
             >
               <X className="w-5 h-5" />
@@ -203,41 +301,55 @@ export default function ToolModal() {
           </div>
         </div>
 
-        {/* Modal Body with Tabs */}
-        <div className="flex-1 overflow-hidden flex">
-          {/* Tool Switcher Sidebar */}
-          <div className="w-80 border-r border-border bg-muted/20 flex flex-col">
-            {/* Search within category */}
+        {/* Enhanced Modal Body - Grid Layout */}
+        <div className="flex-1 overflow-hidden grid grid-cols-12 gap-0">
+          {/* Sidebar - Quick Tool Navigation */}
+          <div className="col-span-3 border-r border-border bg-muted/10 flex flex-col">
+            {/* Quick Actions */}
             <div className="p-4 border-b border-border">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder={`Search ${toolCategories[currentTool.category].name}...`}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                  data-testid="tool-search"
-                />
+              <h3 className="font-semibold text-sm mb-3 flex items-center">
+                <Grid3X3 className="w-4 h-4 mr-2" />
+                Quick Switch
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
+                {categoryTools.slice(0, 4).map((tool) => (
+                  <button
+                    key={tool.id}
+                    onClick={() => switchTool(tool.id)}
+                    className={`p-2 rounded-lg transition-all text-left ${
+                      tool.id === currentToolId
+                        ? `bg-${color}/10 border border-${color}/20`
+                        : "bg-background hover:bg-muted/60 border border-transparent"
+                    }`}
+                    data-testid={`quick-switch-${tool.id}`}
+                  >
+                    <div className={`w-6 h-6 bg-${color} rounded flex items-center justify-center mb-1`}>
+                      {renderIcon(tool.icon)}
+                    </div>
+                    <div className="text-xs font-medium truncate">
+                      {tool.name}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
             
-            {/* Tool List */}
+            {/* Tool List - Scrollable */}
             <ScrollArea className="flex-1">
-              <div className="p-2">
+              <div className="p-2 space-y-1">
                 {filteredTools.map((tool) => (
                   <button
                     key={tool.id}
                     onClick={() => switchTool(tool.id)}
-                    className={`w-full text-left p-3 rounded-lg mb-2 transition-colors hover:bg-muted/60 ${
+                    className={`w-full text-left p-3 rounded-lg transition-all hover:shadow-sm ${
                       tool.id === currentToolId
-                        ? `bg-${color}/10 border border-${color}/20`
-                        : "bg-background border border-transparent"
+                        ? `bg-${color}/15 border border-${color}/30 shadow-sm`
+                        : "bg-background hover:bg-muted/40 border border-transparent"
                     }`}
-                    data-testid={`switch-to-${tool.id}`}
+                    data-testid={`sidebar-switch-to-${tool.id}`}
                   >
                     <div className="flex items-center space-x-3">
-                      <div className={`w-8 h-8 bg-${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <div className={`w-8 h-8 bg-gradient-to-br from-${color} to-${color}/80 rounded-lg flex items-center justify-center flex-shrink-0`}>
                         {renderIcon(tool.icon)}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -253,42 +365,54 @@ export default function ToolModal() {
                     </div>
                   </button>
                 ))}
-                
-                {filteredTools.length === 0 && searchQuery && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <p className="text-sm">No tools found matching "{searchQuery}"</p>
-                  </div>
-                )}
               </div>
             </ScrollArea>
             
-            <div className="p-4 border-t border-border text-xs text-muted-foreground">
-              {categoryTools.length} tools in {toolCategories[currentTool.category].name}
+            {/* Sidebar Footer */}
+            <div className="p-4 border-t border-border bg-muted/5">
+              <div className="text-xs text-muted-foreground text-center">
+                <div className="flex items-center justify-center space-x-2 mb-1">
+                  <div className={`w-2 h-2 bg-${color} rounded-full`}></div>
+                  <span>{categoryTools.length} tools</span>
+                </div>
+                <span className="text-muted-foreground/70">in {toolCategories[currentTool.category].name}</span>
+              </div>
             </div>
           </div>
           
-          {/* Tool Content */}
-          <div className="flex-1 overflow-hidden">
-            {renderToolComponent(currentToolId)}
+          {/* Main Tool Content Area */}
+          <div className="col-span-9 overflow-hidden bg-background">
+            <div className="h-full overflow-auto">
+              {renderToolComponent(currentToolId)}
+            </div>
           </div>
         </div>
 
-          {/* Modal Footer */}
-          <div className="p-6 border-t border-border">
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <div className="flex items-center space-x-4">
-                <span className="flex items-center">
-                  <ShieldCheck className="w-4 h-4 mr-2" />
-                  Privacy-first: {currentTool.clientOnly ? "All calculations are done locally" : "Files auto-deleted after processing"}
+        {/* Enhanced Modal Footer */}
+        <div className="p-4 border-t border-border bg-gradient-to-r from-muted/10 to-muted/5">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-6">
+              <span className="flex items-center text-muted-foreground">
+                <ShieldCheck className="w-4 h-4 mr-2 text-green-500" />
+                <span className="font-medium">Privacy-first:</span>
+                <span className="ml-1">
+                  {currentTool.clientOnly ? "All processing done locally" : "Files auto-deleted after processing"}
                 </span>
-              </div>
-              <div className="flex items-center space-x-4">
-                <span>No usage limits</span>
-                <span>•</span>
-                <span>Results are not stored</span>
-              </div>
+              </span>
+            </div>
+            <div className="flex items-center space-x-4 text-muted-foreground">
+              <span className="flex items-center">
+                <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                No usage limits
+              </span>
+              <span>•</span>
+              <span className="flex items-center">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                Results not stored
+              </span>
             </div>
           </div>
+        </div>
       </DialogContent>
     </Dialog>
   );
