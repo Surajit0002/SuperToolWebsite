@@ -80,7 +80,7 @@ export default function GlobalSearch() {
         <DialogDescription className="sr-only">
           Search through all available tools, calculators, converters, image tools, document tools, and audio/video tools. Use arrow keys to navigate and Enter to select.
         </DialogDescription>
-        <div className="relative bg-background/98 border border-border/30 rounded-3xl shadow-2xl w-full max-w-4xl backdrop-blur-2xl animate-in fade-in-0 zoom-in-95 duration-300 slide-in-from-top-4 max-h-[85vh] overflow-hidden ring-1 ring-white/5 mx-auto"></div>
+        <div className="relative bg-background/98 border border-border/30 rounded-3xl shadow-2xl w-full max-w-4xl backdrop-blur-2xl animate-in fade-in-0 zoom-in-95 duration-300 slide-in-from-top-4 max-h-[85vh] overflow-hidden ring-1 ring-white/5 mx-auto">
           {/* Search Header */}
           <div className="p-6 pb-4 border-b border-border/30 bg-gradient-to-b from-background/50 to-transparent">
             <div className="relative group">
