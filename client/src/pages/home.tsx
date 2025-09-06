@@ -99,9 +99,9 @@ export default function Home() {
 
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 page-transition animate-fade-in">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/5 to-secondary/5 py-20 px-4">
+      <section className="relative bg-gradient-to-br from-primary/5 to-secondary/5 py-20 px-4 animate-slide-up">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
             All Your Tools in One Place
@@ -118,7 +118,7 @@ export default function Home() {
             <Input
               type="text"
               placeholder="Search tools, calculators, converters..."
-              className="w-full pl-10 pr-4 py-4 text-lg bg-card border border-border rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full pl-10 pr-4 py-4 text-lg bg-card border border-border rounded-2xl shadow-lg focus-ring"
               onClick={openSearch}
               readOnly
               data-testid="hero-search"
@@ -130,7 +130,7 @@ export default function Home() {
 
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/categories">
-              <Button size="lg" className="px-6 py-3 rounded-xl" data-testid="browse-categories">
+              <Button size="lg" className="px-6 py-3 rounded-xl btn-enhanced interactive-element" data-testid="browse-categories">
                 Browse Categories
               </Button>
             </Link>
@@ -138,7 +138,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="lg"
-                className="px-6 py-3 rounded-xl"
+                className="px-6 py-3 rounded-xl btn-enhanced interactive-element"
                 data-testid="popular-tools"
               >
                 Popular Tools
@@ -156,7 +156,7 @@ export default function Home() {
             <p className="text-muted-foreground text-lg">Choose from our comprehensive collection of tools</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16 stagger-animation">
             {Object.entries(toolCategories).map(([categoryId, categoryData]) => {
               const category = categoryId as ToolCategory;
               const icon = getCategoryIcon(category);

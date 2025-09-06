@@ -73,7 +73,7 @@ export default function GlobalSearch() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="bg-background/98 border border-border/30 rounded-3xl shadow-2xl w-full max-w-4xl backdrop-blur-2xl animate-in fade-in-0 zoom-in-95 duration-300 slide-in-from-top-4 max-h-[85vh] overflow-hidden ring-1 ring-white/5 p-0">
+      <DialogContent className="search-modal-content rounded-3xl shadow-2xl w-full max-w-4xl animate-in fade-in-0 zoom-in-95 duration-300 slide-in-from-top-4 max-h-[85vh] overflow-hidden p-0">
         <DialogTitle className="sr-only">
           Global Search - Search Tools and Calculators
         </DialogTitle>
@@ -82,7 +82,7 @@ export default function GlobalSearch() {
         </DialogDescription>
         <div className="relative w-full h-full">
           {/* Search Header */}
-          <div className="p-6 pb-4 border-b border-border/30 bg-gradient-to-b from-background/50 to-transparent">
+          <div className="p-6 pb-4 border-b border-border bg-gradient-to-b from-card to-muted/10">
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 rounded-3xl opacity-0 group-focus-within:opacity-100 transition-all duration-500 blur-2xl scale-110"></div>
               <div className="relative">
@@ -124,7 +124,7 @@ export default function GlobalSearch() {
           </div>
 
           {/* Search Results */}
-          <div className="max-h-[60vh] overflow-y-auto scrollbar-hide bg-gradient-to-b from-transparent via-background/20 to-background/40">
+          <div className="max-h-[60vh] overflow-y-auto scrollbar-hide bg-gradient-to-b from-card via-card/95 to-card">
             <div className="p-6 pt-4">
               {query ? (
                 <>
@@ -293,7 +293,7 @@ export default function GlobalSearch() {
           </div>
 
           {/* Search Footer */}
-          <div className="p-6 pt-4 border-t border-border/30 bg-gradient-to-t from-muted/30 via-muted/15 to-transparent backdrop-blur-sm rounded-b-3xl">
+          <div className="p-6 pt-4 border-t border-border bg-gradient-to-t from-muted/50 via-muted/20 to-card rounded-b-3xl">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <div className="flex items-center space-x-8">
                 <div className="flex items-center space-x-3">
