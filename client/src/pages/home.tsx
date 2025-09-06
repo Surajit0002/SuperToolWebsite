@@ -257,7 +257,7 @@ export default function Home() {
             <p className="text-muted-foreground text-lg">Most used tools by our community</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
             {popularTools.map((tool) => {
               const solidColors = getToolSolidColors(tool.id);
 

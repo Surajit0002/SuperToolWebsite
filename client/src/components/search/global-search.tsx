@@ -256,7 +256,7 @@ export default function GlobalSearch() {
                     </div>
                     <div className="text-xs text-muted-foreground">Explore more</div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {categories.slice(0, 4).map(([categoryId, categoryData]) => {
                       const category = categoryId as ToolCategory;
                       const color = getCategoryColor(category);
