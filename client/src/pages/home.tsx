@@ -90,6 +90,7 @@ export default function Home() {
     }
     const configIndex = Math.abs(hash) % toolConfigs.length;
     return toolConfigs[configIndex];
+  };
 
   const renderToolCardIcon = (iconName: string) => {
     const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Calculator;
