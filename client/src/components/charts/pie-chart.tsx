@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import * as echarts from 'echarts';
+import { init, type ECharts } from 'echarts';
 
 interface PieChartData {
   name: string;
@@ -21,13 +21,13 @@ export default function PieChart({
   className = ""
 }: PieChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
-  const chartInstance = useRef<echarts.ECharts | null>(null);
+  const chartInstance = useRef<ECharts | null>(null);
 
   useEffect(() => {
     if (!chartRef.current) return;
 
     // Initialize chart
-    chartInstance.current = echarts.init(chartRef.current);
+    chartInstance.current = init(chartRef.current);
 
     const option = {
       title: {
