@@ -56,20 +56,9 @@ import ColorPickerTool from "./image/color-picker-tool";
 import PDFMerger from "./document/pdf-merger";
 import PDFSplitter from "./document/pdf-splitter";
 import TextToPdfGenerator from "./document/text-to-pdf-generator";
-import PdfToWordConverter from "./document/pdf-to-word-converter";
-import WordToPdfConverter from "./document/word-to-pdf-converter";
-import PdfToExcelConverter from "./document/pdf-to-excel-converter";
-import ExcelToPdfConverter from "./document/excel-to-pdf-converter";
-import PdfCompressor from "./document/pdf-compressor";
-import OcrTool from "./document/ocr-tool";
-import BackgroundRemover from "./image/background-remover";
-import CollageMaker from "./image/collage-maker";
 import MP3Cutter from "./audio/mp3-cutter";
 import GifMaker from "./audio/gif-maker";
 import VideoDownloader from "./audio/video-downloader";
-import VideoToMp3Converter from "./audio/video-to-mp3-converter";
-import AudioConverter from "./audio/audio-converter";
-import VideoCompressor from "./audio/video-compressor";
 
 export default function ToolModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -310,23 +299,12 @@ export default function ToolModal() {
       "image-rotator-flipper": ImageRotatorFlipper,
       "image-blur-pixelate": ImageBlurPixelate,
       "color-picker-tool": ColorPickerTool,
-      "background-remover": BackgroundRemover,
-      "collage-maker": CollageMaker,
       "pdf-merger": PDFMerger,
       "pdf-splitter": PDFSplitter,
       "text-to-pdf-generator": TextToPdfGenerator,
-      "pdf-to-word-converter": PdfToWordConverter,
-      "word-to-pdf-converter": WordToPdfConverter,
-      "pdf-to-excel-converter": PdfToExcelConverter,
-      "excel-to-pdf-converter": ExcelToPdfConverter,
-      "pdf-compressor": PdfCompressor,
-      "ocr-tool": OcrTool,
       "mp3-cutter": MP3Cutter,
       "gif-maker": GifMaker,
       "video-downloader": VideoDownloader,
-      "video-to-mp3-converter": VideoToMp3Converter,
-      "audio-converter": AudioConverter,
-      "video-compressor": VideoCompressor,
     };
 
     const Component = componentMap[toolId];
