@@ -56,6 +56,16 @@ import ColorPickerTool from "./image/color-picker-tool";
 import PDFMerger from "./document/pdf-merger";
 import PDFSplitter from "./document/pdf-splitter";
 import TextToPdfGenerator from "./document/text-to-pdf-generator";
+import CsvToExcelConverter from "./document/csv-to-excel-converter";
+import ExcelToCsvConverter from "./document/excel-to-csv-converter";
+import EpubToPdfConverter from "./document/epub-to-pdf-converter";
+import ExcelMerger from "./document/excel-merger";
+import HtmlToPdfConverter from "./document/html-to-pdf-converter";
+import MarkdownToPdfConverter from "./document/markdown-to-pdf-converter";
+import OcrTool from "./document/ocr-tool";
+import PdfCompressor from "./document/pdf-compressor";
+import PdfLockTool from "./document/pdf-lock-tool";
+import PdfUnlockTool from "./document/pdf-unlock-tool";
 import MP3Cutter from "./audio/mp3-cutter";
 import GifMaker from "./audio/gif-maker";
 import VideoDownloader from "./audio/video-downloader";
@@ -302,6 +312,16 @@ export default function ToolModal() {
       "pdf-merger": PDFMerger,
       "pdf-splitter": PDFSplitter,
       "text-to-pdf-generator": TextToPdfGenerator,
+      "csv-to-excel-converter": CsvToExcelConverter,
+      "excel-to-csv-converter": ExcelToCsvConverter,
+      "epub-to-pdf-converter": EpubToPdfConverter,
+      "excel-merger": ExcelMerger,
+      "html-to-pdf-converter": HtmlToPdfConverter,
+      "markdown-to-pdf-converter": MarkdownToPdfConverter,
+      "ocr-tool": OcrTool,
+      "pdf-compressor": PdfCompressor,
+      "pdf-lock-tool": PdfLockTool,
+      "pdf-unlock-tool": PdfUnlockTool,
       "mp3-cutter": MP3Cutter,
       "gif-maker": GifMaker,
       "video-downloader": VideoDownloader,
