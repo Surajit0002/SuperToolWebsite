@@ -398,7 +398,7 @@ export default function ToolModal() {
         }
       }}
     >
-      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[90vh] max-h-[95vh] flex flex-col animate-fade-in p-0 overflow-hidden">
+      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-[70%] h-[90vh] max-h-[95vh] flex flex-col animate-fade-in p-0 overflow-hidden">
         <DialogTitle className="sr-only">
           {currentTool.name} - {toolCategories[currentTool.category].name}
         </DialogTitle>
