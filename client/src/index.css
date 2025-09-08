@@ -480,16 +480,7 @@ body {
   width: 100%;
 }
 
-.modal-backdrop-animate {
-  opacity: 0;
-  animation: backdropFadeIn 0.3s ease forwards;
-}
 
-.modal-content-animate {
-  opacity: 0;
-  transform: scale(0.9) translateY(20px);
-  animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
 
 .card-stagger > * {
   opacity: 0;

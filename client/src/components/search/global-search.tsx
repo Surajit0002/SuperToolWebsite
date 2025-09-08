@@ -122,7 +122,7 @@ export default function GlobalSearch() {
                 </div>
               </div>
             </div>
-            
+
             {/* Floating Action Hints */}
             <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex items-center space-x-6 opacity-80 group-focus-within:opacity-100 transition-all duration-500">
               <div className="flex items-center space-x-2 bg-gradient-to-r from-lime-400 to-green-500 px-4 py-2 rounded-2xl border border-white/40 shadow-lg">
@@ -161,8 +161,8 @@ export default function GlobalSearch() {
                             <div
                               key={tool.id}
                               className={`cursor-pointer rounded-2xl p-5 flex items-center space-x-4 transition-all duration-300 group relative overflow-hidden ${
-                                isSelected 
-                                  ? `bg-gradient-to-r from-violet-500 via-purple-600 to-indigo-600 border border-white/30 shadow-xl scale-[1.03] ring-2 ring-yellow-400/50` 
+                                isSelected
+                                  ? `bg-gradient-to-r from-violet-500 via-purple-600 to-indigo-600 border border-white/30 shadow-xl scale-[1.03] ring-2 ring-yellow-400/50`
                                   : "hover:bg-gradient-to-r hover:from-blue-100 hover:via-purple-100 hover:to-pink-100 border border-transparent hover:border-indigo-300 hover:shadow-lg hover:scale-[1.02] hover:ring-1 hover:ring-purple-300"
                               }`}
                               onClick={() => openTool(tool.id, tool.category)}
@@ -232,8 +232,8 @@ export default function GlobalSearch() {
                         <div
                           key={tool.id}
                           className={`cursor-pointer rounded-xl p-4 flex items-center space-x-4 transition-all duration-200 group ${
-                            isSelected 
-                              ? `bg-gradient-to-r from-amber-400 to-orange-500 border border-white/30 shadow-lg scale-[1.02]` 
+                            isSelected
+                              ? `bg-gradient-to-r from-amber-400 to-orange-500 border border-white/30 shadow-lg scale-[1.02]`
                               : "hover:bg-gradient-to-r hover:from-yellow-100 hover:to-orange-100 border border-transparent hover:shadow-md hover:scale-[1.01] hover:border-orange-300"
                           }`}
                           onClick={() => openTool(tool.id, tool.category)}
@@ -319,7 +319,7 @@ export default function GlobalSearch() {
             </div>
           </div>
 
-          
+
         </div>
       </DialogContent>
     </Dialog>
