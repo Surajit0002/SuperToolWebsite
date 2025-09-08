@@ -82,11 +82,20 @@ export default function GlobalSearch() {
         </DialogDescription>
         <div className="relative w-full h-full">
           {/* Search Header */}
-          <div className="relative p-6 bg-blue-600 border-b border-white/20">
-            <div className="relative">
+          <div className="relative p-6 bg-gradient-to-r from-blue-600 to-purple-600 border-b border-white/20">
+            {/* Close Button - Top Right */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white hover:text-gray-200 transition-all duration-200 hover:scale-110"
+              data-testid="modal-close-button"
+            >
+              ×
+            </button>
+            
+            <div className="relative pr-16">
               <div className="relative">
                 <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
-                  <div className="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg">
                     <Search className="w-4 h-4 text-white" />
                   </div>
                 </div>
@@ -98,7 +107,7 @@ export default function GlobalSearch() {
                     setQuery(e.target.value);
                     setSelectedIndex(0);
                   }}
-                  className="pl-16 pr-24 py-4 text-lg font-medium bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-0 focus:border-blue-400 placeholder:text-gray-500 text-gray-800"
+                  className="pl-16 pr-28 py-4 text-lg font-medium bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-0 focus:border-blue-400 placeholder:text-gray-500 text-gray-800 shadow-lg"
                   autoFocus
                   data-testid="global-search-input"
                 />
@@ -109,12 +118,13 @@ export default function GlobalSearch() {
                         setQuery("");
                         setSelectedIndex(0);
                       }}
-                      className="w-6 h-6 bg-red-500 rounded-lg flex items-center justify-center text-white text-sm"
+                      className="w-7 h-7 bg-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center text-white text-sm transition-colors duration-200 hover:scale-105"
+                      title="Clear search"
                     >
                       ×
                     </button>
                   )}
-                  <div className="hidden sm:flex items-center justify-center bg-gray-700 text-white text-xs px-2 py-1 rounded font-mono">
+                  <div className="hidden sm:flex items-center justify-center bg-gray-700/80 text-white text-xs px-2 py-1 rounded-md font-mono border border-gray-600">
                     ESC
                   </div>
                 </div>
@@ -122,14 +132,14 @@ export default function GlobalSearch() {
             </div>
 
             {/* Action Hints */}
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
-              <div className="flex items-center space-x-1 bg-green-500 px-3 py-1 rounded-lg">
-                <div className="w-1 h-1 bg-white rounded-full"></div>
-                <span className="text-xs font-medium text-white">↵ select</span>
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex items-center space-x-3">
+              <div className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-xl shadow-lg border border-green-400/50 transition-colors duration-200">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <span className="text-xs font-semibold text-white">↵ select</span>
               </div>
-              <div className="flex items-center space-x-1 bg-blue-500 px-3 py-1 rounded-lg">
-                <div className="w-1 h-1 bg-white rounded-full"></div>
-                <span className="text-xs font-medium text-white">↑↓ navigate</span>
+              <div className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-xl shadow-lg border border-blue-400/50 transition-colors duration-200">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <span className="text-xs font-semibold text-white">↑↓ navigate</span>
               </div>
             </div>
           </div>
@@ -141,12 +151,12 @@ export default function GlobalSearch() {
                 <>
                   {searchResults.length > 0 ? (
                     <>
-                      <div className="flex items-center justify-between px-2 py-2 mb-3">
-                        <div className="text-sm font-semibold text-gray-800 flex items-center space-x-2">
-                          <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                      <div className="flex items-center justify-between px-3 py-3 mb-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                        <div className="text-sm font-bold text-gray-800 flex items-center space-x-3">
+                          <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
                           <span>Search Results</span>
                         </div>
-                        <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                        <div className="text-xs font-semibold text-blue-600 bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200">
                           {searchResults.length} found
                         </div>
                       </div>
@@ -194,13 +204,14 @@ export default function GlobalSearch() {
                       </div>
                     </>
                   ) : (
-                    <div className="px-4 py-12 text-center">
-                      <div className="w-16 h-16 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Search className="w-8 h-8 text-muted-foreground" />
+                    <div className="px-6 py-16 text-center">
+                      <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                        <Search className="w-10 h-10 text-gray-400" />
                       </div>
-                      <div className="text-lg font-medium text-foreground mb-2">No results found</div>
-                      <div className="text-sm text-muted-foreground">
-                        Try searching for "{query.slice(0, 20)}" with different keywords
+                      <div className="text-xl font-bold text-gray-700 mb-3">No results found</div>
+                      <div className="text-sm text-gray-500 max-w-md mx-auto leading-relaxed">
+                        We couldn't find any tools matching <span className="font-semibold text-gray-700">"{query.slice(0, 20)}"</span>
+                        <br />Try different keywords or browse our categories below
                       </div>
                     </div>
                   )}
@@ -208,12 +219,15 @@ export default function GlobalSearch() {
               ) : (
                 <>
                   {/* Popular Tools */}
-                  <div className="flex items-center justify-between px-2 py-2 mb-3">
-                    <div className="text-sm font-semibold text-gray-800 flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                  <div className="flex items-center justify-between px-3 py-3 mb-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-100">
+                    <div className="text-sm font-bold text-gray-800 flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full animate-pulse"></div>
                       <span>Popular Tools</span>
                     </div>
-                    <div className="text-xs text-gray-500">Trending</div>
+                    <div className="text-xs font-semibold text-orange-600 bg-orange-100 px-3 py-1.5 rounded-lg border border-orange-200 flex items-center space-x-1">
+                      <span>🔥</span>
+                      <span>Trending</span>
+                    </div>
                   </div>
                   <div className="space-y-2 mb-6">
                     {popularTools.map((tool, index) => {
@@ -260,12 +274,14 @@ export default function GlobalSearch() {
                   </div>
 
                   {/* Categories */}
-                  <div className="flex items-center justify-between px-2 py-2 mb-3">
-                    <div className="text-sm font-semibold text-gray-800 flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  <div className="flex items-center justify-between px-3 py-3 mb-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-xl border border-green-100">
+                    <div className="text-sm font-bold text-gray-800 flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full animate-pulse"></div>
                       <span>Browse Categories</span>
                     </div>
-                    <div className="text-xs text-gray-500">Explore more</div>
+                    <div className="text-xs font-semibold text-green-600 bg-green-100 px-3 py-1.5 rounded-lg border border-green-200">
+                      Explore more
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {categories.slice(0, 4).map(([categoryId, categoryData]) => {
