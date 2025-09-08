@@ -1,0 +1,545 @@
+import React, { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Progress } from "@/components/ui/progress";
+import { Upload, Download, Video, RefreshCw, Minimize2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+
+interface CompressionResult {
+  processedFile: string;
+  originalSize: number;
+  processedSize: number;
+  processingTime: number;
+  fileName: string;
+  compressionRatio: number;
+  savedBytes: number;
+}
+
+export default function VideoCompressor() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [result, setResult] = useState<CompressionResult | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [quality, setQuality] = useState([75]);
+  const [outputFormat, setOutputFormat] = useState("mp4");
+  const [resolution, setResolution] = useState("original");
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { toast } = useToast();
+
+  const formatOptions = [
+    { value: "mp4", label: "MP4", description: "Best compatibility" },
+    { value: "webm", label: "WebM", description: "Good for web" },
+    { value: "mkv", label: "MKV", description: "High quality container" },
+  ];
+
+  const resolutionOptions = [
+    { value: "original", label: "Original Resolution" },
+    { value: "1080p", label: "1080p (1920x1080)" },
+    { value: "720p", label: "720p (1280x720)" },
+    { value: "480p", label: "480p (854x480)" },
+    { value: "360p", label: "360p (640x360)" },
+  ];
+
+  const acceptedTypes = [
+    'video/mp4',
+    'video/avi',
+    'video/mov',
+    'video/wmv',
+    'video/flv',
+    'video/mkv',
+    'video/webm',
+    'video/3gp',
+    'video/m4v',
+  ];
+
+  const handleFileSelect = (file: File) => {
+    if (!acceptedTypes.includes(file.type) && !file.name.match(/\.(mp4|avi|mov|wmv|flv|mkv|webm|3gp|m4v)$/i)) {
+      toast({
+        title: "Error",
+        description: "Please select a supported video file",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024 * 1024) { // 2GB limit
+      toast({
+        title: "Error",
+        description: "File size must be less than 2GB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setSelectedFile(file);
+    setResult(null);
+
+    // Create video preview
+    if (videoRef.current) {
+      const url = URL.createObjectURL(file);
+      videoRef.current.src = url;
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) handleFileSelect(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFileSelect(files[0]);
+    }
+  };
+
+  const compressVideo = async () => {
+    if (!selectedFile) {
+      toast({
+        title: "Error",
+        description: "Please select a video file first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+    setProgress(0);
+
+    try {
+      const startTime = Date.now();
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('quality', quality[0].toString());
+      formData.append('format', outputFormat);
+      formData.append('resolution', resolution);
+
+      // Simulate progress for video compression (longer process)
+      const progressInterval = setInterval(() => {
+        setProgress(prev => Math.min(prev + Math.random() * 3, 90));
+      }, 1000);
+
+      const response = await apiRequest('/api/audio-video/video-compress', {
+        method: 'POST',
+        body: formData,
+      });
+
+      clearInterval(progressInterval);
+
+      if (!response.ok) {
+        throw new Error('Video compression failed');
+      }
+
+      const blob = await response.blob();
+      const processedFile = URL.createObjectURL(blob);
+      const processingTime = Date.now() - startTime;
+      const savedBytes = selectedFile.size - blob.size;
+      const compressionRatio = ((savedBytes / selectedFile.size) * 100);
+
+      setResult({
+        processedFile,
+        originalSize: selectedFile.size,
+        processedSize: blob.size,
+        processingTime,
+        fileName: selectedFile.name.replace(/\.[^/.]+$/, `_compressed.${outputFormat}`),
+        compressionRatio,
+        savedBytes,
+      });
+
+      setProgress(100);
+
+      toast({
+        title: "Success!",
+        description: `Video compressed successfully! Saved ${formatFileSize(savedBytes)}`,
+      });
+
+    } catch (error) {
+      console.error("Video compression error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to compress video. This feature requires server processing.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const downloadResult = () => {
+    if (result?.processedFile) {
+      const a = document.createElement('a');
+      a.href = result.processedFile;
+      a.download = result.fileName;
+      a.click();
+
+      toast({
+        title: "Downloaded!",
+        description: "Compressed video downloaded successfully",
+      });
+    }
+  };
+
+  const reset = () => {
+    setSelectedFile(null);
+    setResult(null);
+    setProgress(0);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    if (videoRef.current) {
+      videoRef.current.src = '';
+    }
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const getQualityLabel = (value: number) => {
+    if (value >= 90) return "Highest Quality";
+    if (value >= 75) return "High Quality";
+    if (value >= 50) return "Balanced";
+    if (value >= 25) return "Small Size";
+    return "Minimum Size";
+  };
+
+  const getEstimatedReduction = (quality: number) => {
+    const baseReduction = (100 - quality) * 0.7; // Rough estimation
+    return Math.min(Math.max(baseReduction, 10), 85);
+  };
+
+  return (
+    <div className="flex h-full">
+      {/* Left Panel - Controls */}
+      <div className="w-1/2 p-6 border-r border-border overflow-y-auto">
+        <div className="space-y-6">
+          {/* File Upload */}
+          <div>
+            <Label className="block text-sm font-medium mb-2">Upload Video File</Label>
+            <div
+              className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
+                isDragging ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/20' : 
+                'border-border hover:border-rose-400'
+              }`}
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              data-testid="video-upload-area"
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="video/*"
+                onChange={handleInputChange}
+                className="hidden"
+                data-testid="video-file-input"
+              />
+              <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-lg mb-2">
+                {isDragging ? 'Drop video file here' : 'Click to upload or drag and drop'}
+              </p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Supports: MP4, AVI, MOV, WMV, FLV, MKV, WebM (max 2GB)
+              </p>
+              {selectedFile && (
+                <div className="mt-4 p-3 bg-muted rounded-lg">
+                  <p className="font-medium">{selectedFile.name}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {formatFileSize(selectedFile.size)}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Compression Settings */}
+          {selectedFile && (
+            <div className="space-y-6">
+              <div>
+                <Label className="block text-sm font-medium mb-2">
+                  Quality: {quality[0]}% - {getQualityLabel(quality[0])}
+                </Label>
+                <Slider
+                  value={quality}
+                  onValueChange={setQuality}
+                  max={100}
+                  min={10}
+                  step={5}
+                  className="mt-2"
+                  data-testid="quality-slider"
+                />
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>Smaller file</span>
+                  <span>Better quality</span>
+                </div>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Estimated reduction: ~{getEstimatedReduction(quality[0])}%
+                </p>
+              </div>
+
+              <div>
+                <Label className="block text-sm font-medium mb-2">Output Format</Label>
+                <Select value={outputFormat} onValueChange={setOutputFormat}>
+                  <SelectTrigger data-testid="format-select">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {formatOptions.map((format) => (
+                      <SelectItem key={format.value} value={format.value}>
+                        <div>
+                          <div className="font-medium">{format.label}</div>
+                          <div className="text-xs text-muted-foreground">{format.description}</div>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="block text-sm font-medium mb-2">Resolution</Label>
+                <Select value={resolution} onValueChange={setResolution}>
+                  <SelectTrigger data-testid="resolution-select">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {resolutionOptions.map((res) => (
+                      <SelectItem key={res.value} value={res.value}>
+                        {res.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
+
+          {/* Compression Controls */}
+          {selectedFile && (
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <Button
+                  onClick={compressVideo}
+                  disabled={isProcessing}
+                  className="flex-1"
+                  data-testid="button-compress"
+                >
+                  {isProcessing ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                      Compressing...
+                    </>
+                  ) : (
+                    <>
+                      <Minimize2 className="w-4 h-4 mr-2" />
+                      Compress Video
+                    </>
+                  )}
+                </Button>
+                <Button
+                  onClick={reset}
+                  variant="outline"
+                  data-testid="button-reset"
+                >
+                  Reset
+                </Button>
+              </div>
+
+              {/* Progress Bar */}
+              {isProcessing && (
+                <div className="space-y-2">
+                  <Progress value={progress} className="w-full" />
+                  <p className="text-sm text-center text-muted-foreground">
+                    Compressing video... {Math.round(progress)}%
+                  </p>
+                  <p className="text-xs text-center text-muted-foreground">
+                    This may take several minutes for large files
+                  </p>
+                </div>
+              )}
+
+              {/* Compression Stats */}
+              {result && (
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="space-y-3">
+                      <h3 className="font-semibold mb-3">Compression Complete</h3>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-muted-foreground">Original size:</span>
+                          <br />
+                          <span className="font-medium">{formatFileSize(result.originalSize)}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Compressed size:</span>
+                          <br />
+                          <span className="font-medium">{formatFileSize(result.processedSize)}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Space saved:</span>
+                          <br />
+                          <span className="font-medium text-green-600">
+                            {formatFileSize(result.savedBytes)} ({result.compressionRatio.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Processing time:</span>
+                          <br />
+                          <span className="font-medium">{(result.processingTime / 1000).toFixed(1)}s</span>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={downloadResult}
+                        className="w-full mt-4"
+                        data-testid="button-download"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Download Compressed Video
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
+
+          {/* Tips */}
+          <Card>
+            <CardContent className="pt-6">
+              <h3 className="font-semibold mb-3">Compression Tips</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Lower quality settings create smaller files</li>
+                <li>• Reducing resolution significantly decreases file size</li>
+                <li>• MP4 offers the best compatibility across devices</li>
+                <li>• Processing time depends on video length and settings</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Right Panel - Preview */}
+      <div className="w-1/2 p-6 overflow-y-auto">
+        <div className="space-y-6">
+          <Label className="block text-sm font-medium">Video Preview</Label>
+
+          {selectedFile ? (
+            <div className="space-y-4">
+              <Card>
+                <CardContent className="pt-6">
+                  <video
+                    ref={videoRef}
+                    controls
+                    className="w-full rounded-lg max-h-64"
+                    data-testid="video-preview"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-16 h-20 bg-blue-100 dark:bg-blue-950/20 rounded-lg flex items-center justify-center">
+                      <Video className="w-8 h-8 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{selectedFile.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Video File • {formatFileSize(selectedFile.size)}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Ready for compression
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {result && result.compressionRatio > 0 && (
+                <Card className="border-green-200 dark:border-green-800">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-20 bg-green-100 dark:bg-green-950/20 rounded-lg flex items-center justify-center">
+                        <Minimize2 className="w-8 h-8 text-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{result.fileName}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Compressed Video • {formatFileSize(result.processedSize)}
+                        </p>
+                        <p className="text-xs text-green-600 mt-1">
+                          ✓ {result.compressionRatio.toFixed(1)}% size reduction achieved!
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-64 border-2 border-dashed border-border rounded-xl">
+              <div className="text-center">
+                <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground">Upload a video file to get started</p>
+              </div>
+            </div>
+          )}
+
+          {/* Compression Preview */}
+          {selectedFile && (
+            <Card>
+              <CardContent className="pt-6">
+                <h3 className="font-semibold mb-3">Estimated Results</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Current size:</span>
+                    <span>{formatFileSize(selectedFile.size)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Estimated size:</span>
+                    <span className="text-green-600">
+                      ~{formatFileSize(selectedFile.size * (1 - getEstimatedReduction(quality[0]) / 100))}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Space saved:</span>
+                    <span className="text-green-600">
+                      ~{getEstimatedReduction(quality[0])}%
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

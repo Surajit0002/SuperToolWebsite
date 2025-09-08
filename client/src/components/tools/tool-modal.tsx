@@ -76,6 +76,8 @@ import WordToPdfConverter from "./document/word-to-pdf-converter";
 import PdfToExcelConverter from "./document/pdf-to-excel-converter";
 import ExcelToPdfConverter from "./document/excel-to-pdf-converter";
 import VideoToMp3Converter from "./audio-video/video-to-mp3-converter";
+import AudioConverter from "./audio-video/audio-converter";
+import VideoCompressor from "./audio-video/video-compressor";
 
 export default function ToolModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -339,6 +341,8 @@ export default function ToolModal() {
       "pdf-to-excel-converter": PdfToExcelConverter,
       "excel-to-pdf-converter": ExcelToPdfConverter,
       "video-to-mp3-converter": VideoToMp3Converter,
+      "audio-converter": AudioConverter,
+      "video-compressor": VideoCompressor,
     };
 
     const Component = componentMap[toolId];
