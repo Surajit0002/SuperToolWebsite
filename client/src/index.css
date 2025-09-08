@@ -53,10 +53,6 @@ body {
   --audio: hsl(350, 89%, 60%);
   --audio-background: hsl(350, 89%, 95%);
   --audio-foreground: hsl(350, 89%, 15%);
-
-  /* Glass effect variables */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
 .dark {
@@ -346,6 +342,7 @@ body {
     0 0 0 1px rgba(102, 126, 234, 0.3),
     0 20px 40px rgba(118, 75, 162, 0.4),
     0 50px 100px rgba(255, 154, 0, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
 @keyframes modalGlow {

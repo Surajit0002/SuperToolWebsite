@@ -73,7 +73,7 @@ export default function GlobalSearch() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="search-modal-content rounded-3xl shadow-2xl w-full max-w-5xl animate-in fade-in-0 zoom-in-95 duration-500 slide-in-from-top-4 max-h-[90vh] overflow-hidden p-0 border-2 border-primary/30 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
+      <DialogContent className="search-modal-content rounded-3xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden p-0 border-2 border-primary/30 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
         <DialogTitle className="sr-only">
           Global Search - Search Tools and Calculators
         </DialogTitle>
@@ -124,13 +124,13 @@ export default function GlobalSearch() {
             </div>
 
             {/* Floating Action Hints */}
-            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex items-center space-x-6 opacity-80 group-focus-within:opacity-100 transition-all duration-500">
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex items-center space-x-6 opacity-80 group-focus-within:opacity-100 transition-all duration-300">
               <div className="flex items-center space-x-2 bg-gradient-to-r from-lime-400 to-green-500 px-4 py-2 rounded-2xl border border-white/40 shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
                 <span className="text-xs font-medium text-white">Press ↵ to select</span>
               </div>
               <div className="flex items-center space-x-2 bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-2 rounded-2xl border border-white/40 shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse animation-delay-200"></div>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
                 <span className="text-xs font-medium text-white">Use ↑↓ to navigate</span>
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function GlobalSearch() {
                     <>
                       <div className="flex items-center justify-between px-4 py-3 mb-2">
                         <div className="text-sm font-semibold text-foreground flex items-center space-x-2">
-                          <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                          <span className="w-2 h-2 bg-primary rounded-full"></span>
                           <span>Search Results</span>
                         </div>
                         <div className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded-full">
@@ -218,7 +218,7 @@ export default function GlobalSearch() {
                   {/* Popular Tools */}
                   <div className="flex items-center justify-between px-4 py-3 mb-2">
                     <div className="text-sm font-semibold text-foreground flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                      <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
                       <span>Popular Tools</span>
                     </div>
                     <div className="text-xs text-muted-foreground">Trending</div>
@@ -276,7 +276,7 @@ export default function GlobalSearch() {
                   {/* Categories */}
                   <div className="flex items-center justify-between px-4 py-3 mb-2">
                     <div className="text-sm font-semibold text-foreground flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                       <span>Browse Categories</span>
                     </div>
                     <div className="text-xs text-muted-foreground">Explore more</div>
