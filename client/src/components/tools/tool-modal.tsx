@@ -1,37 +1,20 @@
 import { useState, useEffect } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import {
-  X,
-  Search,
-  ShieldCheck,
-  ChevronDown,
-  Grid3X3,
-  Layers,
-} from "lucide-react";
-import {
-  getToolById,
-  getToolsByCategory,
-  getCategoryColor,
-  toolCategories,
-} from "@/lib/tools";
+import { X, Search, ShieldCheck, ChevronDown, Grid3X3, Layers } from "lucide-react";
+import { getToolById, getToolsByCategory, getCategoryColor, toolCategories } from "@/lib/tools";
 import { ToolCategory } from "@shared/schema";
 import * as LucideIcons from "lucide-react";
 
@@ -107,8 +90,8 @@ export default function ToolModal() {
       setCurrentToolId(toolId);
       setIsOpen(true);
       // Prevent body scrolling when modal is open
-      document.body.style.overflow = "hidden";
-      document.body.style.overflowY = "hidden";
+      document.body.style.overflow = 'hidden';
+      document.body.style.overflowY = 'hidden';
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -121,14 +104,11 @@ export default function ToolModal() {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener(
-        "open-tool",
-        handleOpenTool as EventListener,
-      );
+      document.removeEventListener("open-tool", handleOpenTool as EventListener);
       document.removeEventListener("keydown", handleKeyDown);
       // Ensure body scroll is restored on cleanup
-      document.body.style.overflow = "";
-      document.body.style.overflowY = "";
+      document.body.style.overflow = '';
+      document.body.style.overflowY = '';
     };
   }, [isOpen]);
 
@@ -137,14 +117,14 @@ export default function ToolModal() {
     setCurrentToolId(null);
     setSearchQuery("");
     // Restore body scrolling with smooth transition
-    document.body.style.overflow = "visible";
-    document.body.style.overflowY = "auto";
-    document.documentElement.style.scrollBehavior = "smooth";
+    document.body.style.overflow = 'visible';
+    document.body.style.overflowY = 'auto';
+    document.documentElement.style.scrollBehavior = 'smooth';
 
     // Force re-enable scrolling after a short delay to ensure it takes effect
     setTimeout(() => {
-      document.body.style.overflow = "";
-      document.body.style.overflowY = "";
+      document.body.style.overflow = '';
+      document.body.style.overflowY = '';
     }, 100);
   };
 
@@ -155,33 +135,33 @@ export default function ToolModal() {
   // Generate unique colors for each tool
   const getToolColor = (toolId: string) => {
     const colors = [
-      "bg-gradient-to-br from-blue-500 to-blue-600",
-      "bg-gradient-to-br from-green-500 to-green-600",
-      "bg-gradient-to-br from-purple-500 to-purple-600",
-      "bg-gradient-to-br from-orange-500 to-orange-600",
-      "bg-gradient-to-br from-red-500 to-red-600",
-      "bg-gradient-to-br from-pink-500 to-pink-600",
-      "bg-gradient-to-br from-indigo-500 to-indigo-600",
-      "bg-gradient-to-br from-cyan-500 to-cyan-600",
-      "bg-gradient-to-br from-teal-500 to-teal-600",
-      "bg-gradient-to-br from-yellow-500 to-yellow-600",
-      "bg-gradient-to-br from-emerald-500 to-emerald-600",
-      "bg-gradient-to-br from-violet-500 to-violet-600",
-      "bg-gradient-to-br from-rose-500 to-rose-600",
-      "bg-gradient-to-br from-amber-500 to-amber-600",
-      "bg-gradient-to-br from-lime-500 to-lime-600",
-      "bg-gradient-to-br from-sky-500 to-sky-600",
-      "bg-gradient-to-br from-slate-500 to-slate-600",
-      "bg-gradient-to-br from-zinc-500 to-zinc-600",
-      "bg-gradient-to-br from-neutral-500 to-neutral-600",
-      "bg-gradient-to-br from-stone-500 to-stone-600",
+      'bg-gradient-to-br from-blue-500 to-blue-600',
+      'bg-gradient-to-br from-green-500 to-green-600',
+      'bg-gradient-to-br from-purple-500 to-purple-600',
+      'bg-gradient-to-br from-orange-500 to-orange-600',
+      'bg-gradient-to-br from-red-500 to-red-600',
+      'bg-gradient-to-br from-pink-500 to-pink-600',
+      'bg-gradient-to-br from-indigo-500 to-indigo-600',
+      'bg-gradient-to-br from-cyan-500 to-cyan-600',
+      'bg-gradient-to-br from-teal-500 to-teal-600',
+      'bg-gradient-to-br from-yellow-500 to-yellow-600',
+      'bg-gradient-to-br from-emerald-500 to-emerald-600',
+      'bg-gradient-to-br from-violet-500 to-violet-600',
+      'bg-gradient-to-br from-rose-500 to-rose-600',
+      'bg-gradient-to-br from-amber-500 to-amber-600',
+      'bg-gradient-to-br from-lime-500 to-lime-600',
+      'bg-gradient-to-br from-sky-500 to-sky-600',
+      'bg-gradient-to-br from-slate-500 to-slate-600',
+      'bg-gradient-to-br from-zinc-500 to-zinc-600',
+      'bg-gradient-to-br from-neutral-500 to-neutral-600',
+      'bg-gradient-to-br from-stone-500 to-stone-600'
     ];
 
     // Use a simple hash function to assign consistent colors to tools
     let hash = 0;
     for (let i = 0; i < toolId.length; i++) {
       const char = toolId.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
+      hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
 
@@ -192,78 +172,78 @@ export default function ToolModal() {
     // Comprehensive icon mapping to ensure compatibility with all tools
     const iconMap: Record<string, string> = {
       // Calculator tools
-      calculator: "Calculator",
-      percent: "Percent",
-      heart: "Heart",
-      calendar: "Calendar",
-      banknote: "Banknote",
-      "trending-up": "TrendingUp",
-      flame: "Flame",
-      activity: "Activity",
-      receipt: "Receipt",
-      coins: "Coins",
-      apple: "Apple",
-      "piggy-bank": "PiggyBank",
+      'calculator': 'Calculator',
+      'percent': 'Percent', 
+      'heart': 'Heart',
+      'calendar': 'Calendar',
+      'banknote': 'Banknote',
+      'trending-up': 'TrendingUp',
+      'flame': 'Flame',
+      'activity': 'Activity',
+      'receipt': 'Receipt',
+      'coins': 'Coins',
+      'apple': 'Apple',
+      'piggy-bank': 'PiggyBank',
 
       // Converter tools
-      repeat: "Repeat",
-      thermometer: "Thermometer",
-      type: "Type",
-      clock: "Clock",
-      binary: "Binary",
-      code: "Code",
-      ruler: "Ruler",
-      table: "Table",
+      'repeat': 'Repeat',
+      'thermometer': 'Thermometer',
+      'type': 'Type',
+      'clock': 'Clock',
+      'binary': 'Binary',
+      'code': 'Code',
+      'ruler': 'Ruler',
+      'table': 'Table',
 
       // Image tools
-      maximize: "Maximize2",
-      minimize: "Minimize2",
-      crop: "Crop",
-      image: "Image",
-      "file-image": "FileImage",
-      scissors: "Scissors",
-      layers: "Layers",
-      palette: "Palette",
-      sparkles: "Sparkles",
-      "rotate-cw": "RotateCw",
-      blur: "Circle",
-      droplet: "Droplet",
-      paintbrush: "PaintBucket",
-      smile: "Smile",
-      eyedropper: "Eyedropper",
-      "shield-check": "ShieldCheck",
-      "grid-3x3": "Grid3X3",
+      'maximize': 'Maximize2',
+      'minimize': 'Minimize2',
+      'crop': 'Crop',
+      'image': 'Image',
+      'file-image': 'FileImage',
+      'scissors': 'Scissors',
+      'layers': 'Layers',
+      'palette': 'Palette',
+      'sparkles': 'Sparkles',
+      'rotate-cw': 'RotateCw',
+      'blur': 'Circle',
+      'droplet': 'Droplet',
+      'paintbrush': 'PaintBucket',
+      'smile': 'Smile',
+      'eyedropper': 'Eyedropper',
+      'shield-check': 'ShieldCheck',
+      'grid-3x3': 'Grid3X3',
 
       // Document tools
-      "file-json": "FileJson",
-      "file-text": "FileText",
-      merge: "Merge",
-      split: "Split",
-      "file-plus": "FilePlus",
-      "file-minus": "FileMinus",
-      presentation: "Presentation",
-      book: "Book",
-      unlock: "Unlock",
-      lock: "Lock",
-      "scan-text": "ScanText",
-      markdown: "FileText",
+      'file-json': 'FileJson',
+      'file-text': 'FileText',
+      'merge': 'Merge',
+      'split': 'Split',
+      'file-plus': 'FilePlus',
+      'file-minus': 'FileMinus',
+      'presentation': 'Presentation',
+      'book': 'Book',
+      'unlock': 'Unlock',
+      'lock': 'Lock',
+      'scan-text': 'ScanText',
+      'markdown': 'FileText',
 
       // Audio/Video tools
-      music: "Music",
-      film: "Film",
-      download: "Download",
-      video: "Video",
-      play: "Play",
+      'music': 'Music',
+      'film': 'Film',
+      'download': 'Download',
+      'video': 'Video',
+      'play': 'Play',
 
       // Additional common mappings
-      compress: "Archive",
-      expand: "Expand",
-      watermark: "Droplets",
-      enhance: "Zap",
-      convert: "RefreshCw",
-      resize: "Move3D",
-      flip: "FlipHorizontal",
-      background: "Layout",
+      'compress': 'Archive',
+      'expand': 'Expand',
+      'watermark': 'Droplets',
+      'enhance': 'Zap',
+      'convert': 'RefreshCw',
+      'resize': 'Move3D',
+      'flip': 'FlipHorizontal',
+      'background': 'Layout'
     };
 
     // First try the mapped name, then the original name, then fallback
@@ -282,11 +262,8 @@ export default function ToolModal() {
         iconName?.charAt(0).toUpperCase() + iconName?.slice(1),
         iconName?.toLowerCase(),
         iconName?.toUpperCase(),
-        iconName?.replace("-", ""),
-        iconName
-          ?.split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(""),
+        iconName?.replace('-', ''),
+        iconName?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('')
       ].filter(Boolean);
 
       for (const variation of variations) {
@@ -381,24 +358,20 @@ export default function ToolModal() {
   const categoryTools = getToolsByCategory(currentTool.category);
 
   // Filter tools based on search query
-  const filteredTools = categoryTools.filter(
-    (tool) =>
-      tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tool.description.toLowerCase().includes(searchQuery.toLowerCase()),
+  const filteredTools = categoryTools.filter(tool => 
+    tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    tool.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={(open) => {
-        if (!open) {
-          closeTool();
-        } else {
-          setIsOpen(true);
-        }
-      }}
-    >
-      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-[70vw] h-[90vh] max-h-[95vh] flex flex-col animate-fade-in p-0 overflow-hidden">
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      if (!open) {
+        closeTool();
+      } else {
+        setIsOpen(true);
+      }
+    }}>
+      <DialogContent className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-7xl h-[90vh] max-h-[95vh] flex flex-col animate-fade-in p-0 overflow-hidden">
         <DialogTitle className="sr-only">
           {currentTool.name} - {toolCategories[currentTool.category].name}
         </DialogTitle>
@@ -414,10 +387,7 @@ export default function ToolModal() {
                 {renderIcon(currentTool.icon)}
               </div>
               <div>
-                <h2
-                  className="text-2xl font-bold text-foreground text-reveal"
-                  data-testid="modal-title"
-                >
+                <h2 className="text-2xl font-bold text-foreground text-reveal" data-testid="modal-title">
                   {currentTool.name}
                 </h2>
                 <Badge
@@ -449,10 +419,7 @@ export default function ToolModal() {
                   <ChevronDown className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-80 max-h-96 overflow-y-auto"
-                align="end"
-              >
+              <DropdownMenuContent className="w-80 max-h-96 overflow-y-auto" align="end">
                 <DropdownMenuLabel className="flex items-center space-x-2">
                   <div className="w-4 h-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded"></div>
                   <span>{toolCategories[currentTool.category].name} Tools</span>
@@ -490,25 +457,16 @@ export default function ToolModal() {
                       data-testid={`dropdown-switch-to-${tool.id}`}
                     >
                       <div className="flex items-center space-x-3 w-full">
-                        <div
-                          className={`w-8 h-8 ${getToolColor(tool.id)} rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm`}
-                        >
+                        <div className={`w-8 h-8 ${getToolColor(tool.id)} rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm`}>
                           {renderIcon(tool.icon)}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div
-                            className={`font-medium text-sm flex items-center space-x-2 ${
-                              tool.id === currentToolId
-                                ? "text-blue-700 dark:text-blue-300"
-                                : "text-foreground"
-                            }`}
-                          >
+                          <div className={`font-medium text-sm flex items-center space-x-2 ${
+                            tool.id === currentToolId ? "text-blue-700 dark:text-blue-300" : "text-foreground"
+                          }`}>
                             <span>{tool.name}</span>
                             {tool.popular && (
-                              <Badge
-                                variant="outline"
-                                className="bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950/20 dark:text-yellow-300 dark:border-yellow-800/30 text-xs px-1.5 py-0"
-                              >
+                              <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950/20 dark:text-yellow-300 dark:border-yellow-800/30 text-xs px-1.5 py-0">
                                 Popular
                               </Badge>
                             )}
@@ -524,9 +482,7 @@ export default function ToolModal() {
 
                 {filteredTools.length === 0 && searchQuery && (
                   <div className="text-center py-8 text-muted-foreground">
-                    <p className="text-sm">
-                      No tools found matching "{searchQuery}"
-                    </p>
+                    <p className="text-sm">No tools found matching "{searchQuery}"</p>
                   </div>
                 )}
 
@@ -536,6 +492,17 @@ export default function ToolModal() {
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Single Close Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={closeTool}
+              className="hover:bg-destructive/10 hover:text-destructive button-bounce"
+              data-testid="close-modal"
+            >
+              <X className="w-5 h-5" />
+            </Button>
           </div>
         </div>
 
@@ -554,9 +521,7 @@ export default function ToolModal() {
                 <ShieldCheck className="w-4 h-4 mr-2 text-green-500" />
                 <span className="font-medium">Privacy-first:</span>
                 <span className="ml-1">
-                  {currentTool.clientOnly
-                    ? "All processing done locally"
-                    : "Files auto-deleted after processing"}
+                  {currentTool.clientOnly ? "All processing done locally" : "Files auto-deleted after processing"}
                 </span>
               </span>
             </div>
