@@ -7,8 +7,32 @@ import { Search, ArrowRight, Plus } from "lucide-react";
 import { toolCategories, getCategoryColor, getCategoryIcon, getPopularTools, getToolsByCategory } from "@/lib/tools";
 import { ToolCategory } from "@shared/schema";
 import * as LucideIcons from "lucide-react";
+import React, { useState, useEffect } from 'react'; // Added for useState
+import { Zap, BookOpen } from "lucide-react"; // Added for Zap and BookOpen icons
+
+// Mock 'tools' and 'tool' types for the context of the provided changes.
+// In a real scenario, these would be imported from "@/lib/tools" or similar.
+const tools = [
+  { id: 'pdf-merger', name: 'PDF Merger', description: 'Merge multiple PDFs into one.', category: 'document-tools', icon: LucideIcons.FileText },
+  { id: 'image-compressor', name: 'Image Compressor', description: 'Compress images without losing quality.', category: 'image-tools', icon: LucideIcons.Image },
+  { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate your Body Mass Index.', category: 'calculators', icon: LucideIcons.UserRound },
+  { id: 'currency-converter', name: 'Currency Converter', description: 'Convert currencies in real-time.', category: 'converters', icon: LucideIcons.DollarSign },
+  { id: 'background-remover', name: 'Background Remover', description: 'Remove backgrounds from images.', category: 'image-tools', icon: LucideIcons.Trash2 },
+];
 
 export default function Home() {
+  const [selectedTool, setSelectedTool] = useState<string | null>(null);
+
+  // Featured tools - mix of different categories for a good overview
+  const featuredTools = [
+    tools.find(t => t.id === 'pdf-merger')!,
+    tools.find(t => t.id === 'image-compressor')!,
+    tools.find(t => t.id === 'bmi-calculator')!,
+    tools.find(t => t.id === 'currency-converter')!,
+    tools.find(t => t.id === 'background-remover')!,
+    tools.find(t => t.id === 'background-remover')!,
+  ].filter(Boolean);
+
   const popularTools = getPopularTools();
 
   const openSearch = () => {
@@ -99,51 +123,25 @@ export default function Home() {
 
 
   return (
-    <div className="flex-1 page-transition animate-fade-in">
+    <div className="min-h-screen page-enter">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/5 to-secondary/5 py-20 px-4 animate-slide-up">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-            All Your Tools in One Place
+      <section className="relative py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5 section-fade-in">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent text-reveal">
+            Super-Tool Collection
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            From calculators to converters, image editing to document processing - everything you need, beautifully organized and lightning fast.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto text-reveal section-fade-in-delay-1">
+            Your all-in-one platform for productivity tools. Convert, calculate, compress, and create with ease.
           </p>
-
-          {/* Global Search Bar */}
-          <div className="relative max-w-xl mx-auto mb-8">
-            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <Search className="w-5 h-5 text-muted-foreground" />
-            </div>
-            <Input
-              type="text"
-              placeholder="Search tools, calculators, converters..."
-              className="w-full pl-10 pr-4 py-4 text-lg bg-card border border-border rounded-2xl shadow-lg focus-ring"
-              onClick={openSearch}
-              readOnly
-              data-testid="hero-search"
-            />
-            <div className="absolute inset-y-0 right-3 flex items-center">
-              <div className="search-shortcut">⌘K</div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/categories">
-              <Button size="lg" className="px-6 py-3 rounded-xl btn-enhanced interactive-element" data-testid="browse-categories">
-                Browse Categories
-              </Button>
-            </Link>
-            <Link href="/tools">
-              <Button
-                variant="outline"
-                size="lg"
-                className="px-6 py-3 rounded-xl btn-enhanced interactive-element"
-                data-testid="popular-tools"
-              >
-                Popular Tools
-              </Button>
-            </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center section-fade-in-delay-2">
+            <Button size="lg" className="btn-enhanced button-bounce">
+              <Zap className="w-5 h-5 mr-2" />
+              Explore Tools
+            </Button>
+            <Button variant="outline" size="lg" className="button-bounce">
+              <BookOpen className="w-5 h-5 mr-2" />
+              Learn More
+            </Button>
           </div>
         </div>
       </section>
@@ -226,7 +224,7 @@ export default function Home() {
 
               return (
                 <Link key={categoryId} href={`/categories/${categoryId}`}>
-                  <Card className="group cursor-pointer hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
+                  <Card className="group cursor-pointer hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl animate-fade-in-stagger">
                     <CardContent className={`${colorClasses.cardBg} border ${colorClasses.cardBorder} rounded-2xl p-6 text-center`}>
                       <div className={`w-16 h-16 ${colorClasses.iconBg} rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform`}>
                         {renderIcon(icon)}
@@ -264,7 +262,7 @@ export default function Home() {
               return (
                 <Card
                   key={tool.id}
-                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[200px]"
+                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[200px] animate-fade-in-stagger-fast"
                   onClick={() => openTool(tool.id, tool.category)}
                   data-testid={`tool-card-${tool.id}`}
                 >
@@ -290,7 +288,7 @@ export default function Home() {
 
             {/* More Tools Button */}
             <Link href="/tools">
-              <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-dashed h-[200px]">
+              <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-dashed h-[200px] animate-fade-in-stagger-fast">
                 <CardContent className="p-6 flex items-center justify-center h-full">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-muted/50 rounded-xl mx-auto mb-4 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary transition-colors">

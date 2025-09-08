@@ -50,32 +50,32 @@ export default function AllTools() {
   });
 
   return (
-    <div className="min-h-screen py-16 px-4">
+    <div className="min-h-screen py-16 px-4 page-enter">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">All Tools</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <div className="text-center mb-12 section-fade-in">
+          <h1 className="text-4xl font-bold mb-4 text-reveal">All Tools</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-reveal section-fade-in-delay-1">
             Explore our complete collection of {tools.length} professional tools
           </p>
         </div>
 
         {/* Filters */}
-        <div className="mb-8 flex flex-col sm:flex-row gap-4">
-          <div className="relative flex-1">
+        <div className="mb-8 space-y-4 section-fade-in-delay-2">
+          <div className="relative flex-1 slide-in-left">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               type="text"
               placeholder="Search tools..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-10 transition-all duration-300 focus:scale-105"
               data-testid="search-tools"
             />
           </div>
 
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-full sm:w-48" data-testid="filter-category">
+            <SelectTrigger className="w-full sm:w-48 slide-in-right" data-testid="filter-category">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -89,7 +89,7 @@ export default function AllTools() {
           </Select>
 
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full sm:w-48" data-testid="sort-tools">
+            <SelectTrigger className="w-full sm:w-48 button-bounce" data-testid="sort-tools">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
@@ -101,15 +101,15 @@ export default function AllTools() {
         </div>
 
         {/* Results Summary */}
-        <div className="mb-6 text-sm text-muted-foreground">
+        <div className="mb-6 text-sm text-muted-foreground section-fade-in-delay-3">
           Showing {filteredTools.length} of {tools.length} tools
           {searchQuery && ` matching "${searchQuery}"`}
           {selectedCategory !== "all" && ` in ${toolCategories[selectedCategory as ToolCategory].name}`}
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-6">
-          {filteredTools.map((tool) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-6 card-stagger">
+          {filteredTools.map((tool, index) => {
             // Get unique solid colors and icons for each tool
             const getToolSolidColors = (toolId: string) => {
               const toolConfigs = [
@@ -165,20 +165,21 @@ export default function AllTools() {
             return (
               <Card
                 key={tool.id}
-                className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[240px]"
+                className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[240px] card-hover-float"
                 onClick={() => openTool(tool.id, tool.category)}
                 data-testid={`tool-card-${tool.id}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className={`p-6 ${solidColors.bg} rounded-lg h-full flex flex-col`}>
-                  <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                     {renderToolCardIcon(solidColors.icon)}
                   </div>
-                  <h3 className={`font-semibold text-lg mb-2 ${solidColors.text} line-clamp-1`}>{tool.name}</h3>
+                  <h3 className={`font-semibold text-lg mb-2 ${solidColors.text} line-clamp-1 transition-colors duration-200 group-hover:text-primary`}>{tool.name}</h3>
                   <p className={`text-sm mb-4 ${solidColors.text} opacity-90 flex-1 line-clamp-2`}>{tool.description}</p>
                   <div className="flex items-center justify-between mb-3">
                     <Badge
                       variant="outline"
-                      className={`${solidColors.badge} ${solidColors.text} border-white/30 text-xs`}
+                      className={`${solidColors.badge} ${solidColors.text} border-white/30 text-xs transition-all duration-200 group-hover:scale-105`}
                     >
                       {toolCategories[tool.category]?.name || 'Tool'}
                     </Badge>
@@ -196,7 +197,7 @@ export default function AllTools() {
                         </span>
                       ))}
                     </div>
-                    <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-colors`} />
+                    <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-transform duration-200 group-hover:translate-x-1`} />
                   </div>
                 </CardContent>
               </Card>
@@ -206,7 +207,7 @@ export default function AllTools() {
 
         {/* No Results */}
         {filteredTools.length === 0 && (
-          <div className="text-center py-16">
+          <div className="text-center py-16 section-fade-in">
             <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
               <Search className="w-8 h-8 text-muted-foreground" />
             </div>

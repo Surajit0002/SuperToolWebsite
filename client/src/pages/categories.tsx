@@ -1,10 +1,11 @@
 import { useParams, Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calculator, RefreshCw, Image, FileText, Volume2, Zap } from "lucide-react";
 import { toolCategories, getToolsByCategory, getCategoryColor, tools } from "@/lib/tools";
 import { ToolCategory } from "@shared/schema";
 import * as LucideIcons from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Categories() {
   const params = useParams();
@@ -31,18 +32,18 @@ export default function Categories() {
     const categoryData = toolCategories[selectedCategory];
 
     return (
-      <div className="min-h-screen py-16 px-4">
+      <div className="min-h-screen py-16 px-4 page-enter">
         <div className="max-w-7xl mx-auto">
           {/* Category Header */}
-          <div className="text-center mb-12">
-            <div className={`w-20 h-20 bg-${color} rounded-2xl mx-auto mb-6 flex items-center justify-center`}>
+          <div className="text-center mb-12 section-fade-in">
+            <div className={`w-20 h-20 bg-${color} rounded-2xl mx-auto mb-6 flex items-center justify-center section-fade-in-delay-1`}>
               {renderCategoryIcon(selectedCategory === 'calculators' ? 'calculator' : 
                                   selectedCategory === 'converters' ? 'repeat' :
                                   selectedCategory === 'image-tools' ? 'image' :
                                   selectedCategory === 'document-tools' ? 'file-text' : 'play')}
             </div>
-            <h1 className="text-4xl font-bold mb-4">{categoryData.name}</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h1 className="text-4xl font-bold mb-4 text-reveal section-fade-in-delay-2">{categoryData.name}</h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-reveal section-fade-in-delay-3">
               {selectedCategory === 'calculators' && 'Powerful calculation tools for math, finance, and everyday needs'}
               {selectedCategory === 'converters' && 'Convert between units, currencies, formats, and more'}
               {selectedCategory === 'image-tools' && 'Professional image editing and processing tools'}
@@ -52,7 +53,7 @@ export default function Categories() {
           </div>
 
           {/* Tools Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 card-stagger">
             {categoryTools.map((tool) => {
               // Get unique solid colors and icons for each tool
               const getToolSolidColors = (toolId: string) => {
@@ -97,15 +98,15 @@ export default function Categories() {
               return (
                 <Card
                   key={tool.id}
-                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[240px]"
+                  className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 h-[240px] card-hover-float"
                   onClick={() => openTool(tool.id, tool.category)}
                   data-testid={`tool-card-${tool.id}`}
                 >
                   <CardContent className={`p-6 ${solidColors.bg} rounded-lg h-full flex flex-col`}>
-                    <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                       {renderToolCardIcon(solidColors.icon)}
                     </div>
-                    <h3 className={`font-semibold text-lg mb-2 ${solidColors.text} line-clamp-1`}>{tool.name}</h3>
+                    <h3 className={`font-semibold text-lg mb-2 ${solidColors.text} line-clamp-1 transition-colors duration-200 group-hover:text-white`}>{tool.name}</h3>
                     <p className={`text-sm mb-4 ${solidColors.text} opacity-90 flex-1 line-clamp-2`}>{tool.description}</p>
                     <div className="flex items-center justify-between mb-3">
                       <Badge
@@ -128,7 +129,7 @@ export default function Categories() {
                           </span>
                         ))}
                       </div>
-                      <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-colors`} />
+                      <ArrowRight className={`w-4 h-4 ${solidColors.arrow} transition-colors duration-200 group-hover:translate-x-1`} />
                     </div>
                   </CardContent>
                 </Card>
@@ -148,11 +149,11 @@ export default function Categories() {
 
   // Show all categories
   return (
-    <div className="min-h-screen py-16 px-4">
+    <div className="min-h-screen py-16 px-4 page-enter">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Tool Categories</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <div className="text-center mb-12 section-fade-in">
+          <h1 className="text-4xl font-bold mb-4 text-reveal section-fade-in-delay-1">Tool Categories</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-reveal section-fade-in-delay-2">
             Browse our comprehensive collection of tools organized by category
           </p>
         </div>
@@ -165,15 +166,15 @@ export default function Categories() {
 
             return (
               <Link key={categoryId} href={`/categories/${categoryId}`}>
-                <Card className="group cursor-pointer hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl h-full">
+                <Card className="group cursor-pointer hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl h-full card-hover-float">
                   <CardContent className={`bg-${color}-background border border-${color}/20 rounded-2xl p-8 text-center h-full flex flex-col`}>
-                    <div className={`w-20 h-20 bg-${color} rounded-2xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                    <div className={`w-20 h-20 bg-${color} rounded-2xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                       {renderCategoryIcon(categoryId === 'calculators' ? 'calculator' : 
                                           categoryId === 'converters' ? 'repeat' :
                                           categoryId === 'image-tools' ? 'image' :
                                           categoryId === 'document-tools' ? 'file-text' : 'play')}
                     </div>
-                    <h3 className={`font-bold text-2xl text-${color}-foreground mb-4`}>{categoryData.name}</h3>
+                    <h3 className={`font-bold text-2xl text-${color}-foreground mb-4 transition-colors duration-200 group-hover:text-${color}-foreground/80`}>{categoryData.name}</h3>
                     <p className={`text-${color}-foreground/70 mb-6 flex-1`}>
                       {categoryId === 'calculators' && 'Mathematical calculations, financial tools, and health calculators'}
                       {categoryId === 'converters' && 'Unit converters, currency exchange, and format conversions'}
@@ -181,7 +182,7 @@ export default function Categories() {
                       {categoryId === 'document-tools' && 'PDF processing, document conversion, and text utilities'}
                       {categoryId === 'audio-video-tools' && 'Audio and video editing, conversion, and processing'}
                     </p>
-                    <div className={`text-sm text-${color}-foreground/80 font-medium`}>
+                    <div className={`text-sm text-${color}-foreground/80 font-medium transition-all duration-200 group-hover:scale-105`}>
                       {categoryTools.length} tools available
                     </div>
                   </CardContent>

@@ -34,24 +34,24 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen py-16 px-4">
+    <div className="min-h-screen py-16 px-4 page-enter">
       <div className="max-w-4xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="w-20 h-20 bg-primary rounded-2xl mx-auto mb-6 flex items-center justify-center">
+        <div className="text-center mb-16 section-fade-in">
+          <div className="w-20 h-20 bg-primary rounded-2xl mx-auto mb-6 flex items-center justify-center animate-bounce-in">
             <Zap className="w-10 h-10 text-primary-foreground" />
           </div>
-          <h1 className="text-4xl font-bold mb-4">About Super-Tool</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold mb-4 text-reveal">About Super-Tool</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-reveal section-fade-in-delay-1">
             We're building the ultimate collection of web-based tools to make your daily tasks faster, easier, and more efficient.
           </p>
         </div>
 
         {/* Mission */}
-        <Card className="mb-12">
+        <Card className="mb-12 card-hover-float section-fade-in-delay-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Heart className="w-5 h-5 text-red-500" />
+              <Heart className="w-5 h-5 text-red-500 animate-pulse-glow" />
               Our Mission
             </CardTitle>
           </CardHeader>

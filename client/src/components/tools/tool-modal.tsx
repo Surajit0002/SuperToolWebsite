@@ -120,7 +120,7 @@ export default function ToolModal() {
     document.body.style.overflow = 'visible';
     document.body.style.overflowY = 'auto';
     document.documentElement.style.scrollBehavior = 'smooth';
-    
+
     // Force re-enable scrolling after a short delay to ensure it takes effect
     setTimeout(() => {
       document.body.style.overflow = '';
@@ -156,7 +156,7 @@ export default function ToolModal() {
       'bg-gradient-to-br from-neutral-500 to-neutral-600',
       'bg-gradient-to-br from-stone-500 to-stone-600'
     ];
-    
+
     // Use a simple hash function to assign consistent colors to tools
     let hash = 0;
     for (let i = 0; i < toolId.length; i++) {
@@ -164,7 +164,7 @@ export default function ToolModal() {
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
-    
+
     return colors[Math.abs(hash) % colors.length];
   };
 
@@ -184,7 +184,7 @@ export default function ToolModal() {
       'coins': 'Coins',
       'apple': 'Apple',
       'piggy-bank': 'PiggyBank',
-      
+
       // Converter tools
       'repeat': 'Repeat',
       'thermometer': 'Thermometer',
@@ -194,7 +194,7 @@ export default function ToolModal() {
       'code': 'Code',
       'ruler': 'Ruler',
       'table': 'Table',
-      
+
       // Image tools
       'maximize': 'Maximize2',
       'minimize': 'Minimize2',
@@ -213,7 +213,7 @@ export default function ToolModal() {
       'eyedropper': 'Eyedropper',
       'shield-check': 'ShieldCheck',
       'grid-3x3': 'Grid3X3',
-      
+
       // Document tools
       'file-json': 'FileJson',
       'file-text': 'FileText',
@@ -227,14 +227,14 @@ export default function ToolModal() {
       'lock': 'Lock',
       'scan-text': 'ScanText',
       'markdown': 'FileText',
-      
+
       // Audio/Video tools
       'music': 'Music',
       'film': 'Film',
       'download': 'Download',
       'video': 'Video',
       'play': 'Play',
-      
+
       // Additional common mappings
       'compress': 'Archive',
       'expand': 'Expand',
@@ -248,10 +248,10 @@ export default function ToolModal() {
 
     // First try the mapped name, then the original name, then fallback
     const mappedIconName = iconMap[iconName?.toLowerCase()] || iconName;
-    
+
     // Try to get the icon component
     let IconComponent = null;
-    
+
     if (mappedIconName && (LucideIcons as any)[mappedIconName]) {
       IconComponent = (LucideIcons as any)[mappedIconName];
     } else if (iconName && (LucideIcons as any)[iconName]) {
@@ -265,7 +265,7 @@ export default function ToolModal() {
         iconName?.replace('-', ''),
         iconName?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('')
       ].filter(Boolean);
-      
+
       for (const variation of variations) {
         if ((LucideIcons as any)[variation]) {
           IconComponent = (LucideIcons as any)[variation];
@@ -273,12 +273,12 @@ export default function ToolModal() {
         }
       }
     }
-    
+
     // Final fallback
     if (!IconComponent) {
       IconComponent = LucideIcons.Calculator;
     }
-    
+
     return <IconComponent className="w-5 h-5 text-white" />;
   };
 
@@ -356,7 +356,7 @@ export default function ToolModal() {
 
   const color = getCategoryColor(currentTool.category);
   const categoryTools = getToolsByCategory(currentTool.category);
-  
+
   // Filter tools based on search query
   const filteredTools = categoryTools.filter(tool => 
     tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -378,21 +378,21 @@ export default function ToolModal() {
         <DialogDescription className="sr-only">
           {currentTool.description}
         </DialogDescription>
-        
+
         {/* Enhanced Modal Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-muted/20 to-muted/10">
+        <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-muted/20 to-muted/10 slide-in-left">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg animate-bounce-in">
                 {renderIcon(currentTool.icon)}
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground" data-testid="modal-title">
+                <h2 className="text-2xl font-bold text-foreground text-reveal" data-testid="modal-title">
                   {currentTool.name}
                 </h2>
                 <Badge
                   variant="outline"
-                  className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-300 dark:border-blue-800/30 mt-1"
+                  className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-300 dark:border-blue-800/30 mt-1 text-reveal section-fade-in-delay-1"
                   data-testid="modal-category"
                 >
                   <Layers className="w-3 h-3 mr-1" />
@@ -409,7 +409,7 @@ export default function ToolModal() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="flex items-center space-x-2 min-w-[180px] justify-between"
+                  className="flex items-center space-x-2 min-w-[180px] justify-between button-bounce"
                   data-testid="tool-switcher"
                 >
                   <div className="flex items-center space-x-2">
@@ -425,7 +425,7 @@ export default function ToolModal() {
                   <span>{toolCategories[currentTool.category].name} Tools</span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                
+
                 {/* Search within dropdown */}
                 <div className="p-2">
                   <div className="relative">
@@ -440,9 +440,9 @@ export default function ToolModal() {
                     />
                   </div>
                 </div>
-                
+
                 <DropdownMenuSeparator />
-                
+
                 {/* List of tools in dropdown */}
                 <div className="max-h-64 overflow-y-auto">
                   {filteredTools.map((tool) => (
@@ -479,13 +479,13 @@ export default function ToolModal() {
                     </DropdownMenuItem>
                   ))}
                 </div>
-                
+
                 {filteredTools.length === 0 && searchQuery && (
                   <div className="text-center py-8 text-muted-foreground">
                     <p className="text-sm">No tools found matching "{searchQuery}"</p>
                   </div>
                 )}
-                
+
                 <DropdownMenuSeparator />
                 <div className="p-2 text-xs text-muted-foreground text-center">
                   {categoryTools.length} tools available
@@ -498,7 +498,7 @@ export default function ToolModal() {
               variant="ghost"
               size="sm"
               onClick={closeTool}
-              className="hover:bg-destructive/10 hover:text-destructive"
+              className="hover:bg-destructive/10 hover:text-destructive button-bounce"
               data-testid="close-modal"
             >
               <X className="w-5 h-5" />
@@ -507,7 +507,7 @@ export default function ToolModal() {
         </div>
 
         {/* Enhanced Modal Body - Full Width Tool Content */}
-        <div className="flex-1 overflow-hidden bg-background">
+        <div className="flex-1 overflow-hidden bg-background section-fade-in-delay-2">
           <div className="h-full overflow-auto">
             {renderToolComponent(currentToolId)}
           </div>

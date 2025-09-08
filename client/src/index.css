@@ -347,6 +347,49 @@ body {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.page-enter {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  animation: pageEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.page-enter-delayed {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  animation: pageEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+}
+
+.section-fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: sectionFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.section-fade-in-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.section-fade-in-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.section-fade-in-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.section-fade-in-delay-4 {
+  animation-delay: 0.4s;
+}
+
+.card-hover-float {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-float:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px hsl(var(--primary) / 0.2);
+}
+
 .hover-lift {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -354,6 +397,140 @@ body {
 .hover-lift:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 20px 40px hsl(var(--primary) / 0.15);
+}
+
+.text-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: textReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.button-bounce {
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.button-bounce:hover {
+  transform: scale(1.05);
+}
+
+.button-bounce:active {
+  transform: scale(0.95);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-item-animate {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-item-animate::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: hsl(var(--primary));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-item-animate:hover::after,
+.nav-item-animate.active::after {
+  width: 100%;
+}
+
+.modal-backdrop-animate {
+  opacity: 0;
+  animation: backdropFadeIn 0.3s ease forwards;
+}
+
+.modal-content-animate {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.card-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: cardStagger 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.card-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.card-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.card-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.card-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.card-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+.card-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+.card-stagger > *:nth-child(7) { animation-delay: 0.7s; }
+.card-stagger > *:nth-child(8) { animation-delay: 0.8s; }
+.card-stagger > *:nth-child(9) { animation-delay: 0.9s; }
+
+@keyframes pageEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sectionFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes backdropFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes cardStagger {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .interactive-element {
