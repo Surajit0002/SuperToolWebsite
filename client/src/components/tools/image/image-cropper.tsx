@@ -293,7 +293,7 @@ export default function ImageCropper() {
       ctx.strokeRect(x, y, w, h);
       ctx.setLineDash([]);
     }
-  }, [cropX, cropY, cropWidth, cropHeight, selectionRect, originalDimensions, zoomLevel, drawPreview]);
+  }, [cropX, cropY, cropWidth, cropHeight, selectionRect, originalDimensions, zoomLevel]);
 
 
   const cropImage = async () => {
