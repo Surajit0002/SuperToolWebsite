@@ -44,7 +44,7 @@ export default function ImageCropper() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const { toast } = useToast();
 
   const aspectRatios = [
@@ -133,8 +133,8 @@ export default function ImageCropper() {
     if (ratio && value) {
       const newHeight = Math.round(parseInt(value) / ratio);
       setCropHeight(newHeight.toString());
-      setCropX((currentCenterX - parseInt(value)/2).toString());
-      setCropY((currentCenterX * ratio - parseInt(newHeight)/2).toString());
+      setCropX(Math.round(currentCenterX - parseInt(value)/2).toString());
+      setCropY(Math.round(currentCenterX * ratio - parseInt(newHeight)/2).toString());
     }
   };
 
@@ -146,7 +146,7 @@ export default function ImageCropper() {
       const newWidth = Math.round(parseInt(value) * ratio);
       setCropWidth(newWidth.toString());
       setCropY((currentCenterY - parseInt(value)/2).toString());
-      setCropX((currentCenterY / ratio - parseInt(newWidth)/2).toString());
+      setCropX(Math.round(currentCenterY / ratio - parseInt(newWidth)/2).toString());
     }
   };
 
