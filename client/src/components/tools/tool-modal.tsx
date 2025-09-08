@@ -69,6 +69,13 @@ import PdfUnlockTool from "./document/pdf-unlock-tool";
 import MP3Cutter from "./audio/mp3-cutter";
 import GifMaker from "./audio/gif-maker";
 import VideoDownloader from "./audio/video-downloader";
+import BackgroundRemover from "./image/background-remover";
+import CollageMaker from "./image/collage-maker";
+import PdfToWordConverter from "./document/pdf-to-word-converter";
+import WordToPdfConverter from "./document/word-to-pdf-converter";
+import PdfToExcelConverter from "./document/pdf-to-excel-converter";
+import ExcelToPdfConverter from "./document/excel-to-pdf-converter";
+import VideoToMp3Converter from "./audio-video/video-to-mp3-converter";
 
 export default function ToolModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -325,6 +332,13 @@ export default function ToolModal() {
       "mp3-cutter": MP3Cutter,
       "gif-maker": GifMaker,
       "video-downloader": VideoDownloader,
+      "background-remover": BackgroundRemover,
+      "collage-maker": CollageMaker,
+      "pdf-to-word-converter": PdfToWordConverter,
+      "word-to-pdf-converter": WordToPdfConverter,
+      "pdf-to-excel-converter": PdfToExcelConverter,
+      "excel-to-pdf-converter": ExcelToPdfConverter,
+      "video-to-mp3-converter": VideoToMp3Converter,
     };
 
     const Component = componentMap[toolId];
