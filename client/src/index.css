@@ -266,26 +266,22 @@ body {
   }
 }
 
-/* Enhanced glass effect */
+/* Enhanced solid colorful effects */
 .glass-effect {
-  background: hsl(var(--card));
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 8px 32px hsl(var(--primary) / 0.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark .glass-effect {
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(30, 60, 114, 0.4);
 }
 
 .modal-backdrop {
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  background: hsl(var(--background) / 0.8);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -323,18 +319,15 @@ body {
     animation: shimmer 2s infinite;
   }
 
-  /* Enhanced backdrop blur */
+  /* Enhanced solid gradients */
   .modal-backdrop {
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
   }
 
-  /* Glass morphism effect */
+  /* Solid colorful effect */
   .glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   /* Smooth transitions */
@@ -350,23 +343,23 @@ body {
 /* Modern search modal enhancements */
 .search-modal-content {
   box-shadow: 
-    0 0 0 1px hsl(var(--primary) / 0.1),
-    0 20px 40px hsl(var(--primary) / 0.15),
-    0 50px 100px hsl(var(--background) / 0.8);
+    0 0 0 1px rgba(102, 126, 234, 0.3),
+    0 20px 40px rgba(118, 75, 162, 0.4),
+    0 50px 100px rgba(255, 154, 0, 0.2);
 }
 
 @keyframes modalGlow {
   0%, 100% {
     box-shadow: 
-      0 0 0 1px hsl(var(--primary) / 0.1),
-      0 20px 40px hsl(var(--primary) / 0.15),
-      0 50px 100px hsl(var(--background) / 0.8);
+      0 0 0 1px rgba(102, 126, 234, 0.3),
+      0 20px 40px rgba(118, 75, 162, 0.4),
+      0 50px 100px rgba(255, 154, 0, 0.2);
   }
   50% {
     box-shadow: 
-      0 0 0 1px hsl(var(--primary) / 0.2),
-      0 25px 50px hsl(var(--primary) / 0.25),
-      0 60px 120px hsl(var(--background) / 0.9);
+      0 0 0 1px rgba(255, 154, 0, 0.5),
+      0 25px 50px rgba(245, 101, 101, 0.5),
+      0 60px 120px rgba(129, 140, 248, 0.3);
   }
 }
 

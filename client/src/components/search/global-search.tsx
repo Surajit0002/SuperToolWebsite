@@ -73,7 +73,7 @@ export default function GlobalSearch() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="search-modal-content rounded-3xl shadow-2xl w-full max-w-5xl animate-in fade-in-0 zoom-in-95 duration-500 slide-in-from-top-4 max-h-[90vh] overflow-hidden p-0 border-2 border-primary/20 bg-gradient-to-br from-background/95 via-card/98 to-background/95 backdrop-blur-xl">
+      <DialogContent className="search-modal-content rounded-3xl shadow-2xl w-full max-w-5xl animate-in fade-in-0 zoom-in-95 duration-500 slide-in-from-top-4 max-h-[90vh] overflow-hidden p-0 border-2 border-primary/30 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
         <DialogTitle className="sr-only">
           Global Search - Search Tools and Calculators
         </DialogTitle>
@@ -82,14 +82,14 @@ export default function GlobalSearch() {
         </DialogDescription>
         <div className="relative w-full h-full">
           {/* Modern Search Header */}
-          <div className="relative p-8 pb-6 bg-gradient-to-br from-card/80 via-background/90 to-card/80 backdrop-blur-xl border-b border-primary/10">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5"></div>
+          <div className="relative p-8 pb-6 bg-gradient-to-r from-emerald-500 to-teal-600 border-b border-white/20">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-transparent to-orange-400/10"></div>
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 rounded-3xl opacity-0 group-focus-within:opacity-100 transition-all duration-700 blur-3xl scale-125"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 via-purple-500/30 to-blue-500/20 rounded-3xl opacity-0 group-focus-within:opacity-100 transition-all duration-700 scale-125"></div>
               <div className="relative">
                 <div className="absolute left-5 top-1/2 transform -translate-y-1/2 z-10">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary/25 via-primary/15 to-primary/10 rounded-2xl flex items-center justify-center group-focus-within:scale-110 group-focus-within:rotate-12 transition-all duration-500 shadow-lg backdrop-blur-sm border border-primary/20">
-                    <Search className="w-5 h-5 text-primary/70 group-focus-within:text-primary transition-all duration-300" />
+                  <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 rounded-2xl flex items-center justify-center group-focus-within:scale-110 group-focus-within:rotate-12 transition-all duration-500 shadow-lg border border-white/30">
+                    <Search className="w-5 h-5 text-white group-focus-within:text-yellow-100 transition-all duration-300" />
                   </div>
                 </div>
                 <Input
@@ -100,7 +100,7 @@ export default function GlobalSearch() {
                     setQuery(e.target.value);
                     setSelectedIndex(0);
                   }}
-                  className="pl-20 pr-28 py-6 text-lg font-medium bg-gradient-to-r from-background/60 via-background/80 to-background/60 border-2 border-primary/20 rounded-3xl focus:outline-none focus:ring-0 focus:border-primary/50 focus:bg-background/90 transition-all duration-500 placeholder:text-muted-foreground/50 shadow-2xl backdrop-blur-md hover:shadow-3xl hover:border-primary/30"
+                  className="pl-20 pr-28 py-6 text-lg font-medium bg-white/95 border-2 border-white/40 rounded-3xl focus:outline-none focus:ring-0 focus:border-yellow-300 focus:bg-white transition-all duration-500 placeholder:text-gray-500 shadow-2xl hover:shadow-3xl hover:border-orange-300 text-gray-800"
                   autoFocus
                   data-testid="global-search-input"
                 />
@@ -111,12 +111,12 @@ export default function GlobalSearch() {
                         setQuery("");
                         setSelectedIndex(0);
                       }}
-                      className="w-8 h-8 bg-gradient-to-br from-destructive/20 to-destructive/10 hover:from-destructive/30 hover:to-destructive/20 rounded-2xl flex items-center justify-center text-destructive/70 hover:text-destructive transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-md backdrop-blur-sm border border-destructive/20"
+                      className="w-8 h-8 bg-gradient-to-br from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 rounded-2xl flex items-center justify-center text-white hover:text-yellow-100 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-md border border-white/30"
                     >
                       ×
                     </button>
                   )}
-                  <div className="hidden sm:flex items-center justify-center bg-gradient-to-br from-muted/80 to-muted/60 text-muted-foreground/80 text-xs px-3 py-2 rounded-xl border border-border/40 shadow-md backdrop-blur-sm font-mono font-medium hover:bg-gradient-to-br hover:from-primary/20 hover:to-primary/10 hover:text-primary transition-all duration-300">
+                  <div className="hidden sm:flex items-center justify-center bg-gradient-to-br from-slate-700 to-gray-800 text-white text-xs px-3 py-2 rounded-xl border border-white/30 shadow-md font-mono font-medium hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-600 hover:text-yellow-100 transition-all duration-300">
                     ESC
                   </div>
                 </div>
@@ -124,20 +124,20 @@ export default function GlobalSearch() {
             </div>
             
             {/* Floating Action Hints */}
-            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex items-center space-x-6 opacity-60 group-focus-within:opacity-100 transition-all duration-500">
-              <div className="flex items-center space-x-2 bg-gradient-to-r from-background/90 to-card/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-border/30 shadow-lg">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-medium text-muted-foreground">Press ↵ to select</span>
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex items-center space-x-6 opacity-80 group-focus-within:opacity-100 transition-all duration-500">
+              <div className="flex items-center space-x-2 bg-gradient-to-r from-lime-400 to-green-500 px-4 py-2 rounded-2xl border border-white/40 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <span className="text-xs font-medium text-white">Press ↵ to select</span>
               </div>
-              <div className="flex items-center space-x-2 bg-gradient-to-r from-background/90 to-card/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-border/30 shadow-lg">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse animation-delay-200"></div>
-                <span className="text-xs font-medium text-muted-foreground">Use ↑↓ to navigate</span>
+              <div className="flex items-center space-x-2 bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-2 rounded-2xl border border-white/40 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse animation-delay-200"></div>
+                <span className="text-xs font-medium text-white">Use ↑↓ to navigate</span>
               </div>
             </div>
           </div>
 
           {/* Modern Search Results */}
-          <div className="max-h-[65vh] overflow-y-auto scrollbar-hide bg-gradient-to-b from-background/50 via-card/30 to-background/50 backdrop-blur-sm">
+          <div className="max-h-[65vh] overflow-y-auto scrollbar-hide bg-gradient-to-b from-white to-gray-50">
             <div className="p-8 pt-6">
               {query ? (
                 <>
@@ -162,33 +162,39 @@ export default function GlobalSearch() {
                               key={tool.id}
                               className={`cursor-pointer rounded-2xl p-5 flex items-center space-x-4 transition-all duration-300 group relative overflow-hidden ${
                                 isSelected 
-                                  ? `bg-gradient-to-r from-primary/15 via-primary/10 to-primary/15 border border-primary/30 shadow-xl scale-[1.03] ring-2 ring-primary/20` 
-                                  : "hover:bg-gradient-to-r hover:from-muted/70 hover:via-muted/50 hover:to-muted/70 border border-transparent hover:border-border/40 hover:shadow-lg hover:scale-[1.02] hover:ring-1 hover:ring-border/20"
+                                  ? `bg-gradient-to-r from-violet-500 via-purple-600 to-indigo-600 border border-white/30 shadow-xl scale-[1.03] ring-2 ring-yellow-400/50` 
+                                  : "hover:bg-gradient-to-r hover:from-blue-100 hover:via-purple-100 hover:to-pink-100 border border-transparent hover:border-indigo-300 hover:shadow-lg hover:scale-[1.02] hover:ring-1 hover:ring-purple-300"
                               }`}
                               onClick={() => openTool(tool.id, tool.category)}
                               data-testid={`search-result-${tool.id}`}
                             >
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                              <div className={`relative w-14 h-14 bg-gradient-to-br from-${color}/25 via-${color}/15 to-${color}/10 border border-${color}/25 rounded-2xl flex items-center justify-center shadow-lg ${
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                              <div className={`relative w-14 h-14 bg-gradient-to-br from-orange-400 via-red-500 to-pink-600 border border-white/40 rounded-2xl flex items-center justify-center shadow-lg ${
                                 isSelected ? 'scale-115 shadow-xl' : 'group-hover:scale-110 group-hover:shadow-xl'
-                              } transition-all duration-300 backdrop-blur-sm`}>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-white/10 rounded-2xl"></div>
-                                {renderIcon(tool.icon, color)}
+                              } transition-all duration-300`}>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-white/20 rounded-2xl"></div>
+                                <div className="text-white">
+                                  {renderIcon(tool.icon, 'white')}
+                                </div>
                               </div>
                               <div className="flex-1 min-w-0">
-                                <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                                <div className={`font-semibold transition-colors ${
+                                  isSelected ? 'text-white' : 'text-gray-800 group-hover:text-purple-700'
+                                }`}>
                                   {tool.name}
                                 </div>
-                                <div className="text-sm text-muted-foreground mt-0.5 flex items-center space-x-2">
+                                <div className={`text-sm mt-0.5 flex items-center space-x-2 ${
+                                  isSelected ? 'text-gray-200' : 'text-gray-600 group-hover:text-purple-600'
+                                }`}>
                                   <span>{toolCategories[tool.category].name}</span>
-                                  <span className="w-1 h-1 bg-muted-foreground/50 rounded-full"></span>
+                                  <span className="w-1 h-1 bg-current/60 rounded-full"></span>
                                   <span className="text-xs">{tool.description?.slice(0, 40)}...</span>
                                 </div>
                               </div>
                               <div className={`transition-all duration-200 ${
                                 isSelected ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
                               }`}>
-                                <ArrowRight className="w-5 h-5 text-muted-foreground" />
+                                <ArrowRight className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-gray-500'}`} />
                               </div>
                             </div>
                           );
@@ -227,33 +233,39 @@ export default function GlobalSearch() {
                           key={tool.id}
                           className={`cursor-pointer rounded-xl p-4 flex items-center space-x-4 transition-all duration-200 group ${
                             isSelected 
-                              ? `bg-primary/10 border border-primary/20 shadow-lg scale-[1.02]` 
-                              : "hover:bg-muted/60 border border-transparent hover:shadow-md hover:scale-[1.01]"
+                              ? `bg-gradient-to-r from-amber-400 to-orange-500 border border-white/30 shadow-lg scale-[1.02]` 
+                              : "hover:bg-gradient-to-r hover:from-yellow-100 hover:to-orange-100 border border-transparent hover:shadow-md hover:scale-[1.01] hover:border-orange-300"
                           }`}
                           onClick={() => openTool(tool.id, tool.category)}
                           data-testid={`popular-tool-${tool.id}`}
                         >
-                          <div className={`w-12 h-12 bg-gradient-to-br from-${color}/20 to-${color}/10 border border-${color}/20 rounded-xl flex items-center justify-center shadow-sm ${
+                          <div className={`w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-600 border border-white/30 rounded-xl flex items-center justify-center shadow-sm ${
                             isSelected ? 'scale-110' : 'group-hover:scale-105'
                           } transition-transform duration-200`}>
-                            {renderIcon(tool.icon, color)}
+                            <div className="text-white">
+                              {renderIcon(tool.icon, 'white')}
+                            </div>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            <div className={`font-semibold transition-colors ${
+                              isSelected ? 'text-white' : 'text-gray-800 group-hover:text-orange-700'
+                            }`}>
                               {tool.name}
                             </div>
-                            <div className="text-sm text-muted-foreground mt-0.5">
+                            <div className={`text-sm mt-0.5 ${
+                              isSelected ? 'text-gray-100' : 'text-gray-600 group-hover:text-orange-600'
+                            }`}>
                               {toolCategories[tool.category].name}
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Badge variant="outline" className="bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border-yellow-300 text-xs font-medium">
+                            <Badge variant="outline" className="bg-gradient-to-r from-red-500 to-pink-600 text-white border-white/30 text-xs font-medium">
                               🔥 Popular
                             </Badge>
                             <div className={`transition-all duration-200 ${
                               isSelected ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
                             }`}>
-                              <ArrowRight className="w-5 h-5 text-muted-foreground" />
+                              <ArrowRight className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-gray-500'}`} />
                             </div>
                           </div>
                         </div>
@@ -281,18 +293,20 @@ export default function GlobalSearch() {
                       return (
                         <div
                           key={categoryId}
-                          className="cursor-pointer hover:bg-muted/60 border border-transparent hover:border-border/50 rounded-xl p-4 flex items-center space-x-3 transition-all duration-200 group hover:shadow-md hover:scale-[1.02]"
+                          className="cursor-pointer hover:bg-gradient-to-r hover:from-indigo-100 hover:to-blue-200 border border-transparent hover:border-blue-300 rounded-xl p-4 flex items-center space-x-3 transition-all duration-200 group hover:shadow-md hover:scale-[1.02]"
                           onClick={() => setIsOpen(false)}
                           data-testid={`category-${categoryId}`}
                         >
-                          <div className={`w-10 h-10 bg-gradient-to-br from-${color}/20 to-${color}/10 border border-${color}/20 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200`}>
-                            {renderIcon(iconName, color)}
+                          <div className={`w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 border border-white/30 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200`}>
+                            <div className="text-white">
+                              {renderIcon(iconName, 'white')}
+                            </div>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
+                            <div className="font-semibold text-gray-800 group-hover:text-blue-700 transition-colors text-sm">
                               {categoryData.name}
                             </div>
-                            <div className="text-xs text-muted-foreground mt-0.5">
+                            <div className="text-xs text-gray-600 group-hover:text-blue-600 mt-0.5">
                               Browse all {categoryData.name.toLowerCase()}
                             </div>
                           </div>
