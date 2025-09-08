@@ -357,16 +357,6 @@ export const tools: Tool[] = [
     tags: ["blur", "pixelate", "effect", "privacy"],
   },
   {
-    id: "background-remover",
-    name: "Background Remover",
-    description: "Remove backgrounds from images automatically",
-    category: "image-tools",
-    icon: "eraser",
-    clientOnly: false,
-    popular: true,
-    tags: ["background", "remove", "transparent", "cutout"],
-  },
-  {
     id: "color-picker-tool",
     name: "Color Picker Tool",
     description: "Interactive color picker with HEX and RGB values",
